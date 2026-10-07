@@ -55,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-2 sm:gap-3">
           {/* GitHub Profile Icon Link */}
           <a
-            href="https://github.com/salmankhan"
+            href="https://github.com/salmanroonjah"
             target="_blank"
             rel="noopener noreferrer"
             className="p-1.5 text-stone-600 hover:text-stone-950 hover:bg-stone-100 rounded-md transition-colors"

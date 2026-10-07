@@ -36,7 +36,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, lang 
     const textCV = `
 SALMAN KHAN
 Community Development Practitioner & EdTech Trainer
-Lasbela, Balochistan | GitHub: github.com/salmankhan
+Lasbela, Balochistan | GitHub: github.com/salmanroonjah
 
 PROFESSIONAL SUMMARY:
 ${portfolioData.personal.summary}
@@ -128,12 +128,12 @@ SKILLS:
                 <span>Lasbela, Balochistan, Pakistan</span>
                 <span aria-hidden="true" className="text-stone-300">|</span>
                 <a
-                  href="https://github.com/salmankhan"
+                  href="https://github.com/salmanroonjah"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline font-mono text-stone-700"
                 >
-                  github.com/salmankhan
+                  github.com/salmanroonjah
                 </a>
                 <span aria-hidden="true" className="text-stone-300">|</span>
                 <span>WANG & WALI Innovation Lab</span>

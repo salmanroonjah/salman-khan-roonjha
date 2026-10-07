@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
               {isUrdu ? portfolioData.personal.titleUrdu : portfolioData.personal.title}
             </p>
             <p className="text-stone-500 text-[11px] mt-1">
-              Lasbela, Balochistan, Pakistan · GitHub: github.com/salmankhan
+              Lasbela, Balochistan, Pakistan · GitHub: github.com/salmanroonjah
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
             <a href="#github-projects" className="hover:text-white transition-colors">
               {isUrdu ? 'گٹ ہب ریپوز' : 'GitHub Repos'}
             </a>
-            <a href="https://github.com/salmankhan" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+            <a href="https://github.com/salmanroonjah" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
               <span>GitHub</span>
             </a>
             <button

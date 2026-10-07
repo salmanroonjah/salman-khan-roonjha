@@ -92,7 +92,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                       {isUrdu ? 'گٹ ہب پروفائل' : 'GitHub Profile'}
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-emerald-800 transition-colors">
-                      github.com/salmankhan
+                      github.com/salmanroonjah
                     </span>
                     <span className="text-[11px] text-stone-500 block">
                       {isUrdu ? 'اوپن سورس ریپوز اور کوڈ ڈسکشن' : 'Open-source code, worksheets & curriculum'}

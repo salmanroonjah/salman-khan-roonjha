@@ -72,8 +72,8 @@ export const portfolioData = {
     titleUrdu: "کمیونٹی ڈویلپمنٹ پریکٹیشنر اور ایڈٹیک ٹرینر",
     location: "Lasbela, Balochistan, Pakistan",
     locationUrdu: "ضلع لسبیلہ، بلوچستان، پاکستان",
-    githubUsername: "salmankhan",
-    githubUrl: "https://github.com/salmankhan",
+    githubUsername: "salmanroonjah",
+    githubUrl: "https://github.com/salmanroonjah",
     summary:
       "Impact-driven social professional from District Lasbela with a unique blend of technical expertise and grassroots community development experience. Proven track record in Education (AI literacy for rural youth), Healthcare (Malaria prevention campaigns), and Crisis Management (Flood resilience data collection). Passionate about bridging the digital divide by teaching advanced concepts in local languages (Urdu) to empower marginalized communities.",
     summaryUrdu:
@@ -435,7 +435,7 @@ export const portfolioData = {
       stars: 38,
       forks: 14,
       topics: ["edtech", "generative-ai", "urdu-prompting", "digital-inclusion"],
-      url: "https://github.com/salmankhan/urdu-ai-prompt-handouts"
+      url: "https://github.com/salmanroonjah/urdu-ai-prompt-handouts"
     },
     {
       name: "field-data-hygiene-scripts",
@@ -446,7 +446,7 @@ export const portfolioData = {
       stars: 26,
       forks: 9,
       topics: ["data-collection", "google-apps-script", "public-health", "automation"],
-      url: "https://github.com/salmankhan/field-data-hygiene-scripts"
+      url: "https://github.com/salmanroonjah/field-data-hygiene-scripts"
     },
     {
       name: "climate-smart-feed-estimator",
@@ -457,7 +457,7 @@ export const portfolioData = {
       stars: 19,
       forks: 5,
       topics: ["agri-tech", "climate-action", "sustainability", "calculator"],
-      url: "https://github.com/salmankhan/climate-smart-feed-estimator"
+      url: "https://github.com/salmanroonjah/climate-smart-feed-estimator"
     },
     {
       name: "rural-digital-literacy-toolkit",
@@ -468,7 +468,7 @@ export const portfolioData = {
       stars: 31,
       forks: 11,
       topics: ["digital-literacy", "rural-education", "open-education", "balochistan"],
-      url: "https://github.com/salmankhan/rural-digital-literacy-toolkit"
+      url: "https://github.com/salmanroonjah/rural-digital-literacy-toolkit"
     }
   ]
 };
