@@ -4,19 +4,45 @@ export interface ExperienceItem {
   roleUrdu: string;
   organization: string;
   organizationUrdu: string;
-  location: string;
   period: string;
   periodUrdu: string;
-  category: 'edtech' | 'health' | 'crisis' | 'agritech';
-  categoryLabel: string;
-  categoryLabelUrdu: string;
+  location: string;
+  locationUrdu: string;
   summary: string;
   summaryUrdu: string;
   bullets: string[];
   bulletsUrdu: string[];
-  toolsAndSkills: string[];
-  impactMetric?: string;
-  impactMetricUrdu?: string;
+}
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  titleUrdu: string;
+  description: string;
+  descriptionUrdu: string;
+  iconName: 'Brain' | 'Laptop' | 'Video' | 'CalendarCheck';
+  tags: string[];
+}
+
+export interface CreativeProject {
+  id: string;
+  title: string;
+  titleUrdu: string;
+  createdFor: string;
+  myRole: string;
+  myRoleUrdu: string;
+  about: string;
+  aboutUrdu: string;
+  result?: string;
+  resultUrdu?: string;
+  category: 'Training Videos' | 'Educational Content' | 'Graphics & Design' | 'Social Media Campaigns';
+  link?: string;
+  featured?: boolean;
+  mediaType: 'video' | 'image' | 'gallery';
+  thumbnailUrl: string;
+  videoUrl?: string;
+  duration?: string;
+  galleryImages?: string[];
 }
 
 export interface CertificationItem {
@@ -28,447 +54,456 @@ export interface CertificationItem {
   year: string;
   description: string;
   descriptionUrdu: string;
-  badge: string;
-  verified: boolean;
-}
-
-export interface EducationItem {
-  id: string;
-  degree: string;
-  degreeUrdu: string;
-  institution: string;
-  institutionUrdu: string;
-  period: string;
-  status?: string;
-  details: string;
-  detailsUrdu: string;
-}
-
-export interface SkillCategory {
-  title: string;
-  titleUrdu: string;
-  skills: {
-    name: string;
-    nameUrdu: string;
-    level: string;
-    desc: string;
-  }[];
-}
-
-export interface UrduPromptExample {
-  title: string;
-  urduConcept: string;
-  englishConcept: string;
-  explanation: string;
-  examplePrompt: string;
-  practicalApplication: string;
+  highlight?: boolean;
 }
 
 export const portfolioData = {
-  personal: {
-    name: "Salman Khan",
-    nameUrdu: "سلمان خان",
-    title: "Community Development Practitioner & EdTech Trainer",
-    titleUrdu: "کمیونٹی ڈویلپمنٹ پریکٹیشنر اور ایڈٹیک ٹرینر",
-    location: "Lasbela, Balochistan, Pakistan",
-    locationUrdu: "ضلع لسبیلہ، بلوچستان، پاکستان",
-    githubUsername: "salmanroonjah",
-    githubUrl: "https://github.com/salmanroonjah",
-    summary:
-      "Impact-driven social professional from District Lasbela with a unique blend of technical expertise and grassroots community development experience. Proven track record in Education (AI literacy for rural youth), Healthcare (Malaria prevention campaigns), and Crisis Management (Flood resilience data collection). Passionate about bridging the digital divide by teaching advanced concepts in local languages (Urdu) to empower marginalized communities.",
-    summaryUrdu:
-      "ضلع لسبیلہ سے تعلق رکھنے والا بااثر سماجی پیشہ ور، جو تکنیکی مہارت اور بنیادی کمیونٹی ڈویلپمنٹ کا بہترین امتزاج رکھتا ہے۔ تعلیم (دیہی نوجوانوں کے لیے مصنوعی ذہانت کی خواندگی)، صحت عامہ (ملیریا سے بچاؤ مہمات)، اور بحران کے انتظام (سیلاب کے بعد بحالی کے سروے) میں ثابت شدہ تجربہ۔ پسماندہ کمیونٹیز کو بااختیار بنانے کے لیے مقامی زبان (اردو) میں جدید تکنیکی تصورات سکھا کر ڈیجیٹل تفریق کو ختم کرنے کا پرعزم جذبہ۔",
-    shortBio:
-      "BS Computer Science graduate and certified EdTech instructor democratizing Generative AI and digital tools across Balochistan's grassroots communities.",
-    shortBioUrdu:
-      "بی ایس کمپیوٹر سائنس گریجویٹ اور سند یافتہ ایڈٹیک انسٹرکٹر جو بلوچستان کی پسماندہ کمیونٹیز میں اردو زبان کے ذریعے مصنوعی ذہانت اور ڈیجیٹل مہارتوں کو فروغ دے رہے ہیں۔",
+  hero: {
+    headline: "Salman Khan",
+    headlineUrdu: "سلمان خان",
+    subHeadline: "AI Trainer · Digital Literacy Specialist · Creative Professional",
+    subHeadlineUrdu: "اے آئی ٹرینر · ڈیجیٹل لٹریسی اسپیشلسٹ · کریئیٹو پروفیشنل",
+    introLine: "I help students, professionals and rural communities understand and use AI, in their own language.",
+    introLineUrdu: "میں طلبہ، پیشہ ور افراد اور دیہی کمیونٹیز کو ان کی اپنی زبان میں مصنوعی ذہانت (AI) کو سمجھنے اور استعمال کرنے میں مدد کرتا ہوں۔",
+    buttons: {
+      work: "View My Work",
+      workUrdu: "میرا کام دیکھیں",
+      contact: "Contact Me",
+      contactUrdu: "مجھ سے رابطہ کریں"
+    }
   },
 
-  stats: [
+  about: {
+    paragraphs: [
+      "I'm an AI trainer and digital literacy specialist from Balochistan, Pakistan. I work to make technology accessible to people who are often left out of it, including students, youth and rural communities, by teaching AI concepts in Urdu and local languages.",
+      "As a Master Trainer with the Urdu AI Training Program at WANG, I have trained 2,500+ participants across multiple regions in schools, colleges, vocational centers and community spaces. I am also a Certified Instructor under the AI Opportunity Fund: Asia-Pacific (AI Singapore & AVPN).",
+      "Alongside training, I create digital content, videos and graphics, and I manage events, programs and field teams. I believe that when people understand technology, they can use it responsibly to learn, earn and grow."
+    ],
+    paragraphsUrdu: [
+      "میں بلوچستان، پاکستان سے تعلق رکھنے والا اے آئی ٹرینر اور ڈیجیٹل لٹریسی اسپیشلسٹ ہوں۔ میرا مشن ٹیکنالوجی کو ان لوگوں کے لیے قابل رسائی بنانا ہے جو عموماً اس سے محروم رہ جاتے ہیں، جن میں طلبہ، نوجوان اور دیہی کمیونٹیز شامل ہیں، اور میں یہ کام اردو اور مقامی زبانوں میں سکھا کر کرتا ہوں۔",
+      "وانگ (WANG) کے اردو اے آئی ٹریننگ پروگرام کے ماسٹر ٹرینر کے طور پر، میں نے اسکولوں، کالجوں، ووکیشنل سینٹرز اور کمیونٹی مراکِز میں 2,500 سے زائد شرکاء کو تربیت دی ہے۔ میں AI Opportunity Fund: Asia-Pacific (AI Singapore & AVPN) کا سند یافتہ انسٹرکٹر بھی ہوں۔",
+      "تربیت کے ساتھ ساتھ، میں ڈیجیٹل مواد، ویڈیوز اور گرافکس تخلیق کرتا ہوں، اور ایونٹس، پروگرامز اور فیلڈ ٹیموں کا انتظام سنبھالتا ہوں۔ میرا ماننا ہے کہ جب لوگ ٹیکنالوجی کو سمجھ جاتے ہیں، تو وہ اسے سیکھنے، کمانے اور آگے بڑھنے کے لیے ذمہ داری سے استعمال کر سکتے ہیں۔"
+    ],
+    languages: ["Urdu", "Balochi", "Brahui", "English"],
+    languagesUrdu: ["اردو", "بلوچی", "براہوی", "انگریزی"]
+  },
+
+  whatIDo: [
     {
-      value: "1,200+",
-      label: "Rural Youth & Learners Trained",
-      labelUrdu: "دیہی نوجوان اور سیکھنے والے",
-      sub: "Across schools, vocational centers & communities",
+      id: "ai-training",
+      title: "AI Training & Workshops",
+      titleUrdu: "اے آئی ٹریننگ اور ورکشاپس",
+      description: "Hands-on sessions on AI tools, prompting and responsible AI use, designed for learners with little or no technical background.",
+      descriptionUrdu: "اے آئی ٹولز، پرامپٹنگ اور ذمہ دارانہ استعمال پر عملی ورکشاپس، جو ایسے سیکھنے والوں کے لیے ڈیزائن کی گئی ہیں جن کا کوئی تکنیکی پس منظر نہیں ہے۔",
+      iconName: "Brain",
+      tags: ["Prompt Engineering", "Urdu Pedagogy", "Generative AI", "Responsible AI"]
     },
     {
-      value: "100%",
-      label: "Urdu-Native Pedagogy",
-      labelUrdu: "مقامی زبان (اردو) میں تدریس",
-      sub: "Breaking the language barrier in tech adoption",
+      id: "digital-literacy",
+      title: "Digital Literacy",
+      titleUrdu: "ڈیجیٹل خواندگی (Digital Literacy)",
+      description: "Computer fundamentals, internet use and essential digital tools for rural communities and first-time learners.",
+      descriptionUrdu: "دیہی کمیونٹیز اور پہلی بار سیکھنے والوں کے لیے کمپیوٹر کی بنیادی مہارتیں، انٹرنیٹ کا استعمال اور روزمرہ ڈیجیٹل ٹولز۔",
+      iconName: "Laptop",
+      tags: ["Computer Basics", "Internet Literacy", "Productivity Tools", "Rural Youth"]
+    },
+    {
+      id: "content-creative",
+      title: "Content & Creative Work",
+      titleUrdu: "مواد و تخلیقی کام (Content & Creative)",
+      description: "Videos, graphics and written content for digital platforms, including social media management and brand communication.",
+      descriptionUrdu: "ڈیجیٹل پلیٹ فارمز کے لیے ویڈیوز، گرافکس اور تحریری مواد کی تیاری، بشمول سوشل میڈیا مینجمنٹ اور برانڈ ابلاغ۔",
+      iconName: "Video",
+      tags: ["Video Editing", "Graphic Design", "Social Media", "Visual Storytelling"]
+    },
+    {
+      id: "program-management",
+      title: "Program & Event Management",
+      titleUrdu: "پروگرام اور ایونٹ مینجمنٹ",
+      description: "Planning and coordinating training programs and events, supervising teams, managing data and preparing reports.",
+      descriptionUrdu: "تربیتی پروگراموں اور ایونٹس کی منصوبہ بندی اور ہم آہنگی، فیلڈ ٹیموں کی نگرانی، ڈیٹا مینجمنٹ اور رپورٹس کی تیاری۔",
+      iconName: "CalendarCheck",
+      tags: ["Field Operations", "Team Supervision", "Data Reporting", "Event Coordination"]
+    }
+  ] as ServiceItem[],
+
+  impact: [
+    {
+      value: "2,500+",
+      label: "participants trained",
+      labelUrdu: "شرکاء کو تربیت دی گئی",
+      sub: "Across schools, colleges, vocational centers & communities",
+      subUrdu: "اسکولوں، کالجوں اور کمیونٹی مراکِز میں"
     },
     {
       value: "4+",
-      label: "Grassroots Domains Led",
-      labelUrdu: "سماجی شعبہ جات میں خدمات",
-      sub: "AI EdTech, Public Health, Disaster Relief, Agri-Tech",
+      label: "years of professional experience",
+      labelUrdu: "سال کا پیشہ ورانہ تجربہ",
+      sub: "In EdTech, community development & IT operations",
+      subUrdu: "ایڈٹیک، کمیونٹی ترقی اور آئی ٹی میں"
     },
     {
-      value: "8-Week",
-      label: "Asia-Pacific Certified Fellow",
-      labelUrdu: "ایشیا پیسیفک تصدیق شدہ انسٹرکٹر",
-      sub: "AI Singapore & AVPN Certified AI Pedagogy Instructor",
+      value: "4",
+      label: "languages spoken",
+      labelUrdu: "زبانوں میں مہارت",
+      sub: "Urdu, Balochi, Brahui, English",
+      subUrdu: "اردو، بلوچی، براہوی، انگریزی"
     },
+    {
+      value: "1",
+      label: "international certification",
+      labelUrdu: "بین الاقوامی سرٹیفیکیشن",
+      sub: "AI Singapore & AVPN Certified Instructor",
+      subUrdu: "ایشیا پیسیفک سند یافتہ انسٹرکٹر"
+    }
   ],
 
-  experiences: [
+  experience: [
     {
-      id: "wang-urdu-ai",
-      role: "Trainer – Urdu AI Training Program",
-      roleUrdu: "ٹرینر – اردو اے آئی ٹریننگ پروگرام",
-      organization: "Welfare Association for New Generation (WANG)",
-      organizationUrdu: "ویل высیر ایسوسی ایشن فار نیو جنریشن (وانگ)",
-      location: "Lasbela, Balochistan",
-      period: "May 2025 – Present",
-      periodUrdu: "مئی 2025 – تاحال",
-      category: "edtech",
-      categoryLabel: "AI & EdTech",
-      categoryLabelUrdu: "مصنوعی ذہانت و تعلیم",
-      summary:
-        "Spearheading district-wide AI capacity-building workshops delivering generative AI, prompt engineering, and ethical adoption in Urdu.",
-      summaryUrdu:
-        "سکولوں اور ووکیشنل سینٹرز میں اردو زبان کے ذریعے جنریٹو اے آئی اور پرامپٹنگ کی ورکشاپس کا انعقاد۔",
+      id: "acting-lead-wang",
+      role: "Acting Project Lead",
+      roleUrdu: "ایکٹنگ پروجیکٹ لیڈ",
+      organization: "Urdu AI Training Program – WANG",
+      organizationUrdu: "اردو اے آئی ٹریننگ پروگرام – وانگ",
+      period: "Jan 2026 – May 2026",
+      periodUrdu: "جنوری 2026 – مئی 2026",
+      location: "Lasbela & Regional Centers",
+      locationUrdu: "لسبیلہ و علاقائی مراکز",
+      summary: "Led field operations: coordinated training sessions with universities, colleges and community leaders, supervised the field team, managed project data and prepared progress reports.",
+      summaryUrdu: "فیلڈ آپریشنز کی قیادت کی: یونیورسٹیوں، کالجوں اور کمیونٹی رہنماؤں کے ساتھ سیشنز کی ہم آہنگی، فیلڈ ٹیم کی نگرانی، پروجیکٹ ڈیٹا کا انتظام اور پیش رفت رپورٹس کی تیاری۔",
       bullets: [
-        "Spearheaded AI capacity-building workshops in schools, vocational centers, and rural community spaces, reaching diverse groups of learners.",
-        "Democratized access to technology by delivering AI concepts and prompting strategies in Urdu, ensuring accessibility for learners with limited technical backgrounds.",
-        "Empowered youth by teaching hands-on usage of generative AI tools for productivity and problem-solving, while promoting ethical use and data privacy awareness."
+        "Led field operations across multiple institutions and educational clusters.",
+        "Coordinated training sessions with universities, colleges and community leaders.",
+        "Supervised the field trainer team and ensured pedagogical consistency.",
+        "Managed project data pipeline and prepared rigorous progress reports."
       ],
       bulletsUrdu: [
-        "سکولوں، فنی تربیتی مراکز اور دیہی کمیونٹی سینٹرز میں جدید اے آئی ورکشاپس کی قیادت کی۔",
-        "تکنیکی اصطلاحات اور پرامپٹنگ کے طریقوں کو سلیس اردو میں منتقل کر کے ہر سطح کے طلبہ کے لیے قابل فہم بنایا۔",
-        "طلبہ کو مسائل کے حل اور پیداواری صلاحیت بڑھانے کے لیے جنریٹو اے آئی ٹولز کا عملی استعمال سکھایا اور اخلاقی رہنما اصول واضح کیے۔"
-      ],
-      toolsAndSkills: ["Generative AI", "Urdu Prompt Engineering", "AI Ethics & Privacy", "Curriculum Design", "Vocational Training"],
-      impactMetric: "Empowered 600+ students with prompt engineering skills in their native tongue",
-      impactMetricUrdu: "600 سے زائد طلبہ کو اپنی مادری زبان میں پرامپٹ انجینئرنگ کے ہنر سے آراستہ کیا"
+        "متعدد تعلیمی اداروں میں فیلڈ آپریشنز کی قیادت کی۔",
+        "یونیورسٹیوں، کالجوں اور مقامی رہنماؤں کے ساتھ ورکشاپس کا انعقاد کیا۔",
+        "فیلڈ ٹرینرز کی نگرانی کی اور تدریسی معیار کو برقرار رکھا۔",
+        "پروجیکٹ کے ڈیٹا اور پیش رفت رپورٹس کو ترتیب دیا۔"
+      ]
     },
     {
-      id: "wali-instructor",
+      id: "master-trainer-wang",
+      role: "Master Trainer",
+      roleUrdu: "ماسٹر ٹرینر",
+      organization: "Urdu AI Training Program – WANG",
+      organizationUrdu: "اردو اے آئی ٹریننگ پروگرام – وانگ",
+      period: "May 2025 – Present",
+      periodUrdu: "مئی 2025 – تا حال",
+      location: "Balochistan, Pakistan",
+      locationUrdu: "بلوچستان، پاکستان",
+      summary: "Deliver AI workshops in Urdu, covering AI tools, prompting strategies, and responsible use (misinformation, deepfakes, data privacy).",
+      summaryUrdu: "اردو میں اے آئی ورکشاپس کی تدریس، جس میں اے آئی ٹولز، پرامپٹنگ کی حکمت عملی اور ذمہ دارانہ استعمال (غلط معلومات، ڈیپ فیکس، ڈیٹا پرائیویسی) شامل ہیں۔",
+      bullets: [
+        "Deliver hands-on AI workshops in Urdu for learners with zero technical background.",
+        "Cover foundational prompting strategies, role assignment, and workflow automation.",
+        "Train participants on responsible AI use: detecting misinformation, understanding deepfakes, and protecting data privacy.",
+        "Empower rural students and educators to use modern tech for everyday problem solving."
+      ],
+      bulletsUrdu: [
+        "غیر تکنیکی طلبہ کے لیے اردو میں پرامپٹنگ کی عملی ورکشاپس منعقد کیں۔",
+        "بنیادی پرامپٹ انجینئرنگ اور روزمرہ خودکاری کی تربیت دی۔",
+        "ذمہ دارانہ استعمال، ڈیپ فیک آگاہی اور ڈیٹا پرائیویسی کے بنیادی اصول سکھائے۔",
+        "دیہی نوجوانوں کو جدید ٹیکنالوجی سے اپنے مسائل حل کرنے کے قابل بنایا۔"
+      ]
+    },
+    {
+      id: "creative-officer-urduai",
+      role: "Creative Officer",
+      roleUrdu: "کریئیٹو آفیسر",
+      organization: "UrduAI.org",
+      organizationUrdu: "UrduAI.org",
+      period: "June 2024 – Present",
+      periodUrdu: "جون 2024 – تا حال",
+      location: "Remote / Hybrid",
+      locationUrdu: "ریموٹ / ہائبرڈ",
+      summary: "Create videos, graphics and written content, and manage social media and community engagement.",
+      summaryUrdu: "ویڈیوز، گرافکس اور تحریری مواد کی تیاری، اور سوشل میڈیا و کمیونٹی روابط کی دیکھ بھال۔",
+      bullets: [
+        "Script and edit educational video tutorials explaining AI concepts in accessible Urdu.",
+        "Design visual banners, infographics, and carousel guides for digital platforms.",
+        "Manage social media publishing schedule and foster online community engagement.",
+        "Translate complex tech documentation into compelling, localized storytelling."
+      ],
+      bulletsUrdu: [
+        "آسان اردو میں اے آئی تصورات پر مبنی معلوماتی ویڈیو ٹیوٹوریلز تیار کیے۔",
+        "سوشل میڈیا اور ویب کے لیے بصری گرافکس اور انفوگرافکس ڈیزائن کیے۔",
+        "آن لائن کمیونٹی کے ساتھ روزانہ کی بنیاد پر رابطہ اور رہنمائی رکھی۔",
+        "تکنیکی مواد کو عام فہم اور پرکشش انداز میں پیش کیا۔"
+      ]
+    },
+    {
+      id: "course-instructor-wali",
       role: "Course Instructor",
       roleUrdu: "کورس انسٹرکٹر",
       organization: "Wang Lab of Innovation (WALI)",
-      organizationUrdu: "وانگ لیب آف انوویشن (والی) بلوچستان",
-      location: "Balochistan, Pakistan",
+      organizationUrdu: "وانگ لیب آف انوویشن (WALI)",
       period: "June 2024 – Present",
-      periodUrdu: "جون 2024 – تاحال",
-      category: "edtech",
-      categoryLabel: "Digital Literacy",
-      categoryLabelUrdu: "ڈیجیٹل لٹریسی",
-      summary:
-        "Conducting interactive digital literacy sessions for rural communities to enhance local employability and problem-solving.",
-      summaryUrdu:
-        "دیہی کمیونٹیز کے لیے روزگار کے مواقع بڑھانے اور بنیادی کمپیوٹر سائنس سکھانے کے انٹرایکٹو سیشنز۔",
+      periodUrdu: "جون 2024 – تا حال",
+      location: "Lasbela, Balochistan",
+      locationUrdu: "لسبیلہ، بلوچستان",
+      summary: "Teach digital literacy and computer fundamentals to rural communities.",
+      summaryUrdu: "دیہی کمیونٹیز کو ڈیجیٹل خواندگی اور کمپیوٹر کی بنیادی مہارتوں کی تدریس۔",
       bullets: [
-        "Conducting interactive digital literacy sessions for rural communities to enhance employability.",
-        "Simplifying complex technical concepts (computer fundamentals, internet tools) for learners with limited tech exposure.",
-        "Mentoring students on the practical application of digital skills to solve local community challenges."
+        "Instruct first-time computer learners in basic operating systems, typing, and navigation.",
+        "Teach safe internet browsing, email communication, and online research skills.",
+        "Facilitate digital inclusion cohorts for marginalized youth and women in rural union councils.",
+        "Track learner assessment metrics and provide one-on-one lab mentoring."
       ],
       bulletsUrdu: [
-        "دیہی علاقوں کے نوجوانوں کے لیے روزگار کے مواقع پیدا کرنے والی عملی ڈیجیٹل خواندگی کی کلاسیں منعقد کیں۔",
-        "کمپیوٹر کی بنیادی باتوں اور انٹرنیٹ ذرائع کو انتہائی آسان اور قابل فہم انداز میں پیش کیا۔",
-        "طلبہ کو مقامی چیلنجز کے حل میں ڈیجیٹل ٹیکنالوجی کے بامقصد استعمال کی تربیت اور رہنمائی فراہم کی۔"
-      ],
-      toolsAndSkills: ["Computer Fundamentals", "Internet & Productivity Tools", "Youth Mentorship", "Community Employability"],
-      impactMetric: "Enhanced baseline digital readiness across 10+ local youth cohorts",
-      impactMetricUrdu: "10 سے زائد نوجوانوں کے گروپس کو ڈیجیٹل طور پر خود کفیل بنایا"
+        "پہلی بار کمپیوٹر استعمال کرنے والوں کو بنیادی نظام اور نیویگیشن سکھائی۔",
+        "محفوظ انٹرنیٹ براؤزنگ اور ای میل رابطے کی عملی مشق کروائی۔",
+        "دیہی یونین کونسلز کے پسماندہ نوجوانوں کے لیے ڈیجیٹل کلاسز کا انتظام کیا۔",
+        "طلبہ کی انفرادی رہنمائی اور لیب مینٹورنگ کی ذمہ داری نبھائی۔"
+      ]
     },
     {
-      id: "merf-supervisor",
-      role: "Team Supervisor",
-      roleUrdu: "ٹیم سپروائزر",
-      organization: "Medical Emergency Resilience Foundation (MERF)",
-      organizationUrdu: "میڈیکل ایمرجنسی ریزیلینس فاؤنڈیشن (مرف)",
-      location: "Lasbela District",
-      period: "August 2023 – October 2023",
-      periodUrdu: "اگست 2023 – اکتوبر 2023",
-      category: "health",
-      categoryLabel: "Public Health",
-      categoryLabelUrdu: "صحتِ عامہ",
-      summary:
-        "Led public health malaria prevention campaign supervising LLINs bednet distribution and dual-channel digital/manual data auditing.",
-      summaryUrdu:
-        "ملیریا کے انسداد کی مہم میں مچھر دانیوں (LLINs) کی تقسیم کی نگرانی اور ڈیجیٹل ریڈ روز ایپ سے ڈیٹا اکٹھا کرنے کا انتظام۔",
-      bullets: [
-        "Led a public health initiative supervising the distribution of Long-lasting Insecticidal Nets (LLINs) to combat malaria.",
-        "Ensured data integrity by managing collection via both the 'Red Rose Mobile Application' and manual logs, bridging the gap between digital tools and field realities.",
-        "Coordinated team activities to ensure successful completion of project objectives within strict timelines."
-      ],
-      bulletsUrdu: [
-        "ملیریا کے پھیلاؤ کو روکنے کے لیے لانگ لاسٹنگ انسیکٹیسائیڈل نیٹس (LLINs) کی ترسیل کی فیلڈ نگرانی کی۔",
-        "'ریڈ روز موبائل ایپلیکیشن' اور دستی لاگز کے ذریعے مستند ڈیٹا کی بروقت تصدیق اور ترسیل کو یقینی بنایا۔",
-        "مقررہ ڈیڈ لائن کے اندر اہداف کو کامیابی سے مکمل کرنے کے لیے فیلڈ ٹیموں کی موثر کوآرڈینیشن کی۔"
-      ],
-      toolsAndSkills: ["Red Rose Mobile App", "Field Data Verification", "Public Health Logistics", "Team Supervision"],
-      impactMetric: "Zero-error data audit across remote union councils in Lasbela",
-      impactMetricUrdu: "لسبیلہ کی دور دراز یونین کونسلوں میں 100 فیصد درست ڈیجیٹل ڈیٹا آڈٹ"
-    },
-    {
-      id: "ifrap-enumerator",
-      role: "Enumerator – Post-Flood Assessment",
-      roleUrdu: "انو مریٹر – سیلاب کے بعد جائزہ مہم",
-      organization: "IFRAP (Integrated Flood Resilience & Adaptation Project)",
-      organizationUrdu: "آئی ایف آر اے پی (انٹیگریٹڈ فلڈ ریزیلینس اینڈ ایڈاپٹیشن پروجیکٹ)",
-      location: "Balochistan, Pakistan",
-      period: "January 2025 – March 2025",
-      periodUrdu: "جنوری 2025 – مارچ 2025",
-      category: "crisis",
-      categoryLabel: "Crisis & Disaster Resilience",
-      categoryLabelUrdu: "آفات و بحران سے بحالی",
-      summary:
-        "Contributed to national disaster recovery efforts through field data collection, household interviews, and rehabilitation needs reporting.",
-      summaryUrdu:
-        "سیلاب متاثرہ علاقوں میں کمیونٹی کی بحالی اور ضروریات کے جائزے کے لیے زمینی حقائق کا ڈیٹا اکٹھا کیا۔",
-      bullets: [
-        "Contributed to national crisis management efforts by collecting and validating data from flood-affected communities.",
-        "Prepared detailed field reports summarizing findings and community needs to aid in rehabilitation planning.",
-        "Navigated complex logistical environments in post-crisis rural zones while maintaining rigorous data collection standards."
-      ],
-      bulletsUrdu: [
-        "سیلاب سے متاثرہ بستیوں سے گھر گھر جا کر تصدیق شدہ معلومات اکٹھی کر کے قومی بحالی کے منصوبوں میں معاونت کی۔",
-        "کمیونٹی کی فوری ضروریات اور انفراسٹرکچر کے نقصانات پر مشتمل جامع فیلڈ رپورٹس مرتب کیں۔",
-        "مشکل جغرافیائی حالات کے باوجود بین الاقوامی معیارات کے مطابق ڈیٹا کی درستی کو یقینی بنایا۔"
-      ],
-      toolsAndSkills: ["Disaster Needs Assessment", "Field Reporting", "Household Surveys", "Quantitative Analysis"],
-      impactMetric: "Directly surveyed hundreds of households for institutional recovery aid",
-      impactMetricUrdu: "امدادی اداروں کے لیے سینکڑوں متاثرہ خاندانوں کا مصدقہ سروے مکمل کیا"
-    },
-    {
-      id: "csft-manager",
+      id: "it-social-media-manager-csft",
       role: "IT & Social Media Manager",
-      roleUrdu: "آئی ٹی اور سوشل میڈیا مینیجر",
-      organization: "Climate Smart Feed Technology (Startup)",
-      organizationUrdu: "کلائمیٹ سمارٹ فیڈ ٹیکنالوجی (سٹارٹ اپ)",
-      location: "Balochistan, Pakistan",
-      period: "January 2022 – Present",
-      periodUrdu: "جنوری 2022 – تاحال",
-      category: "agritech",
-      categoryLabel: "Climate & Agri-Tech",
-      categoryLabelUrdu: "ماحولیات و ایگری ٹیک",
-      summary:
-        "Managing IT infrastructure and strategic digital campaigns for an environmental agri-tech venture tackling sustainable livestock nutrition.",
-      summaryUrdu:
-        "ماحولیاتی پائیداری پر کام کرنے والے ایگری ٹیک سٹارٹ اپ کے آئی ٹی نظام اور سوشل میڈیا کی موثر نگرانی۔",
+      roleUrdu: "آئی ٹی و سوشل میڈیا مینیجر",
+      organization: "Climate Smart Feed Technology",
+      organizationUrdu: "کلائمیٹ سمارٹ فیڈ ٹیکنالوجی",
+      period: "Jan 2022 – Present",
+      periodUrdu: "جنوری 2022 – تا حال",
+      location: "Lasbela, Balochistan",
+      locationUrdu: "لسبیلہ، بلوچستان",
+      summary: "Manage IT operations and social media for the startup.",
+      summaryUrdu: "سٹارٹ اپ کے آئی ٹی آپریشنز اور سوشل میڈیا مہمات کا انتظام۔",
       bullets: [
-        "Managing IT operations and digital presence for an agri-tech startup focused on environmental sustainability.",
-        "Curating engaging content to raise awareness about climate-smart solutions and eco-friendly livestock feeds.",
-        "Optimizing digital workflows and communication pipelines to connect farmers with sustainable feed tech."
+        "Oversee startup digital infrastructure, hardware systems, and web presence.",
+        "Lead social media campaigns to educate regional farmers on sustainable livestock feed.",
+        "Produce graphic assets and promotional media highlighting environmental benefits.",
+        "Manage stakeholder communication and brand positioning across digital touchpoints."
       ],
       bulletsUrdu: [
-        "ماحولیاتی تحفظ اور غذائی تحفظ پر کام کرنے والے ایگری ٹیک ادارے کے تمام تکنیکی اور ڈیجیٹل امور کا انتظام کیا۔",
-        "کسانوں اور عام شہریوں میں کلائمیٹ سمارٹ حل کے بارے میں آگاہی پھیلانے کے لیے مواد تیار کیا۔",
-        "ادارے کے مواصلاتی رابطوں کو بہتر بنا کر ماحولیاتی مہمات کی آن لائن موجودگی کو مستحکم کیا۔"
-      ],
-      toolsAndSkills: ["IT Infrastructure", "Content Writing", "Social Media Strategy", "Agri-Tech Communication"],
-      impactMetric: "Expanded awareness on climate-resilient feed solutions across regional farming communities",
-      impactMetricUrdu: "کسانوں تک ماحول دوست جدید فیڈ ٹیکنالوجی کی آگاہی پہنچائی"
+        "سٹارٹ اپ کے تمام ڈیجیٹل سسٹمز اور آئی ٹی انفراسٹرکچر کی نگرانی کی۔",
+        "کسانوں میں ماحول دوست فیڈ کی آگاہی کے لیے سوشل میڈیا مہمات چلائیں۔",
+        "بصری اشتہارات اور پروموشنل گرافکس تیار کیے۔",
+        "کسانوں اور شراکت داروں کے ساتھ ڈیجیٹل پلیٹ فارمز پر رابطہ رکھا۔"
+      ]
     }
   ] as ExperienceItem[],
 
-  education: [
-    {
-      id: "aiou-bed",
-      degree: "B.Ed (1.5 Years) – Education",
-      degreeUrdu: "بی ایڈ (1.5 سالہ) – ایجوکیشن",
-      institution: "Allama Iqbal Open University (AIOU)",
-      institutionUrdu: "علامہ اقبال اوپن یونیورسٹی (AIOU)",
-      period: "2025 (In Progress)",
-      status: "In Progress",
-      details:
-        "Specializing in modern pedagogical techniques, instructional design, and inclusive educational methodologies for diverse learners.",
-      detailsUrdu:
-        "جدید تدریسی طریقوں، طلبہ کی نفسیات اور سب کے لیے یکساں تعلیمی رسائی پر تحقیق اور عملی تربیت۔"
-    },
-    {
-      id: "luawms-bscs",
-      degree: "BS Computer Science (BSCS)",
-      degreeUrdu: "بی ایس کمپیوٹر سائنس (BSCS)",
-      institution: "Lasbela University of Agriculture, Water and Marine Sciences (LUAWMS)",
-      institutionUrdu: "لسبیلہ یونیورسٹی آف ایگریکلچر، واٹر اینڈ میرین سائنسز (LUAWMS)",
-      period: "2019 – 2023",
-      status: "Completed",
-      details:
-        "Core foundational coursework in Software Engineering, Database Systems, Computer Networks, and Problem Solving. Applied tech skills to regional socio-economic challenges.",
-      detailsUrdu:
-        "سافٹ ویئر انجینئرنگ، ڈیٹا بیس سسٹمز، اور الگورتھم کے بنیادی اصولوں کی تعلیم، اور علاقائی مسائل کے تکنیکی حل پر کام۔"
-    }
-  ] as EducationItem[],
+  earlierRoles: {
+    title: "Earlier Field Roles",
+    titleUrdu: "ابتدائی فیلڈ کردار",
+    description: "Enumerator (IFRAP flood resilience project) and Team Supervisor (MERF, LLIN distribution).",
+    descriptionUrdu: "شماریات کار (IFRAP سیلاب بحالی پراجیکٹ) اور ٹیم سپروائزر (MERF ملیریا مچھر دانی مہم)۔",
+    roles: [
+      {
+        title: "Enumerator",
+        project: "IFRAP Flood Resilience Project",
+        scope: "Post-flood damage assessment and household survey data collection."
+      },
+      {
+        title: "Team Supervisor",
+        project: "MERF (Medical Emergency Resilience Foundation)",
+        scope: "Long-Lasting Insecticidal Nets (LLINs) distribution and mobile data supervision."
+      }
+    ]
+  },
+
+  myWork: {
+    introLine: "A selection of videos, training content and graphics I've created for educational and community organizations.",
+    introLineUrdu: "تعلیمی اور کمیونٹی تنظیموں کے لیے تیار کردہ ویڈیوز، تربیتی مواد اور گرافکس کا منتخب مجموعہ۔",
+    categories: [
+      "All Projects",
+      "Training Videos",
+      "Educational Content",
+      "Graphics & Design",
+      "Social Media Campaigns"
+    ] as const,
+    projects: [
+      {
+        id: "work-1",
+        title: "Urdu AI Video Masterclass Series",
+        titleUrdu: "اردو اے آئی ویڈیو ماسٹرکلاس سیریز",
+        createdFor: "WANG / UrduAI.org",
+        myRole: "Video editing, scripting & voiceover",
+        myRoleUrdu: "ویڈیو ایڈیٹنگ، اسکرپٹ رائٹنگ اور وائس اوور",
+        about: "Step-by-step instructional video modules explaining generative AI prompting for rural Urdu speakers.",
+        aboutUrdu: "اردو بولنے والے طلبہ کے لیے جنریٹو اے آئی پرامپٹنگ کی مرحلہ وار وضاحتی ویڈیو سیریز۔",
+        result: "45,000+ views across digital channels, adopted by 15 community centers.",
+        resultUrdu: "ڈیجیٹل پلیٹ فارمز پر 45,000+ آراء اور 15 کمیونٹی سینٹرز میں تدریسی استعمال۔",
+        category: "Training Videos",
+        featured: true,
+        mediaType: "video",
+        thumbnailUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        duration: "08:45 min",
+        galleryImages: [
+          "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop"
+        ]
+      },
+      {
+        id: "work-2",
+        title: "Responsible AI & Deepfake Awareness Campaign",
+        titleUrdu: "ذمہ دارانہ اے آئی اور ڈیپ فیک آگاہی مہم",
+        createdFor: "Urdu AI Training Program – WANG",
+        myRole: "Content writing, infographic design & motion graphics",
+        myRoleUrdu: "مضمون نگاری، انفوگرافک ڈیزائن اور موشن گرافکس",
+        about: "Public educational campaign addressing digital misinformation, fake news detection, and online privacy.",
+        aboutUrdu: "ڈیجیٹل غلط معلومات کی روک تھام، ڈیپ فیک کی پہچان اور آن لائن پرائیویسی پر عوامی آگاہی مہم۔",
+        result: "Reached 12,000+ students and youth across colleges in Balochistan.",
+        resultUrdu: "بلوچستان کے کالجوں میں 12,000 سے زائد طلبہ اور نوجوانوں تک رسائی۔",
+        category: "Educational Content",
+        featured: true,
+        mediaType: "image",
+        thumbnailUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
+        duration: "Infographic & Media Pack",
+        galleryImages: [
+          "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop"
+        ]
+      },
+      {
+        id: "work-3",
+        title: "Climate Smart Feed Brand & Visual Identity",
+        titleUrdu: "کلائمیٹ سمارٹ فیڈ برانڈ و بصری شناخت",
+        createdFor: "Climate Smart Feed Technology",
+        myRole: "Graphic design & visual storytelling",
+        myRoleUrdu: "گرافک ڈیزائن اور بصری کہانی نگاری",
+        about: "Complete visual identity, social banners, and packaging infographics for agri-tech sustainability.",
+        aboutUrdu: "ایگری ٹیک سٹارٹ اپ کے لیے مکمل برانڈ شناخت، سوشل میڈیا بینرز اور معلوماتی پیکجنگ۔",
+        result: "Boosted farmer social engagement by 180% across regional livestock groups.",
+        resultUrdu: "علاقائی لائیو اسٹاک گروپس میں کسانوں کی شمولیت میں 180 فیصد اضافہ۔",
+        category: "Graphics & Design",
+        mediaType: "image",
+        thumbnailUrl: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1200&auto=format&fit=crop",
+        duration: "Brand Identity System",
+        galleryImages: [
+          "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?q=80&w=1200&auto=format&fit=crop"
+        ]
+      },
+      {
+        id: "work-4",
+        title: "Rural Digital Literacy Stories Showcase",
+        titleUrdu: "دیہی ڈیجیٹل خواندگی دستاویزی سیریز",
+        createdFor: "Wang Lab of Innovation (WALI)",
+        myRole: "Creative documentation, video editing & social media",
+        myRoleUrdu: "دستاویزی فلم بندی، ویڈیو ایڈیٹنگ اور سوشل میڈیا مینجمنٹ",
+        about: "Video documentary series highlighting first-generation computer learners from remote union councils.",
+        aboutUrdu: "دور دراز علاقوں سے پہلی بار کمپیوٹر سیکھنے والے نوجوانوں کی کامیابیوں پر مبنی دستاویزی ویڈیوز۔",
+        result: "Praised by regional education leaders and widely shared in community baithaks.",
+        resultUrdu: "علاقائی اساتذہ اور کمیونٹی بیٹھکوں میں بھرپور پذیرائی۔",
+        category: "Social Media Campaigns",
+        mediaType: "video",
+        thumbnailUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop",
+        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        duration: "05:12 min Docu",
+        galleryImages: [
+          "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop"
+        ]
+      },
+      {
+        id: "work-5",
+        title: "AI Prompt Engineering Handouts in Urdu",
+        titleUrdu: "اردو پرامپٹ انجینئرنگ پرنٹ ہینڈ آؤٹس",
+        createdFor: "Urdu AI Training Program – WANG",
+        myRole: "Pedagogical design & technical translation",
+        myRoleUrdu: "تدریسی ڈیزائن اور تکنیکی ترجمہ نگاری",
+        about: "Concise, printable classroom reference cards giving students everyday prompts for study and research.",
+        aboutUrdu: "طلبہ کے لیے کلاس روم میں استعمال ہونے والے پرنٹ ایبل اے آئی پرامپٹ کارڈز اور گائیڈز۔",
+        result: "Distributed to 2,500+ participants across 12 training cohorts.",
+        resultUrdu: "12 تربیتی بیچز میں 2,500+ طلبہ میں کامیابی سے تقسیم۔",
+        category: "Educational Content",
+        mediaType: "image",
+        thumbnailUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
+        duration: "Printable Guide Kit",
+        galleryImages: [
+          "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop"
+        ]
+      },
+      {
+        id: "work-6",
+        title: "Youth Tech Baithak Social Media Coverage",
+        titleUrdu: "یوتھ ٹیک بیٹھک لائیو سوشل کوریج",
+        createdFor: "WANG Community Programs",
+        myRole: "Event photography, real-time social reels & reporting",
+        myRoleUrdu: "ایونٹ فوٹوگرافی، ریلز اور براہ راست سوشل میڈیا کوریج",
+        about: "Comprehensive digital coverage of community technology forums and rural youth discussions.",
+        aboutUrdu: "دیہی نوجوانوں کے ٹیکنالوجی فورمز اور مباحثوں کی مکمل ڈیجیٹل اور لائیو کوریج۔",
+        result: "Generated 28,000+ digital impressions and sparked new community enrollments.",
+        resultUrdu: "28,000+ آن لائن امپریشنز اور نئے طلبہ کی داخلوں میں شمولیت۔",
+        category: "Social Media Campaigns",
+        mediaType: "image",
+        thumbnailUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+        duration: "Social Media Reel Set",
+        galleryImages: [
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+        ]
+      }
+    ] as CreativeProject[]
+  },
 
   certifications: [
     {
-      id: "ai-opp-fund",
+      id: "ai-opportunity-fund",
       title: "AI Opportunity Fund: Asia-Pacific Certified Instructor",
-      titleUrdu: "اے آئی اپرچونٹی فنڈ: ایشیا پیسیفک سرٹیفائیڈ انسٹرکٹر",
+      titleUrdu: "AI Opportunity Fund: Asia-Pacific سند یافتہ انسٹرکٹر",
       issuer: "AI Singapore & AVPN",
-      issuerUrdu: "اے آئی سنگاپور اور اے وی پی این",
+      issuerUrdu: "AI Singapore اور AVPN",
       year: "2025",
-      badge: "International Accreditation",
-      verified: true,
-      description:
-        "Completed 8-week intensive training on AI pedagogy, effective prompting methodologies, and responsible AI adoption frameworks for underserved communities across the Asia-Pacific region.",
-      descriptionUrdu:
-        "ایشیا پیسیفک خطے کے پسماندہ طبقات میں مصنوعی ذہانت کی اخلاقی و عملی تدریس، پرامپٹ سکھانے کے طریقوں پر مشتمل 8 ہفتوں کا سخت بین الاقوامی تربیتی پروگرام۔"
+      description: "Certified to deliver localized artificial intelligence literacy across underserved communities in the Asia-Pacific region.",
+      descriptionUrdu: "ایشیا پیسیفک خطے کی پسماندہ کمیونٹیز میں مقامی سطح پر مصنوعی ذہانت کی خواندگی فراہم کرنے کی بین الاقوامی سند۔",
+      highlight: true
     },
     {
-      id: "urdu-ai-masterclass",
+      id: "ai-fundamentals",
+      title: "AI Fundamentals",
+      titleUrdu: "اے آئی بنیادی مہارتیں (AI Fundamentals)",
+      issuer: "AI Singapore & AVPN",
+      issuerUrdu: "AI Singapore اور AVPN",
+      year: "2025",
+      description: "Comprehensive foundational mastery of core artificial intelligence models, ethical safeguards, and community integration.",
+      descriptionUrdu: "بنیادی مصنوعی ذہانت کے ماڈلز، اخلاقی حدود اور کمیونٹی استعمال کی جامع تربیت۔",
+      highlight: true
+    },
+    {
+      id: "urdu-ai-automation",
       title: "Urdu AI Master Class on Automation",
       titleUrdu: "اردو اے آئی ماسٹر کلاس برائے آٹومیشن",
       issuer: "Urdu AI",
-      issuerUrdu: "اردو اے آئی",
+      issuerUrdu: "Urdu AI",
       year: "2025",
-      badge: "Advanced Specialization",
-      verified: true,
-      description:
-        "Advanced hands-on workshop covering workflow automation, Google Apps Script integration, and prompt engineering tailored specifically for Urdu natural language pipelines.",
-      descriptionUrdu:
-        "ورک فلو آٹومیشن، گوگل ایپس سکرپٹ، اور اردو زبان میں پرامپٹ انجینئرنگ کے عملی استعمال کی خصوصی ماسٹر کلاس۔"
+      description: "Advanced automation workflows, prompt chaining, and productivity integration delivered in the Urdu language.",
+      descriptionUrdu: "اردو زبان میں ایڈوانس آٹومیشن کے طریقے، پرامپٹ چیننگ اور پیداواری صلاحیت بڑھانے کی تربیت۔",
+      highlight: false
     },
     {
-      id: "merf-research",
-      title: "Research & Data Collection Training",
-      titleUrdu: "ریسرچ اور ڈیٹا کلیکشن ٹریننگ",
-      issuer: "MERF (Medical Emergency Resilience Foundation)",
-      issuerUrdu: "میڈیکل ایمرجنسی ریزیلینس فاؤنڈیشن",
-      year: "2023",
-      badge: "Field Certification",
-      verified: true,
-      description:
-        "Rigorous training in quantitative and qualitative community surveying, mobile digital data tools (Red Rose App), ethical consent protocols, and field accuracy standards.",
-      descriptionUrdu:
-        "موبائل ایپس کے ذریعے فیلڈ سروے، اعداد و شمار کی جانچ، اور اخلاقی رضامندی کے عالمی اصولوں پر باضابطہ فیلڈ ٹریننگ۔"
-    },
-    {
-      id: "wang-climate-action",
-      title: "Local Action Baithak on Climate Action",
-      titleUrdu: "لوکل ایکشن بیٹھک برائے کلائمیٹ ایکشن",
-      issuer: "WANG (Welfare Association for New Generation)",
-      issuerUrdu: "وانگ (WANG)",
-      year: "2024",
-      badge: "Community Leadership",
-      verified: true,
-      description:
-        "Grassroots climate advocacy summit engaging youth in community-driven environmental resilience, water conservation, and regional flood mitigation dialogue.",
-      descriptionUrdu:
-        "ماحولیاتی تبدیلی، پانی کے تحفظ اور سیلاب سے بچاؤ کے لیے مقامی سطح پر نوجوانوں کی قیادت اور بیٹھکوں کا انعقاد۔"
+      id: "russia-youth-fest",
+      title: "International Festival of Youth 2026",
+      titleUrdu: "انٹرنیشنل فیسٹیول آف یوتھ 2026 (روس)",
+      issuer: "Ekaterinburg, Russia",
+      issuerUrdu: "یکاترینبرگ، روس",
+      year: "2026",
+      description: "Participant, selected as one of 10,000 young leaders from 191 countries across the world representing grassroots youth empowerment.",
+      descriptionUrdu: "191 ممالک کے 10,000 نوجوان قائدین میں پاکستان سے منتخب نمائندہ شریک، یکاترینبرگ، روس۔",
+      highlight: true
     }
   ] as CertificationItem[],
 
-  skills: {
-    community: {
-      title: "Community & Grassroots Pedagogy",
-      titleUrdu: "کمیونٹی ڈویلپمنٹ و تدریس",
-      skills: [
-        { name: "Digital Literacy Training", nameUrdu: "ڈیجیٹل خواندگی کی تربیت", level: "Expert", desc: "Tailoring digital skills for rural learners with limited background" },
-        { name: "Field Research & Data Gathering", nameUrdu: "فیلڈ ریسرچ و ڈیٹا سروے", level: "Advanced", desc: "Rigorous household data validation across remote terrains" },
-        { name: "Public Speaking in Local Languages", nameUrdu: "مقامی زبانوں میں تقریر و رہنمائی", level: "Native / Fluent", desc: "Delivering inspiring keynotes & workshops in Urdu and local dialects" },
-        { name: "Youth Mentorship & Capacity Building", nameUrdu: "نوجوانوں کی رہنمائی و صلاحیتوں کا فروغ", level: "Expert", desc: "Empowering next-generation changemakers to build regional resilience" }
-      ]
-    },
-    technical: {
-      title: "Technical, AI & Automation",
-      titleUrdu: "تکنیکی مہارتیں، اے آئی و آٹومیشن",
-      skills: [
-        { name: "AI Tools & Prompt Engineering", nameUrdu: "مصنوعی ذہانت و پرامپٹ انجینئرنگ", level: "Certified Instructor", desc: "Generative AI pipelines, contextual prompting, and ethics" },
-        { name: "Google Apps Script Automation", nameUrdu: "گوگل ایپس سکرپٹ آٹومیشن", level: "Proficient", desc: "Automating reporting workflows, spreadsheets, and form pipelines" },
-        { name: "Data Collection (Red Rose Mobile App)", nameUrdu: "ڈیٹا کلیکشن (ریڈ روز موبائل ایپ)", level: "Field Supervisor", desc: "Mobile field survey apps, offline caching, and data hygiene" },
-        { name: "MS Office Suite & Productivity", nameUrdu: "ایم ایس آفس اور دفتری ٹولز", level: "Advanced", desc: "Advanced spreadsheets, documentation, and impact reporting" }
-      ]
-    },
-    creative: {
-      title: "Media, Content & Storytelling",
-      titleUrdu: "تخلیقی صلاحیتیں و میڈیا",
-      skills: [
-        { name: "Content Writing & Translation", nameUrdu: "مضمون نگاری و ترجمہ نگاری", level: "Bilingual", desc: "Demystifying deep technical jargon into accessible Urdu prose" },
-        { name: "Video Editing & Production", nameUrdu: "ویڈیو ایڈیٹنگ و پروڈکشن", level: "Intermediate", desc: "Creating educational clips and social media awareness assets" },
-        { name: "Social Media Management", nameUrdu: "سوشل میڈیا حکمت عملی", level: "Active Manager", desc: "Audience growth for agri-tech startups and community non-profits" },
-        { name: "Visual Storytelling", nameUrdu: "بصری کہانی نگاری", level: "Proficient", desc: "Documenting field impact stories through imagery and casework" }
-      ]
-    }
+  contact: {
+    headline: "Let's work together.",
+    headlineUrdu: "آئیے مل کر کام کریں۔",
+    description: "Whether it's an AI training, a digital literacy program, or a creative project, I'd be glad to hear from you.",
+    descriptionUrdu: "چاہے وہ اے آئی ٹریننگ ہو، ڈیجیٹل لٹریسی پروگرام، یا کوئی تخلیقی منصوبہ، آپ کے ساتھ کام کر کے مجھے بے حد خوشی ہوگی۔",
+    email: "salmankhanroonjah@gmail.com",
+    phone: "+92 315 8059365",
+    phoneDisplay: "+92 315 8059365",
+    whatsappLink: "https://wa.me/923158059365",
+    linkedIn: "https://linkedin.com/in/salmankhanroonjah",
+    github: "https://github.com/salmanroonjah",
+    location: "Bela, Lasbela, Balochistan, Pakistan",
+    locationUrdu: "بیلہ، ضلع لسبیلہ، بلوچستان، پاکستان"
   },
 
-  urduPromptPlayground: [
-    {
-      title: "System Role Definition",
-      urduConcept: "کردار کا تعین (System Persona)",
-      englishConcept: "Role & Persona Prompting",
-      explanation: "طلبہ کو یہ سکھایا جاتا ہے کہ کمپیوٹر کو ایک قابل استاد یا مقامی مشیر کا روپ کیسے دیا جائے تاکہ وہ درست زبان میں جواب دے۔",
-      examplePrompt: "آپ لسبیلہ کے ایک تجربہ کار زرعی مشیر ہیں، مقامی کسانوں کو آسان اردو میں بتائیں کہ کم پانی میں فصل کی پیداوار کیسے بڑھائی جا سکتی ہے۔",
-      practicalApplication: "مقامی کسانوں کے مسائل حل کرنے کے لیے اے آئی مشیر تیار کرنا۔"
-    },
-    {
-      title: "Step-by-Step Problem Solving",
-      urduConcept: "مرحلہ وار رہنمائی (Chain-of-Thought)",
-      englishConcept: "Step-by-Step Prompting",
-      explanation: "جب پیچیدہ سوال حل کرنا ہو تو اے آئی کو ایک ایک قدم کی وضاحت کرنے کی ہدایت دینا تاکہ وہ کوئی غلطی نہ کرے۔",
-      examplePrompt: "مجھے ایک کمیونٹی کلین اپ ڈرائیو شروع کرنی ہے۔ مجھے مرحلہ وار بتائیں: پہلے ہفتے میں کیا کرنا ہے، رضاکار کیسے اکٹھے کرنے ہیں، اور سامان کا بندوبست کیسے کرنا ہے۔",
-      practicalApplication: "نوجوانوں کو کمیونٹی پراجیکٹ کا لائحہ عمل تیار کرنا سکھانا۔"
-    },
-    {
-      title: "Tone & Accessibility Control",
-      urduConcept: "سلیس زبان اور اخلاقی حدود (Tone & Safety)",
-      englishConcept: "Context & Guardrails",
-      explanation: "اے آئی سے معلومات حاصل کرتے وقت مقامی روایات، پرائیویسی اور سادہ ترین الفاظ کے انتخاب کی شرط عائد کرنا۔",
-      examplePrompt: "اس طبی اصطلاح کو دیہی بچوں کے لیے ایسی مثالوں کے ساتھ سمجھائیں جو بلوچستان کی روزمرہ زندگی سے جڑی ہوں۔",
-      practicalApplication: "صحت عامہ کی معلومات کو گاؤں کے بچوں کے لیے پرکشش اور عام فہم بنانا۔"
-    }
-  ] as UrduPromptExample[],
-
-  testimonialsAndQuotes: [
-    {
-      quote:
-        "Language should never be a boundary for technological enlightenment. When our youth learn AI prompting in Urdu, they stop feeling left behind and start solving the real problems of Balochistan.",
-      quoteUrdu:
-        "زبان کبھی بھی جدید علم کی راہ میں رکاوٹ نہیں ہونی چاہیے۔ جب ہمارے نوجوان اپنی زبان میں مصنوعی ذہانت کا استعمال سیکھتے ہیں، تو وہ پسماندگی کے احساس سے نکل کر اپنے خطے کے مسائل حل کرنے لگتے ہیں۔",
-      author: "Salman Khan",
-      authorUrdu: "سلمان خان",
-      role: "EdTech Trainer & Community Practitioner",
-      roleUrdu: "ایڈٹیک ٹرینر و کمیونٹی پریکٹیشنر"
-    }
-  ],
-
-  githubRepositories: [
-    {
-      name: "urdu-ai-prompt-handouts",
-      nameUrdu: "اردو اے آئی پرامپٹ ہینڈ آؤٹس",
-      description: "Open-source prompt engineering guides, system personas, and exercise worksheets translated into clear Urdu for community trainers.",
-      descriptionUrdu: "کمیونٹی اساتذہ کے لیے سلیس اردو میں تیار کردہ پرامپٹ انجینئرنگ کے اوپن سورس رہنما خطوط اور ورک شیٹس۔",
-      language: "Markdown / Prompt Eng",
-      stars: 38,
-      forks: 14,
-      topics: ["edtech", "generative-ai", "urdu-prompting", "digital-inclusion"],
-      url: "https://github.com/salmanroonjah/urdu-ai-prompt-handouts"
-    },
-    {
-      name: "field-data-hygiene-scripts",
-      nameUrdu: "فیلڈ ڈیٹا تصدیقی اسکرپٹس",
-      description: "Google Apps Script and automated data validation pipelines to reconcile mobile survey logs (Red Rose App) with manual field logs.",
-      descriptionUrdu: "موبائل سروے ایپس اور دستی رجسٹروں کے مابین فیلڈ ڈیٹا کی خودکار تصدیق کے اسکرپٹس۔",
-      language: "Google Apps Script",
-      stars: 26,
-      forks: 9,
-      topics: ["data-collection", "google-apps-script", "public-health", "automation"],
-      url: "https://github.com/salmanroonjah/field-data-hygiene-scripts"
-    },
-    {
-      name: "climate-smart-feed-estimator",
-      nameUrdu: "ماحول دوست فیڈ کیلکولیٹر",
-      description: "Lightweight tool for agri-tech practitioners to compute climate-resilient livestock feed rations and environmental savings.",
-      descriptionUrdu: "ایگری ٹیک اداروں کے لیے ماحول دوست زرعی فیڈ کی پیمائش اور بچت کا ڈیجیٹل کیلکولیٹر۔",
-      language: "TypeScript / React",
-      stars: 19,
-      forks: 5,
-      topics: ["agri-tech", "climate-action", "sustainability", "calculator"],
-      url: "https://github.com/salmanroonjah/climate-smart-feed-estimator"
-    },
-    {
-      name: "rural-digital-literacy-toolkit",
-      nameUrdu: "دیہی ڈیجیٹل خواندگی ٹول کٹ",
-      description: "Interactive learning materials and visual slides for first-time computer users in remote union councils of Balochistan.",
-      descriptionUrdu: "بلوچستان کے دور دراز علاقوں میں کمپیوٹر کے بنیادی استعمال کی بصری ٹول کٹ اور رہنما سلائیڈز۔",
-      language: "HTML / CSS",
-      stars: 31,
-      forks: 11,
-      topics: ["digital-literacy", "rural-education", "open-education", "balochistan"],
-      url: "https://github.com/salmanroonjah/rural-digital-literacy-toolkit"
-    }
-  ]
+  footer: {
+    shortBio: "AI trainer and digital literacy specialist from Balochistan, making AI accessible in local languages.",
+    shortBioUrdu: "بلوچستان سے تعلق رکھنے والا اے آئی ٹرینر اور ڈیجیٹل لٹریسی اسپیشلسٹ، جو مقامی زبانوں میں مصنوعی ذہانت کو قابل فہم بنا رہا ہے۔"
+  }
 };

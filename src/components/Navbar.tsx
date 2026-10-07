@@ -15,50 +15,51 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenContact,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-[#fafaf8]/95 backdrop-blur-md border-b border-stone-200/80 transition-colors">
+    <header className="sticky top-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-b border-slate-800/90 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Zone 1: Brand Wordmark (Single text element) */}
+        {/* Zone 1: Brand Wordmark */}
         <a
           href="#top"
-          className="text-lg font-bold tracking-tight text-stone-900 hover:text-emerald-800 transition-colors flex items-center gap-2"
+          className="text-lg font-bold tracking-tight text-white hover:text-emerald-400 transition-colors flex items-center gap-2"
         >
-          <span className="font-extrabold text-stone-900">Salman Khan</span>
-          <span className="text-xs text-stone-400 font-normal hidden sm:inline">|</span>
-          <span className="text-xs text-stone-500 font-medium hidden sm:inline">
-            {lang === 'en' ? 'Lasbela, Balochistan' : 'لسبیلہ، بلوچستان'}
+          <span className="font-extrabold tracking-tight">Salman Khan</span>
+          <span className="text-xs text-slate-600 font-normal hidden sm:inline">|</span>
+          <span className="text-xs text-emerald-400/90 font-medium hidden sm:inline">
+            {lang === 'en' ? 'AI Trainer & Media' : 'اے آئی ٹرینر'}
           </span>
         </a>
 
-        {/* Zone 2: 4-5 Clean Text Nav Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
-          <a href="#about" className="hover:text-stone-950 transition-colors">
+        {/* Zone 2: Navigation Links */}
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+          <a href="#about" className="hover:text-emerald-400 transition-colors">
             {lang === 'en' ? 'About' : 'تعارف'}
           </a>
-          <a href="#experience" className="hover:text-stone-950 transition-colors">
+          <a href="#what-i-do" className="hover:text-emerald-400 transition-colors">
+            {lang === 'en' ? 'What I Do' : 'خدمات'}
+          </a>
+          <a href="#experience" className="hover:text-emerald-400 transition-colors">
             {lang === 'en' ? 'Experience' : 'تجربہ'}
           </a>
-          <a href="#urdu-ai" className="hover:text-stone-950 transition-colors">
-            {lang === 'en' ? 'Urdu AI Pedagogy' : 'اردو اے آئی'}
+          <a href="#my-work" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+            <span>{lang === 'en' ? 'My Work' : 'تخلیقی کام'}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
           </a>
-          <a href="#skills" className="hover:text-stone-950 transition-colors">
-            {lang === 'en' ? 'Skills' : 'مہارتیں'}
+          <a href="#certifications" className="hover:text-emerald-400 transition-colors">
+            {lang === 'en' ? 'Certifications' : 'اسناد'}
           </a>
-          <a href="#github-projects" className="hover:text-stone-950 transition-colors">
-            {lang === 'en' ? 'Code & Repos' : 'کوڈ و ریپوز'}
-          </a>
-          <a href="#certifications" className="hover:text-stone-950 transition-colors">
-            {lang === 'en' ? 'Credentials' : 'اسناد و تعلیم'}
+          <a href="#contact" className="hover:text-emerald-400 transition-colors">
+            {lang === 'en' ? 'Contact' : 'رابطہ'}
           </a>
         </nav>
 
-        {/* Zone 3: 1-2 Primary Actions */}
+        {/* Zone 3: Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* GitHub Profile Icon Link */}
+          {/* GitHub Icon Link */}
           <a
             href="https://github.com/salmanroonjah"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1.5 text-stone-600 hover:text-stone-950 hover:bg-stone-100 rounded-md transition-colors"
+            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-lg transition-colors"
             title="View GitHub Profile"
             aria-label="GitHub Profile"
           >
@@ -67,35 +68,35 @@ export const Navbar: React.FC<NavbarProps> = ({
             </svg>
           </a>
 
-          {/* Language Toggle Button */}
+          {/* Language Toggle */}
           <button
             onClick={() => setLang(lang === 'en' ? 'ur' : 'en')}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 rounded-md transition-colors border border-stone-200"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-300 bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors border border-slate-700/80 cursor-pointer"
             title="Toggle between English and Urdu"
             aria-label="Switch Language"
           >
-            <Languages className="w-3.5 h-3.5 text-emerald-700" />
+            <Languages className="w-3.5 h-3.5 text-emerald-400" />
             <span className={lang === 'ur' ? 'font-urdu' : 'font-sans'}>
               {lang === 'en' ? 'اردو' : 'English'}
             </span>
           </button>
 
-          {/* Quick Resume View */}
+          {/* View CV Button */}
           <button
             onClick={onOpenResume}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-stone-800 bg-white hover:bg-stone-50 border border-stone-300 rounded-md transition-colors shadow-2xs"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors cursor-pointer"
           >
-            <Download className="w-3.5 h-3.5 text-stone-600" />
-            <span>{lang === 'en' ? 'View CV' : 'سی وی دیکھیں'}</span>
+            <Download className="w-3.5 h-3.5 text-slate-400" />
+            <span>{lang === 'en' ? 'View CV' : 'سی وی'}</span>
           </button>
 
           {/* Primary Action Button */}
           <button
             onClick={onOpenContact}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded-md transition-colors shadow-xs"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-slate-950 bg-emerald-500 hover:bg-emerald-400 rounded-lg transition-all shadow-md shadow-emerald-500/20 cursor-pointer"
           >
             <Send className="w-3 h-3" />
-            <span>{lang === 'en' ? 'Contact' : 'رابطہ کریں'}</span>
+            <span>{lang === 'en' ? 'Contact' : 'رابطہ'}</span>
           </button>
         </div>
       </div>

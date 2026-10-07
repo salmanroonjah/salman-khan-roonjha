@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { MapPin, Send, CheckCircle, ExternalLink, Code2, Copy, Check } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, ExternalLink, MessageCircle, Copy, Check } from 'lucide-react';
 
 interface ContactSectionProps {
   lang: 'en' | 'ur';
@@ -11,240 +11,264 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
   const [formState, setFormState] = useState({
     name: '',
-    organization: '',
-    inquiryType: 'workshop',
+    email: '',
+    projectType: 'AI Training',
     message: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [inquiryId, setInquiryId] = useState('');
   const [copied, setCopied] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.message) return;
-
-    // Generate unique inquiry ID and simulate secure recording
-    const newId = `SK-${Math.floor(1000 + Math.random() * 9000)}`;
-    setInquiryId(newId);
-
-    try {
-      const savedInquiries = JSON.parse(localStorage.getItem('sk_portfolio_inquiries') || '[]');
-      savedInquiries.push({
-        id: newId,
-        date: new Date().toISOString(),
-        ...formState,
-      });
-      localStorage.setItem('sk_portfolio_inquiries', JSON.stringify(savedInquiries));
-    } catch {
-      // Ignore localStorage errors
-    }
-
     setSubmitted(true);
   };
 
-  const handleCopyInquiry = () => {
-    const text = `Inquiry ID: ${inquiryId}\nName: ${formState.name}\nOrganization: ${formState.organization}\nType: ${formState.inquiryType}\nMessage:\n${formState.message}`;
-    navigator.clipboard.writeText(text);
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(portfolioData.contact.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section id="contact" className="py-16 bg-[#fafaf8] border-b border-stone-200/80">
+    <section id="contact" className="py-20 sm:py-24 bg-[#0E131F] border-b border-slate-800/80 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Direct GitHub & Institutional Presence (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* Left Column: Direct Reach & Coordinates */}
+          <div className="lg:col-span-5 space-y-7">
             <div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-800 tracking-wider uppercase mb-1">
-                <Code2 className="w-3.5 h-3.5 text-emerald-700" />
-                <span>{isUrdu ? 'آن لائن رابطہ و باہمی اشتراک' : 'Digital Reach & Collaboration'}</span>
-                <span aria-hidden="true">·</span>
-                <span>{isUrdu ? 'تعاون و شرکت' : 'Open Connect'}</span>
+              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wider uppercase mb-3">
+                <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{isUrdu ? 'رابطہ کریں' : 'Get in Touch'}</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-                {isUrdu ? 'تعلیمی و سماجی شراکت داری' : 'Connect for EdTech & Community Impact'}
+              {/* Headline: Let's work together. */}
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+                {isUrdu ? portfolioData.contact.headlineUrdu : portfolioData.contact.headline}
               </h2>
-              <p className="text-sm text-stone-600 mt-2 leading-relaxed">
-                {isUrdu
-                  ? 'بلوچستان کے سکولوں میں اے آئی ورکشاپس، کمیونٹی ڈیجیٹل لٹریسی سیشنز، یا فیلڈ ڈیٹا پراجیکٹس کے لیے رابطہ فارم اور گٹ ہب کے ذریعے رابطہ کریں۔'
-                  : 'Available for AI capacity-building workshops, rural digital literacy training, and NGO field initiatives via the inquiry portal and GitHub.'}
+              {/* Description: Whether it's an AI training, a digital literacy program, or a creative project, I'd be glad to hear from you. */}
+              <p className="text-slate-300 text-sm sm:text-base mt-3 leading-relaxed">
+                {isUrdu ? portfolioData.contact.descriptionUrdu : portfolioData.contact.description}
               </p>
             </div>
 
-            {/* GitHub & Institutional Cards (No personal phone or email displayed) */}
-            <div className="space-y-3 pt-2">
-              <a
-                href={portfolioData.personal.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white border border-stone-200 rounded-xl p-4 flex items-center justify-between gap-3 hover:border-stone-400 transition-colors group block"
-              >
+            {/* Direct Coordinates Cards */}
+            <div className="space-y-4 pt-1">
+              {/* Email */}
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 shadow-md">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-stone-900 text-white flex items-center justify-center shrink-0">
-                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-                    </svg>
+                  <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono text-stone-400 block uppercase">
-                      {isUrdu ? 'گٹ ہب پروفائل' : 'GitHub Profile'}
+                    <span className="text-[11px] font-mono text-slate-500 block uppercase font-medium">
+                      {isUrdu ? 'ای میل ایڈریس' : 'Email Address'}
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-emerald-800 transition-colors">
-                      github.com/salmanroonjah
-                    </span>
-                    <span className="text-[11px] text-stone-500 block">
-                      {isUrdu ? 'اوپن سورس ریپوز اور کوڈ ڈسکشن' : 'Open-source code, worksheets & curriculum'}
-                    </span>
+                    <a
+                      href={`mailto:${portfolioData.contact.email}`}
+                      className="text-xs sm:text-sm font-bold text-white hover:text-emerald-400 transition-colors"
+                    >
+                      {portfolioData.contact.email}
+                    </a>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-stone-400 group-hover:text-stone-900" />
-              </a>
+                <button
+                  onClick={handleCopyEmail}
+                  className="p-2 text-slate-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+                  title="Copy Email"
+                >
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
 
-              <div className="bg-white border border-stone-200 rounded-xl p-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-stone-100 text-stone-700 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-stone-600" />
+              {/* Phone & WhatsApp */}
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 shadow-md">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-500 block uppercase font-medium">
+                      {isUrdu ? 'فون و واٹس ایپ' : 'Phone & WhatsApp'}
+                    </span>
+                    <a
+                      href={`tel:${portfolioData.contact.phone}`}
+                      className="text-xs sm:text-sm font-bold text-white hover:text-emerald-400 transition-colors"
+                    >
+                      {portfolioData.contact.phoneDisplay}
+                    </a>
+                  </div>
+                </div>
+                <a
+                  href={portfolioData.contact.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 bg-emerald-500 text-slate-950 rounded-xl text-xs font-bold hover:bg-emerald-400 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+
+              {/* LinkedIn */}
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 shadow-md">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-slate-800 text-slate-200 flex items-center justify-center shrink-0">
+                    <ExternalLink className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-slate-500 block uppercase font-medium">
+                      LinkedIn
+                    </span>
+                    <a
+                      href={portfolioData.contact.linkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs sm:text-sm font-bold text-white hover:text-emerald-400 transition-colors"
+                    >
+                      linkedin.com/in/salmankhanroonjah
+                    </a>
+                  </div>
+                </div>
+                <a
+                  href={portfolioData.contact.linkedIn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-semibold text-emerald-400 hover:text-emerald-300"
+                >
+                  Visit
+                </a>
+              </div>
+
+              {/* Location: Bela, Lasbela, Balochistan, Pakistan */}
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-5 flex items-center gap-3 shadow-md">
+                <div className="w-11 h-11 rounded-xl bg-slate-800 text-slate-300 flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono text-stone-400 block uppercase">
-                    {isUrdu ? 'ضلعی مرکز و وابستگی' : 'Base & Affiliation'}
+                  <span className="text-[11px] font-mono text-slate-500 block uppercase font-medium">
+                    {isUrdu ? 'مقام' : 'Location'}
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-stone-900">
-                    {isUrdu ? portfolioData.personal.locationUrdu : portfolioData.personal.location}
-                  </span>
-                  <span className="text-[11px] text-stone-500 block">
-                    WANG & Wang Lab of Innovation (WALI)
+                  <span className="text-xs sm:text-sm font-bold text-white">
+                    {isUrdu ? portfolioData.contact.locationUrdu : portfolioData.contact.location}
                   </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: In-Browser Collaboration Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white border border-stone-200 rounded-xl p-6 sm:p-8 shadow-xs">
-            <h3 className="text-lg font-bold text-stone-900 mb-1">
-              {isUrdu ? 'آن لائن پیغام یا ورکشاپ کی درخواست' : 'Online Workshop & Collaboration Form'}
+          {/* Right Column: Collaboration Request Form */}
+          <div className="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-3xl p-7 sm:p-9 shadow-xl backdrop-blur-md">
+            <h3 className="text-2xl font-bold text-white mb-1.5">
+              {isUrdu ? 'پیغام یا ورکشاپ کی درخواست بھیجیں' : 'Send an Inquiry / Collaboration Request'}
             </h3>
-            <p className="text-xs text-stone-500 mb-6">
+            <p className="text-xs text-slate-400 mb-7">
               {isUrdu
-                ? 'براہ کرم اپنی تنظیم اور مطلوبہ پروگرام کی تفصیل درج کریں۔ آپ کا پیغام فوری لاگ میں محفوظ ہو جائے گا۔'
-                : 'Submit details of your workshop, speaking session, or development project directly.'}
+                ? 'اے آئی ورکشاپس، ڈیجیٹل خواندگی سیشنز، یا ویڈیو مواد کے منصوبوں کی تفصیل شیئر کریں۔'
+                : 'Share details of your training workshop, educational program, or creative media project.'}
             </p>
 
             {submitted ? (
-              <div className="p-6 bg-emerald-50 border border-emerald-200 rounded-xl space-y-4">
+              <div className="p-6 bg-emerald-950/40 border border-emerald-800/80 rounded-2xl space-y-4">
                 <div className="flex items-center gap-3">
-                  <CheckCircle className="w-7 h-7 text-emerald-800 shrink-0" />
+                  <CheckCircle className="w-7 h-7 text-emerald-400 shrink-0" />
                   <div>
-                    <h4 className="text-sm font-bold text-emerald-950">
-                      {isUrdu ? 'آپ کا پیغام کامیابی سے درج ہو گیا ہے!' : 'Inquiry Submitted Successfully!'}
+                    <h4 className="text-base font-bold text-white">
+                      {isUrdu ? 'شکریہ! آپ کا پیغام موصول ہو چکا ہے۔' : 'Thank you! Your message has been prepared.'}
                     </h4>
-                    <p className="text-xs text-emerald-900 font-mono mt-0.5">
-                      Reference ID: {inquiryId}
+                    <p className="text-xs text-emerald-300 mt-0.5">
+                      Salman Khan responds to training and project requests promptly.
                     </p>
                   </div>
                 </div>
 
-                <div className="p-3 bg-white/90 border border-emerald-200/80 rounded-lg text-xs space-y-1 text-stone-800">
-                  <div><span className="font-semibold text-stone-600">Sender:</span> {formState.name}</div>
-                  {formState.organization && <div><span className="font-semibold text-stone-600">Org:</span> {formState.organization}</div>}
-                  <div><span className="font-semibold text-stone-600">Type:</span> {formState.inquiryType}</div>
-                  <div className="pt-1 text-stone-600 italic">"{formState.message}"</div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 pt-1">
-                  <button
-                    onClick={handleCopyInquiry}
-                    className="px-3.5 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-semibold rounded-md transition-colors flex items-center gap-1.5 cursor-pointer"
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <a
+                    href={`mailto:${portfolioData.contact.email}?subject=Project Inquiry: ${formState.projectType}&body=From: ${formState.name} (${formState.email})%0D%0A%0D%0AMessage:%0D%0A${formState.message}`}
+                    className="px-5 py-2.5 bg-emerald-500 text-slate-950 rounded-xl text-xs font-bold hover:bg-emerald-400 shadow-md shadow-emerald-500/20"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'Copied Details' : 'Copy Inquiry Summary'}</span>
-                  </button>
-
+                    Open in Email App
+                  </a>
                   <button
                     onClick={() => {
                       setSubmitted(false);
-                      setFormState({ name: '', organization: '', inquiryType: 'workshop', message: '' });
+                      setFormState({ name: '', email: '', projectType: 'AI Training', message: '' });
                     }}
-                    className="px-3.5 py-1.5 bg-white text-stone-700 hover:bg-stone-100 border border-stone-300 text-xs font-medium rounded-md transition-colors cursor-pointer"
+                    className="px-5 py-2.5 bg-slate-800 text-slate-200 border border-slate-700 rounded-xl text-xs font-medium hover:bg-slate-700 cursor-pointer"
                   >
-                    {isUrdu ? 'نیا پیغام لکھیں' : 'Send Another'}
+                    Send Another
                   </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+              <form onSubmit={handleSubmit} className="space-y-5 text-xs">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="font-semibold text-stone-700 block">
-                      {isUrdu ? 'آپ کا نام' : 'Your Name / Representative'} <span className="text-rose-600">*</span>
+                  <div className="space-y-1.5">
+                    <label className="font-semibold text-slate-200 block">
+                      {isUrdu ? 'آپ کا نام' : 'Your Name'} <span className="text-rose-400">*</span>
                     </label>
                     <input
                       type="text"
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      placeholder="e.g. Tariq Baloch"
-                      className="w-full px-3 py-2 bg-[#fafaf8] border border-stone-200 rounded-md focus:outline-hidden focus:ring-1 focus:ring-emerald-700 focus:bg-white text-stone-900"
+                      placeholder="e.g. Asad Baloch"
+                      className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white placeholder-slate-600"
                     />
                   </div>
 
-                  <div className="space-y-1">
-                    <label className="font-semibold text-stone-700 block">
-                      {isUrdu ? 'تنظیم / سکول / ادارہ' : 'Organization / School / NGO'}
+                  <div className="space-y-1.5">
+                    <label className="font-semibold text-slate-200 block">
+                      {isUrdu ? 'ای میل ایڈریس' : 'Email Address'} <span className="text-rose-400">*</span>
                     </label>
                     <input
-                      type="text"
-                      value={formState.organization}
-                      onChange={(e) => setFormState({ ...formState, organization: e.target.value })}
-                      placeholder="e.g. Community School / NGO"
-                      className="w-full px-3 py-2 bg-[#fafaf8] border border-stone-200 rounded-md focus:outline-hidden focus:ring-1 focus:ring-emerald-700 focus:bg-white text-stone-900"
+                      type="email"
+                      required
+                      value={formState.email}
+                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                      placeholder="e.g. name@organization.com"
+                      className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white placeholder-slate-600"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="font-semibold text-stone-700 block">
-                    {isUrdu ? 'رابطے کا مقصد' : 'Purpose of Inquiry'}
+                <div className="space-y-1.5">
+                  <label className="font-semibold text-slate-200 block">
+                    {isUrdu ? 'پراجیکٹ یا سیشن کی قسم' : 'Project / Engagement Type'}
                   </label>
                   <select
-                    value={formState.inquiryType}
-                    onChange={(e) => setFormState({ ...formState, inquiryType: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#fafaf8] border border-stone-200 rounded-md focus:outline-hidden focus:ring-1 focus:ring-emerald-700 focus:bg-white text-stone-900"
+                    value={formState.projectType}
+                    onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
+                    className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white"
                   >
-                    <option value="workshop">Urdu AI / EdTech Workshop Invitation</option>
-                    <option value="literacy">Rural Digital Literacy Training</option>
-                    <option value="github">Open Source / GitHub Repo Collaboration</option>
-                    <option value="health">Public Health / Mobile Survey Project</option>
-                    <option value="consulting">General Speaking / Consultation</option>
+                    <option value="AI Training" className="bg-slate-900">AI Training & Workshops (Urdu / Local)</option>
+                    <option value="Digital Literacy" className="bg-slate-900">Digital Literacy Cohort (Rural / Community)</option>
+                    <option value="Content & Media" className="bg-slate-900">Content & Creative Video Production</option>
+                    <option value="Program Management" className="bg-slate-900">Program & Field Event Leadership</option>
+                    <option value="Speaking" className="bg-slate-900">Speaking Session / Panel Discussion</option>
                   </select>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="font-semibold text-stone-700 block">
-                    {isUrdu ? 'تفصیلی پیغام' : 'Message Details'} <span className="text-rose-600">*</span>
+                <div className="space-y-1.5">
+                  <label className="font-semibold text-slate-200 block">
+                    {isUrdu ? 'پیغام کی تفصیل' : 'Project Scope / Message'} <span className="text-rose-400">*</span>
                   </label>
                   <textarea
                     required
                     rows={4}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    placeholder={
-                      isUrdu
-                        ? 'ورکشاپ کی تاریخ، متوقع طلبہ کی تعداد، اور مقام کی تفصیل درج کریں...'
-                        : 'Provide details about your audience, dates, community location, or project scope...'
-                    }
-                    className="w-full px-3 py-2 bg-[#fafaf8] border border-stone-200 rounded-md focus:outline-hidden focus:ring-1 focus:ring-emerald-700 focus:bg-white text-stone-900"
+                    placeholder="Tell me about your participants, dates, or creative requirements..."
+                    className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white placeholder-slate-600"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-6 py-2.5 bg-emerald-800 hover:bg-emerald-900 text-white font-semibold rounded-md transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-7 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 cursor-pointer hover:scale-102"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>{isUrdu ? 'پیغام لاگ میں محفوظ کریں' : 'Submit Inquiry'}</span>
+                  <span>{isUrdu ? 'پیغام بھیجیں' : 'Send Message'}</span>
                 </button>
               </form>
             )}

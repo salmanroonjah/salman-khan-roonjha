@@ -1,6 +1,6 @@
 import React from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { Heart, ArrowUp } from 'lucide-react';
+import { ArrowUp, Heart } from 'lucide-react';
 
 interface FooterProps {
   lang: 'en' | 'ur';
@@ -15,56 +15,57 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
   };
 
   return (
-    <footer className="bg-stone-900 text-stone-300 py-12 border-t border-stone-800 text-xs">
+    <footer className="bg-[#070A0F] text-slate-400 py-14 border-t border-slate-800 text-xs">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-stone-800">
-          <div>
-            <div className="text-base font-bold text-white tracking-tight">
-              {isUrdu ? portfolioData.personal.nameUrdu : portfolioData.personal.name}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800/80">
+          <div className="max-w-md">
+            <div className="text-base font-extrabold text-white tracking-tight">
+              {isUrdu ? portfolioData.hero.headlineUrdu : portfolioData.hero.headline}
             </div>
-            <p className="text-stone-400 mt-0.5 text-xs">
-              {isUrdu ? portfolioData.personal.titleUrdu : portfolioData.personal.title}
+            {/* Sub-headline / short bio */}
+            <p className="text-slate-400 mt-1 text-xs leading-relaxed">
+              {isUrdu ? portfolioData.footer.shortBioUrdu : portfolioData.footer.shortBio}
             </p>
-            <p className="text-stone-500 text-[11px] mt-1">
-              Lasbela, Balochistan, Pakistan · GitHub: github.com/salmanroonjah
+            <p className="text-slate-500 text-[11px] mt-2 font-mono">
+              {portfolioData.contact.location} · {portfolioData.contact.email}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 text-stone-300 font-medium">
-            <a href="#about" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap items-center gap-6 text-slate-300 font-medium">
+            <a href="#about" className="hover:text-emerald-400 transition-colors">
               {isUrdu ? 'تعارف' : 'About'}
             </a>
-            <a href="#experience" className="hover:text-white transition-colors">
+            <a href="#what-i-do" className="hover:text-emerald-400 transition-colors">
+              {isUrdu ? 'خدمات' : 'What I Do'}
+            </a>
+            <a href="#experience" className="hover:text-emerald-400 transition-colors">
               {isUrdu ? 'تجربہ' : 'Experience'}
             </a>
-            <a href="#urdu-ai" className="hover:text-white transition-colors">
-              {isUrdu ? 'اردو اے آئی' : 'Urdu AI'}
+            <a href="#my-work" className="hover:text-emerald-400 transition-colors">
+              {isUrdu ? 'میرا کام' : 'My Work'}
             </a>
-            <a href="#github-projects" className="hover:text-white transition-colors">
-              {isUrdu ? 'گٹ ہب ریپوز' : 'GitHub Repos'}
-            </a>
-            <a href="https://github.com/salmanroonjah" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
-              <span>GitHub</span>
+            <a href="#certifications" className="hover:text-emerald-400 transition-colors">
+              {isUrdu ? 'اسناد' : 'Certifications'}
             </a>
             <button
               onClick={onOpenResume}
-              className="text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer"
+              className="text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer font-bold"
             >
-              {isUrdu ? 'نصابِ حیات (CV)' : 'Full Resume'}
+              {isUrdu ? 'نصابِ حیات (CV)' : 'Full CV'}
             </button>
           </div>
         </div>
 
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-stone-500 text-[11px]">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[11px]">
           <div>
             © {new Date().getFullYear()} Salman Khan. {isUrdu ? 'جملہ حقوق محفوظ ہیں۔' : 'All rights reserved.'}
           </div>
 
           <div className="flex items-center gap-4">
-            <span>District Lasbela, Balochistan</span>
+            <span>Bela, Lasbela, Balochistan</span>
             <button
               onClick={scrollToTop}
-              className="flex items-center gap-1 text-stone-400 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1 text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer"
             >
               <span>{isUrdu ? 'اوپر جائیں' : 'Back to Top'}</span>
               <ArrowUp className="w-3.5 h-3.5" />

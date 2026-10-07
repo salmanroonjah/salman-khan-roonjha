@@ -1,7 +1,7 @@
-# Salman Khan – Professional Portfolio & EdTech Profile
+# Salman Khan | AI Trainer & Digital Literacy Specialist, Pakistan
 
-> **Community Development Practitioner & EdTech Trainer**  
-> *District Lasbela, Balochistan, Pakistan*
+> **AI Trainer · Digital Literacy Specialist · Creative Professional**  
+> *Bela, Lasbela, Balochistan, Pakistan*
 
 [![React 19](https://img.shields.io/badge/React-19.0-61dafb.svg?style=flat&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6.svg?style=flat&logo=typescript)](https://www.typescriptlang.org/)
@@ -9,156 +9,84 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8.svg?style=flat&logo=tailwindcss)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-An editorial, high-performance portfolio website built for **Salman Khan**, bridging the digital divide in rural Balochistan through **Artificial Intelligence literacy in Urdu**, public health crisis coordination, and disaster resilience data collection.
+Official professional portfolio of **Salman Khan**, certified AI instructor (AI Singapore & AVPN) who has trained **2,500+** learners across Balochistan in Urdu and regional languages.
 
 ---
 
-## 🌟 Key Highlights & Features
+## 🌟 Key Sections
 
-- **🌐 Bilingual Architecture (English & Urdu)**:
-  - Real-time language toggle with custom typography (`Noto Nastaliq Urdu` & `Plus Jakarta Sans`).
-  - Culturally authentic translations for rural education and community development terminology.
-- **🤖 Signature Urdu AI Pedagogy**:
-  - Interactive classroom prompt playground demonstrating how complex generative AI concepts (System Roles, Chain-of-Thought, Context Guardrails) are simplified in Urdu for learners with zero technical background.
-- **📊 Field-Verified Track Record**:
-  - Filterable case studies covering:
-    - *Urdu AI Training Program (WANG)*
-    - *Wang Lab of Innovation (WALI)*
-    - *Medical Emergency Resilience Foundation (MERF)* – Malaria Prevention & Red Rose Mobile App
-    - *IFRAP Disaster Recovery* – Post-flood field assessments
-    - *Climate Smart Feed Technology* – Agri-tech sustainability
-- **🔒 Privacy-First Contact Architecture**:
-  - Zero raw phone numbers or personal emails exposed to prevent web scraping and unsolicited spam.
-  - Interactive collaboration form with local reference ID logging, copyable summaries, and direct GitHub collaboration.
-- **💻 Open-Source & GitHub-Friendly**:
-  - Dedicated GitHub repository showcases for open curriculum worksheets, survey data hygiene scripts, and climate calculators.
-- **📄 Executive Print-Ready CV**:
-  - 1-click formatted curriculum vitae with specialized print media styling (`@media print`).
+1. **Home (Hero Section)**:
+   - **Headline**: Salman Khan
+   - **Sub-headline**: AI Trainer · Digital Literacy Specialist · Creative Professional
+   - **Intro line**: *"I help students, professionals and rural communities understand and use AI, in their own language."*
+   - **Actions**: `[View My Work]` and `[Contact Me]`
 
----
+2. **About Me**:
+   - AI trainer and digital literacy specialist making technology accessible to students, youth, and rural communities in Urdu and local languages.
+   - Master Trainer with the Urdu AI Training Program at WANG, having trained 2,500+ participants across schools, colleges, vocational centers, and community spaces.
+   - Multilingual communicator speaking **Urdu, Balochi, Brahui, and English**.
 
-## 🚀 Deploying to GitHub Pages (Live Preview)
+3. **What I Do**:
+   - **AI Training & Workshops**: Hands-on sessions on AI tools, prompting and responsible AI use.
+   - **Digital Literacy**: Computer fundamentals, internet use and essential digital tools for first-time learners.
+   - **Content & Creative Work**: Videos, graphics and written content, social media management and brand communication.
+   - **Program & Event Management**: Planning and coordinating training programs, supervising teams, and preparing reports.
 
-The repository includes a ready-to-use automated **GitHub Actions Workflow** (`.github/workflows/deploy.yml`) and relative asset paths (`base: './'`) to prevent the common white screen error.
+4. **Impact in Numbers**:
+   - **2,500+** participants trained
+   - **4+ years** of professional experience
+   - **4 languages**: Urdu, Balochi, Brahui, English
+   - **1 international certification**: AI Singapore & AVPN Certified Instructor
 
-### Option A: Automatic Deployment via GitHub Actions (Recommended)
+5. **Experience**:
+   - **Acting Project Lead** | Urdu AI Training Program – WANG | Jan 2026 – May 2026
+   - **Master Trainer** | Urdu AI Training Program – WANG | May 2025 – Present
+   - **Creative Officer** | UrduAI.org | June 2024 – Present
+   - **Course Instructor** | Wang Lab of Innovation (WALI) | June 2024 – Present
+   - **IT & Social Media Manager** | Climate Smart Feed Technology | Jan 2022 – Present
+   - **Earlier Field Roles**: Enumerator (IFRAP flood resilience project) and Team Supervisor (MERF, LLIN distribution).
 
-1. **Push your code to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Configure GitHub Pages automated build"
-   git push origin main
-   ```
+6. **My Work (Videos & Creative Projects)**:
+   - Instructional video series, educational awareness campaigns, visual brand design, and community media coverage across 4 categories: *Training Videos*, *Educational Content*, *Graphics & Design*, and *Social Media Campaigns*.
 
-2. **Enable GitHub Actions in Repository Settings**:
-   - Go to your repository on GitHub.
-   - Click on **Settings** (top navigation).
-   - In the left sidebar, click on **Pages**.
-   - Under **Build and deployment > Source**, select **GitHub Actions**.
-   - That's it! GitHub will automatically trigger the workflow, compile React with Vite, and provide your live URL (e.g. `https://<username>.github.io/<repo>/`) within ~1 minute!
+7. **Certifications & Recognition**:
+   - **AI Opportunity Fund: Asia-Pacific Certified Instructor** – AI Singapore & AVPN (2025)
+   - **AI Fundamentals** – AI Singapore & AVPN (2025)
+   - **Urdu AI Master Class on Automation** – Urdu AI (2025)
+   - **International Festival of Youth 2026** – Participant, one of 10,000 young leaders from 191 countries, Ekaterinburg, Russia
 
-### Option B: One-Command Deployment (`npm run deploy`)
-
-If you prefer deploying directly from your terminal:
-```bash
-npm run deploy
-```
-This automatically compiles your site into `dist/` and publishes it to the `gh-pages` branch on GitHub with `.nojekyll` enabled! Under **Settings > Pages**, just set branch to `gh-pages`.
+8. **Contact & Coordinates**:
+   - **Email**: `salmankhanroonjah@gmail.com`
+   - **Phone**: `+92 315 8059365`
+   - **Location**: Bela, Lasbela, Balochistan, Pakistan
+   - **LinkedIn**: [linkedin.com/in/salmankhanroonjah](https://linkedin.com/in/salmankhanroonjah)
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Architecture
 
-- **Framework**: [React 19](https://react.dev/)
-- **Build Tool**: [Vite 8](https://vitejs.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (using `@import "tailwindcss";`)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Design Philosophy**: Strict adherence to the Universal Frontend Design Constitution (anti-slop, zero-pill discipline, 60-30-10 color balance, tabular numbers).
-
----
-
-## 🚀 Getting Started Locally
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (version 18 or higher recommended)
-- `npm` or `yarn` or `pnpm`
-
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/salmankhan/portfolio.git
-   cd portfolio
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start the local development server**:
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000) (or the port indicated in your console) to view the application.
-
-4. **Build for production**:
-   ```bash
-   npm run build
-   ```
-   The optimized production bundle will be output to the `dist/` directory.
+- **Framework**: React 19
+- **Build Tool**: Vite 8 (with ES module output)
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript 5
+- **Icons**: Lucide React
+- **Bilingual Typography**: Plus Jakarta Sans, Outfit & Noto Nastaliq Urdu
 
 ---
 
-## 📂 Project Structure
+## 🚀 Deployment Rules & Hosting
 
-```text
-├── index.html                  # HTML entry point with Schema.org JSON-LD & Web Fonts
-├── package.json                # Project dependencies and npm scripts
-├── tsconfig.json               # TypeScript configuration
-├── vite.config.ts              # Vite & Tailwind configuration
-├── src/
-│   ├── App.tsx                 # Main application component & layout assembly
-│   ├── main.tsx                # React root hydration
-│   ├── index.css               # Global Tailwind CSS & print media rules
-│   ├── data/
-│   │   └── portfolioData.ts    # Centralized CV & portfolio content (EN & UR)
-│   └── components/
-│       ├── Navbar.tsx          # Responsive 3-zone header with language toggle & GitHub
-│       ├── Hero.tsx            # Editorial split hero section
-│       ├── ImpactStats.tsx     # Tabular impact figures
-│       ├── ExperienceShowcase.tsx # Filterable timeline of field initiatives
-│       ├── UrduAiShowcase.tsx  # Interactive prompt playground & pedagogy
-│       ├── SkillsSection.tsx   # 3-column competencies matrix
-│       ├── GitHubShowcase.tsx  # GitHub repositories & open-source tools
-│       ├── CertificationsEducation.tsx # Accreditations & academic degrees
-│       ├── ContactSection.tsx  # Privacy-friendly collaboration form
-│       ├── ProjectDetailModal.tsx # Full case study drawer
-│       ├── ResumeModal.tsx     # Printable curriculum vitae
-│       └── Footer.tsx          # Clean restrained footer with GitHub links
-```
+### Cloudflare Pages (Production)
 
----
-
-## 📜 Certifications & Honors
-
-- **AI Opportunity Fund: Asia-Pacific Certified Instructor** (AI Singapore & AVPN, 2025)
-- **Urdu AI Master Class on Automation** (Urdu AI, 2025)
-- **Research & Data Collection Certification** (MERF, 2023)
-- **Local Action Baithak on Climate Action** (WANG, 2024)
-- **BS Computer Science** (LUAWMS, 2019–2023)
-- **B.Ed (1.5 Years)** (Allama Iqbal Open University, In Progress)
-
----
-
-## 🤝 Collaboration & Inquiries
-
-To propose educational workshops, speaking engagements, or NGO research partnerships in Balochistan, please use the on-site collaboration form or open an issue/discussion on GitHub.
+- **Framework Preset**: `None`
+- **Build Command**: `npm run build`
+- **Build Output Directory**: `dist`
+- **Node Version**: Node 20 (`.nvmrc` configured)
+- **SPA Routing**: `public/_redirects` generates `dist/_redirects` (`/* /index.html 200`)
+- **Lockfile Rule**: Only `package-lock.json` and `package.json` are used (Bun lockfiles are strictly ignored via `.gitignore` to avoid Cloudflare parsing errors).
 
 ---
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License.

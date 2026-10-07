@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ImpactStats } from './components/ImpactStats';
+import { AboutSection } from './components/AboutSection';
+import { WhatIDoSection } from './components/WhatIDoSection';
 import { ExperienceShowcase } from './components/ExperienceShowcase';
-import { UrduAiShowcase } from './components/UrduAiShowcase';
-import { GitHubShowcase } from './components/GitHubShowcase';
-import { SkillsSection } from './components/SkillsSection';
-import { CertificationsEducation } from './components/CertificationsEducation';
+import { WorkShowcase } from './components/WorkShowcase';
+import { CertificationsSection } from './components/CertificationsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { ResumeModal } from './components/ResumeModal';
-import { ExperienceItem } from './data/portfolioData';
 
 export default function App() {
   const [lang, setLang] = useState<'en' | 'ur'>('en');
-  const [selectedExperience, setSelectedExperience] = useState<ExperienceItem | null>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   const handleOpenContact = () => {
@@ -28,11 +24,11 @@ export default function App() {
   return (
     <div
       id="top"
-      className={`min-h-screen bg-[#fafaf8] text-stone-800 ${
-        lang === 'ur' ? 'font-sans selection:bg-emerald-200' : 'font-sans'
+      className={`min-h-screen bg-[#0B0F17] text-slate-100 ${
+        lang === 'ur' ? 'font-sans selection:bg-emerald-500 selection:text-slate-950' : 'font-sans selection:bg-emerald-500 selection:text-slate-950'
       }`}
     >
-      {/* Primary Top Bar adhering to Top Bar Contract */}
+      {/* 3-Zone Sticky Navigation Bar */}
       <Navbar
         lang={lang}
         setLang={setLang}
@@ -41,52 +37,42 @@ export default function App() {
       />
 
       <main>
-        {/* Editorial Split Hero */}
+        {/* 1. Home (Hero Section) */}
         <Hero
           lang={lang}
           onOpenResume={() => setIsResumeOpen(true)}
           onOpenContact={handleOpenContact}
         />
 
-        {/* Tabular Impact Figures */}
-        <ImpactStats lang={lang} />
+        {/* 2. About Me & 4. Impact in Numbers */}
+        <AboutSection lang={lang} />
 
-        {/* Filterable Experience & Grassroots Case Studies */}
+        {/* 3. What I Do (4 Core Domains) */}
+        <WhatIDoSection lang={lang} />
+
+        {/* 5. Experience Timeline + Earlier Field Roles */}
         <ExperienceShowcase
           lang={lang}
-          onSelectExperience={(exp) => setSelectedExperience(exp)}
+          onOpenResume={() => setIsResumeOpen(true)}
         />
 
-        {/* Signature Educational Spotlight: Generative AI in Urdu */}
-        <UrduAiShowcase lang={lang} />
+        {/* 6. My Work (Videos & Creative Projects) */}
+        <WorkShowcase lang={lang} />
 
-        {/* 3-Column Skills Matrix */}
-        <SkillsSection lang={lang} />
+        {/* 7. Certifications & Recognition */}
+        <CertificationsSection lang={lang} />
 
-        {/* GitHub Repositories & Open Source Showcase */}
-        <GitHubShowcase lang={lang} />
-
-        {/* Verified Accreditations & Academic Degrees */}
-        <CertificationsEducation lang={lang} />
-
-        {/* Direct Contact & Collaboration Form */}
+        {/* 8. Contact & Collaboration */}
         <ContactSection lang={lang} />
       </main>
 
-      {/* Restrained Editorial Footer */}
+      {/* 9. Footer with Short Bio & Meta */}
       <Footer
         lang={lang}
         onOpenResume={() => setIsResumeOpen(true)}
       />
 
-      {/* Case Study Deep-Dive Modal */}
-      <ProjectDetailModal
-        experience={selectedExperience}
-        onClose={() => setSelectedExperience(null)}
-        lang={lang}
-      />
-
-      {/* Official Printable Resume / CV Modal */}
+      {/* Official Curriculum Vitae Modal */}
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}

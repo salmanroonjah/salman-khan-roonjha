@@ -1,149 +1,107 @@
-import React, { useState } from 'react';
-import { portfolioData, ExperienceItem } from '../data/portfolioData';
-import { Briefcase, Calendar, MapPin, ArrowRight, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { portfolioData } from '../data/portfolioData';
+import { Briefcase, Calendar, MapPin, Download, CheckCircle2 } from 'lucide-react';
 
 interface ExperienceShowcaseProps {
   lang: 'en' | 'ur';
-  onSelectExperience: (item: ExperienceItem) => void;
+  onOpenResume: () => void;
 }
 
-export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({
-  lang,
-  onSelectExperience,
-}) => {
+export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({ lang, onOpenResume }) => {
   const isUrdu = lang === 'ur';
-  const [filter, setFilter] = useState<'all' | 'edtech' | 'health' | 'crisis' | 'agritech'>('all');
-
-  const filteredExperiences = portfolioData.experiences.filter((exp) => {
-    if (filter === 'all') return true;
-    return exp.category === filter;
-  });
-
-  const categories = [
-    { key: 'all', label: 'All Initiatives', labelUrdu: 'تمام منصوبے' },
-    { key: 'edtech', label: 'AI & EdTech', labelUrdu: 'اے آئی و تعلیم' },
-    { key: 'health', label: 'Public Health', labelUrdu: 'صحتِ عامہ' },
-    { key: 'crisis', label: 'Disaster Relief', labelUrdu: 'سیلاب و آفات' },
-    { key: 'agritech', label: 'Agri-Tech & Climate', labelUrdu: 'ماحولیات و زراعت' },
-  ];
 
   return (
-    <section id="experience" className="py-16 bg-[#fafaf8] border-b border-stone-200/80">
+    <section id="experience" className="py-20 sm:py-24 border-b border-slate-800/80 bg-[#0E131F] relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        {/* Section Header with [Download Full CV] button */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-800 tracking-wider uppercase mb-1">
-              <span>{isUrdu ? 'پیشہ ورانہ سفر' : 'Track Record & Leadership'}</span>
-              <span aria-hidden="true">·</span>
-              <span>{isUrdu ? 'عملی تجربہ' : 'Field-Verified Impact'}</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wider uppercase mb-2">
+              <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{isUrdu ? 'پیشہ ورانہ سفر' : 'Professional Journey'}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-              {isUrdu ? 'پیشہ ورانہ تجربات اور فیلڈ منصوبے' : 'Professional Experience & Field Initiatives'}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+              {isUrdu ? 'تجربہ اور فیلڈ قیادت (Experience)' : 'Professional Experience'}
             </h2>
-            <p className="text-sm text-stone-600 mt-1 max-w-xl">
+            <p className="text-slate-400 text-sm sm:text-base mt-2 max-w-xl">
               {isUrdu
-                ? 'تعلیم، صحت، قدرتی آفات اور موسمیاتی پائیداری کے شعبوں میں نچلی سطح پر کی گئی قیادت اور عملی کام کا احاطہ۔'
-                : 'Direct field supervisory and instructional roles bridging technical tools with grassroots reality in Balochistan.'}
+                ? 'بلوچستان کے تعلیمی اداروں اور کمیونٹیز میں فیلڈ آپریشنز، تدریس اور ڈیجیٹل مینجمنٹ کی قیادت۔'
+                : 'A track record of field operations, training delivery, creative leadership, and digital infrastructure management across Balochistan.'}
             </p>
           </div>
 
-          {/* Interactive Filter Tabs (Functional segmented control) */}
-          <div className="flex items-center gap-1 p-1 bg-stone-200/70 rounded-lg overflow-x-auto self-start md:self-auto max-w-full">
-            {categories.map((cat) => (
-              <button
-                key={cat.key}
-                onClick={() => setFilter(cat.key as any)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
-                  filter === cat.key
-                    ? 'bg-white text-stone-900 shadow-2xs font-semibold'
-                    : 'text-stone-600 hover:text-stone-900'
-                }`}
-              >
-                {isUrdu ? cat.labelUrdu : cat.label}
-              </button>
-            ))}
-          </div>
+          <button
+            onClick={onOpenResume}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs sm:text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 self-start md:self-auto cursor-pointer"
+          >
+            <Download className="w-4 h-4 text-slate-950" />
+            <span>{isUrdu ? 'مکمل سی وی ڈاؤن لوڈ کریں' : 'Download Full CV'}</span>
+          </button>
         </div>
 
-        {/* Experience Timeline Cards */}
+        {/* Experience Timeline */}
         <div className="space-y-6">
-          {filteredExperiences.map((exp, index) => (
+          {portfolioData.experience.map((exp) => (
             <div
               key={exp.id}
-              className="bg-white border border-stone-200/90 rounded-xl p-6 shadow-2xs hover:border-emerald-700/40 transition-all group"
+              className="bg-slate-900/80 border border-slate-800 rounded-3xl p-7 sm:p-9 hover:border-emerald-500/40 transition-all shadow-md group"
             >
-              <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-4">
+              <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-3 mb-4">
                 <div>
-                  <div className="flex items-center gap-2 text-xs text-emerald-800 font-semibold mb-1">
-                    <span>{isUrdu ? exp.categoryLabelUrdu : exp.categoryLabel}</span>
-                    <span aria-hidden="true" className="text-stone-300">·</span>
-                    <span className="text-stone-500 font-medium">
-                      0{index + 1}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-stone-900 group-hover:text-emerald-900 transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-emerald-400 transition-colors">
                     {isUrdu ? exp.roleUrdu : exp.role}
                   </h3>
-                  <div className="text-sm font-semibold text-stone-700 mt-0.5">
+                  <div className="text-sm sm:text-base font-bold text-emerald-400 mt-0.5">
                     {isUrdu ? exp.organizationUrdu : exp.organization}
                   </div>
                 </div>
 
-                {/* Metadata: Period & Location (Unboxed text with separators) */}
-                <div className="flex flex-wrap md:flex-col items-start md:items-end gap-x-3 gap-y-1 text-xs text-stone-500 shrink-0">
-                  <div className="flex items-center gap-1.5 font-medium text-stone-700">
-                    <Calendar className="w-3.5 h-3.5 text-stone-400" />
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono">
+                  <div className="flex items-center gap-1.5 font-semibold text-slate-200 bg-slate-950 px-3 py-1 rounded-md border border-slate-800">
+                    <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                     <span>{isUrdu ? exp.periodUrdu : exp.period}</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-stone-400" />
-                    <span>{exp.location}</span>
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                    <span>{isUrdu ? exp.locationUrdu : exp.location}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Summary */}
-              <p className="text-sm text-stone-700 mb-4 leading-relaxed font-normal">
+              {/* Summary line */}
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-5 font-normal">
                 {isUrdu ? exp.summaryUrdu : exp.summary}
               </p>
 
-              {/* Bullet Points directly from CV */}
-              <div className="space-y-2 mb-5">
-                {(isUrdu ? exp.bulletsUrdu : exp.bullets).map((bullet, bIdx) => (
-                  <div key={bIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-stone-600 leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-700 mt-2 shrink-0" />
-                    <span>{bullet}</span>
+              {/* Bullet points */}
+              <div className="pt-5 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-400">
+                {(isUrdu ? exp.bulletsUrdu : exp.bullets).map((bullet, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="text-slate-300">{bullet}</span>
                   </div>
                 ))}
               </div>
-
-              {/* Bottom Footer of Card: Tools & Skills (Clean inline tags) + Impact + Deep Dive Action */}
-              <div className="pt-4 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                {/* Tools as clean text items */}
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-stone-500">
-                  <span className="font-semibold text-stone-700">{isUrdu ? 'ٹولز:' : 'Key Tools:'}</span>
-                  {exp.toolsAndSkills.map((tool, tIdx) => (
-                    <React.Fragment key={tool}>
-                      <span className="text-stone-700">{tool}</span>
-                      {tIdx < exp.toolsAndSkills.length - 1 && (
-                        <span aria-hidden="true" className="text-stone-300">·</span>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-
-                {/* Case Study Details Button */}
-                <button
-                  onClick={() => onSelectExperience(exp)}
-                  className="inline-flex items-center gap-1.5 font-semibold text-emerald-800 hover:text-emerald-950 transition-colors self-start sm:self-auto cursor-pointer"
-                >
-                  <span>{isUrdu ? 'کیس اسٹڈی کی تفصیلات' : 'View Full Case Study'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </div>
           ))}
+
+          {/* Earlier Field Roles Card */}
+          <div className="bg-slate-950/90 border border-slate-800 rounded-3xl p-7 sm:p-8 space-y-4">
+            <div className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">
+              {isUrdu ? portfolioData.earlierRoles.titleUrdu : portfolioData.earlierRoles.title}
+            </div>
+            <p className="text-white text-sm sm:text-base font-semibold">
+              {isUrdu ? portfolioData.earlierRoles.descriptionUrdu : portfolioData.earlierRoles.description}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              {portfolioData.earlierRoles.roles.map((item, idx) => (
+                <div key={idx} className="p-4 bg-slate-900/90 border border-slate-800 rounded-2xl text-xs space-y-1">
+                  <div className="font-bold text-white">{item.title} · <span className="text-emerald-400">{item.project}</span></div>
+                  <div className="text-slate-400">{item.scope}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
