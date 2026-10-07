@@ -37,6 +37,28 @@ An editorial, high-performance portfolio website built for **Salman Khan**, brid
 
 ---
 
+## 🚀 Deploying to GitHub Pages (Live Preview)
+
+The repository includes a ready-to-use automated **GitHub Actions Workflow** (`.github/workflows/deploy.yml`) and relative asset paths (`base: './'`) to prevent the common white screen error.
+
+### How to Enable in 2 Steps:
+
+1. **Push your code to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Configure GitHub Pages automated build"
+   git push origin main
+   ```
+
+2. **Enable GitHub Actions in GitHub Repository Settings**:
+   - Go to your repository on GitHub.
+   - Click on **Settings** (top navigation).
+   - In the left sidebar, click on **Pages**.
+   - Under **Build and deployment > Source**, select **GitHub Actions** (do NOT select "Deploy from a branch").
+   - That's it! GitHub will automatically trigger the workflow, compile React with Vite, and provide your live URL (e.g. `https://<username>.github.io/<repo>/`) within ~1 minute!
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Framework**: [React 19](https://react.dev/)
