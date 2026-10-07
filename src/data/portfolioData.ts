@@ -12,6 +12,12 @@ export interface ExperienceItem {
   summaryUrdu: string;
   bullets: string[];
   bulletsUrdu: string[];
+  links?: {
+    website?: string;
+    linkedin?: string;
+    instagram?: string;
+    facebook?: string;
+  };
 }
 
 export interface ServiceItem {
@@ -150,9 +156,9 @@ export const portfolioData = {
       subUrdu: "اردو، بلوچی، براہوی، انگریزی"
     },
     {
-      value: "1",
-      label: "international certification",
-      labelUrdu: "بین الاقوامی سرٹیفیکیشن",
+      value: "2",
+      label: "international certifications",
+      labelUrdu: "بین الاقوامی سرٹیفیکیشنز",
       sub: "AI Singapore & AVPN Certified Instructor",
       subUrdu: "ایشیا پیسیفک سند یافتہ انسٹرکٹر"
     }
@@ -171,6 +177,12 @@ export const portfolioData = {
       locationUrdu: "لسبیلہ و علاقائی مراکز",
       summary: "Led field operations: coordinated training sessions with universities, colleges and community leaders, supervised the field team, managed project data and prepared progress reports.",
       summaryUrdu: "فیلڈ آپریشنز کی قیادت کی: یونیورسٹیوں، کالجوں اور کمیونٹی رہنماؤں کے ساتھ سیشنز کی ہم آہنگی، فیلڈ ٹیم کی نگرانی، پروجیکٹ ڈیٹا کا انتظام اور پیش رفت رپورٹس کی تیاری۔",
+      links: {
+        website: "https://wang.org.pk",
+        linkedin: "https://linkedin.com/company/wang-pakistan",
+        instagram: "https://instagram.com/wangpakistan",
+        facebook: "https://facebook.com/wangpakistan"
+      },
       bullets: [
         "Led field operations across multiple institutions and educational clusters.",
         "Coordinated training sessions with universities, colleges and community leaders.",
@@ -196,6 +208,11 @@ export const portfolioData = {
       locationUrdu: "بلوچستان، پاکستان",
       summary: "Deliver AI workshops in Urdu, covering AI tools, prompting strategies, and responsible use (misinformation, deepfakes, data privacy).",
       summaryUrdu: "اردو میں اے آئی ورکشاپس کی تدریس، جس میں اے آئی ٹولز، پرامپٹنگ کی حکمت عملی اور ذمہ دارانہ استعمال (غلط معلومات، ڈیپ فیکس، ڈیٹا پرائیویسی) شامل ہیں۔",
+      links: {
+        website: "https://wang.org.pk",
+        linkedin: "https://linkedin.com/company/wang-pakistan",
+        instagram: "https://instagram.com/wangpakistan"
+      },
       bullets: [
         "Deliver hands-on AI workshops in Urdu for learners with zero technical background.",
         "Cover foundational prompting strategies, role assignment, and workflow automation.",
@@ -221,6 +238,12 @@ export const portfolioData = {
       locationUrdu: "ریموٹ / ہائبرڈ",
       summary: "Create videos, graphics and written content, and manage social media and community engagement.",
       summaryUrdu: "ویڈیوز، گرافکس اور تحریری مواد کی تیاری، اور سوشل میڈیا و کمیونٹی روابط کی دیکھ بھال۔",
+      links: {
+        website: "https://urduai.org",
+        linkedin: "https://linkedin.com/company/urdu-ai",
+        instagram: "https://instagram.com/urduai_org",
+        facebook: "https://facebook.com/urduai.org"
+      },
       bullets: [
         "Script and edit educational video tutorials explaining AI concepts in accessible Urdu.",
         "Design visual banners, infographics, and carousel guides for digital platforms.",
@@ -246,6 +269,11 @@ export const portfolioData = {
       locationUrdu: "لسبیلہ، بلوچستان",
       summary: "Teach digital literacy and computer fundamentals to rural communities.",
       summaryUrdu: "دیہی کمیونٹیز کو ڈیجیٹل خواندگی اور کمپیوٹر کی بنیادی مہارتوں کی تدریس۔",
+      links: {
+        website: "https://wang.org.pk",
+        linkedin: "https://linkedin.com/company/wang-pakistan",
+        instagram: "https://instagram.com/wangpakistan"
+      },
       bullets: [
         "Instruct first-time computer learners in basic operating systems, typing, and navigation.",
         "Teach safe internet browsing, email communication, and online research skills.",
@@ -271,6 +299,11 @@ export const portfolioData = {
       locationUrdu: "لسبیلہ، بلوچستان",
       summary: "Manage IT operations and social media for the startup.",
       summaryUrdu: "سٹارٹ اپ کے آئی ٹی آپریشنز اور سوشل میڈیا مہمات کا انتظام۔",
+      links: {
+        website: "https://climatesmartfeed.com",
+        linkedin: "https://linkedin.com/company/climatesmartfeed",
+        facebook: "https://facebook.com/climatesmartfeed"
+      },
       bullets: [
         "Oversee startup digital infrastructure, hardware systems, and web presence.",
         "Lead social media campaigns to educate regional farmers on sustainable livestock feed.",
@@ -497,10 +530,59 @@ export const portfolioData = {
     phoneDisplay: "+92 315 8059365",
     whatsappLink: "https://wa.me/923158059365",
     linkedIn: "https://linkedin.com/in/salmankhanroonjah",
-    github: "https://github.com/salmanroonjah",
+    instagram: "https://instagram.com/salmankhanroonjah",
+    facebook: "https://facebook.com/salmankhanroonjah",
     location: "Bela, Lasbela, Balochistan, Pakistan",
     locationUrdu: "بیلہ، ضلع لسبیلہ، بلوچستان، پاکستان"
   },
+
+  socialPlatforms: [
+    {
+      id: "linkedin",
+      platform: "LinkedIn",
+      platformUrdu: "لنکڈ اِن",
+      handle: "salmankhanroonjah",
+      url: "https://linkedin.com/in/salmankhanroonjah",
+      roleText: "Professional Updates & AI Pedagogy",
+      roleTextUrdu: "پیشہ ورانہ اپڈیٹس اور اے آئی تدریس",
+      actionText: "Connect on LinkedIn",
+      actionTextUrdu: "لنکڈ اِن پر جڑیں",
+      color: "from-blue-600 to-sky-700",
+      accentColor: "text-sky-400",
+      borderColor: "border-sky-500/30",
+      badgeText: "Professional Network"
+    },
+    {
+      id: "instagram",
+      platform: "Instagram",
+      platformUrdu: "انسٹاگرام",
+      handle: "@salmankhanroonjah",
+      url: "https://instagram.com/salmankhanroonjah",
+      roleText: "Behind-the-Scenes & Training Reels",
+      roleTextUrdu: "کلاس روم کی جھلکیاں اور ٹریننگ ریلز",
+      actionText: "Follow on Instagram",
+      actionTextUrdu: "انسٹاگرام پر فالو کریں",
+      color: "from-pink-600 via-purple-600 to-amber-500",
+      accentColor: "text-pink-400",
+      borderColor: "border-pink-500/30",
+      badgeText: "Visual Stories & Reels"
+    },
+    {
+      id: "facebook",
+      platform: "Facebook",
+      platformUrdu: "فیس بک",
+      handle: "salmankhanroonjah",
+      url: "https://facebook.com/salmankhanroonjah",
+      roleText: "Community Baithaks & Rural Youth Outreach",
+      roleTextUrdu: "کمیونٹی بیٹھکیں اور دیہی نوجوانوں کی فیلڈ اپڈیٹس",
+      actionText: "Connect on Facebook",
+      actionTextUrdu: "فیس بک پر رابطہ کریں",
+      color: "from-blue-700 to-indigo-800",
+      accentColor: "text-blue-400",
+      borderColor: "border-blue-500/30",
+      badgeText: "Community Hub"
+    }
+  ],
 
   footer: {
     shortBio: "AI trainer and digital literacy specialist from Balochistan, making AI accessible in local languages.",

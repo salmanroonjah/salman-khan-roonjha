@@ -5,6 +5,7 @@ import { AboutSection } from './components/AboutSection';
 import { WhatIDoSection } from './components/WhatIDoSection';
 import { ExperienceShowcase } from './components/ExperienceShowcase';
 import { WorkShowcase } from './components/WorkShowcase';
+import { SocialMediaSection } from './components/SocialMediaSection';
 import { CertificationsSection } from './components/CertificationsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -50,7 +51,7 @@ export default function App() {
         {/* 3. What I Do (4 Core Domains) */}
         <WhatIDoSection lang={lang} />
 
-        {/* 5. Experience Timeline + Earlier Field Roles */}
+        {/* 5. Experience Timeline + Earlier Field Roles (with WANG & UrduAI social & web links) */}
         <ExperienceShowcase
           lang={lang}
           onOpenResume={() => setIsResumeOpen(true)}
@@ -58,6 +59,9 @@ export default function App() {
 
         {/* 6. My Work (Videos & Creative Projects) */}
         <WorkShowcase lang={lang} />
+
+        {/* Dedicated Social Media Platforms Section (LinkedIn, Instagram, Facebook) */}
+        <SocialMediaSection lang={lang} />
 
         {/* 7. Certifications & Recognition */}
         <CertificationsSection lang={lang} />

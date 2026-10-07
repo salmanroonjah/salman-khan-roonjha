@@ -113,16 +113,25 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 font-medium transition-colors"
               >
-                LinkedIn Profile
+                LinkedIn
               </a>
               <span aria-hidden="true" className="text-slate-700">·</span>
               <a
-                href={portfolioData.contact.github}
+                href={portfolioData.contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 font-medium transition-colors"
               >
-                github.com/salmanroonjah
+                Instagram
+              </a>
+              <span aria-hidden="true" className="text-slate-700">·</span>
+              <a
+                href={portfolioData.contact.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-emerald-400 font-medium transition-colors"
+              >
+                Facebook
               </a>
             </div>
           </div>

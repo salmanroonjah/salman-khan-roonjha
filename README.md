@@ -36,7 +36,7 @@ Official professional portfolio of **Salman Khan**, certified AI instructor (AI 
    - **2,500+** participants trained
    - **4+ years** of professional experience
    - **4 languages**: Urdu, Balochi, Brahui, English
-   - **1 international certification**: AI Singapore & AVPN Certified Instructor
+   - **2 international certifications**: AI Singapore & AVPN Certified Instructor
 
 5. **Experience**:
    - **Acting Project Lead** | Urdu AI Training Program – WANG | Jan 2026 – May 2026
