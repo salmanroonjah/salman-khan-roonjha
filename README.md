@@ -41,7 +41,7 @@ An editorial, high-performance portfolio website built for **Salman Khan**, brid
 
 The repository includes a ready-to-use automated **GitHub Actions Workflow** (`.github/workflows/deploy.yml`) and relative asset paths (`base: './'`) to prevent the common white screen error.
 
-### How to Enable in 2 Steps:
+### Option A: Automatic Deployment via GitHub Actions (Recommended)
 
 1. **Push your code to GitHub**:
    ```bash
@@ -50,12 +50,20 @@ The repository includes a ready-to-use automated **GitHub Actions Workflow** (`.
    git push origin main
    ```
 
-2. **Enable GitHub Actions in GitHub Repository Settings**:
+2. **Enable GitHub Actions in Repository Settings**:
    - Go to your repository on GitHub.
    - Click on **Settings** (top navigation).
    - In the left sidebar, click on **Pages**.
-   - Under **Build and deployment > Source**, select **GitHub Actions** (do NOT select "Deploy from a branch").
+   - Under **Build and deployment > Source**, select **GitHub Actions**.
    - That's it! GitHub will automatically trigger the workflow, compile React with Vite, and provide your live URL (e.g. `https://<username>.github.io/<repo>/`) within ~1 minute!
+
+### Option B: One-Command Deployment (`npm run deploy`)
+
+If you prefer deploying directly from your terminal:
+```bash
+npm run deploy
+```
+This automatically compiles your site into `dist/` and publishes it to the `gh-pages` branch on GitHub with `.nojekyll` enabled! Under **Settings > Pages**, just set branch to `gh-pages`.
 
 ---
 
