@@ -1,13 +1,9 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import { 
   ArrowUpRight, 
   Share2, 
-  Users, 
-  ExternalLink, 
   MessageCircle, 
-  Sparkles,
-  CheckCircle2
 } from 'lucide-react';
 
 interface SocialMediaSectionProps {
@@ -15,6 +11,7 @@ interface SocialMediaSectionProps {
 }
 
 export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   return (
@@ -80,7 +77,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) 
 
             <div className="pt-6 mt-6 border-t border-slate-800">
               <a
-                href={portfolioData.contact.linkedIn}
+                href={data.contact.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-4 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-sky-950/50 flex items-center justify-center gap-2 group-hover:scale-102"
@@ -125,7 +122,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) 
 
             <div className="pt-6 mt-6 border-t border-slate-800">
               <a
-                href={portfolioData.contact.instagram}
+                href={data.contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-pink-950/50 flex items-center justify-center gap-2 group-hover:scale-102"
@@ -170,7 +167,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) 
 
             <div className="pt-6 mt-6 border-t border-slate-800">
               <a
-                href={portfolioData.contact.facebook}
+                href={data.contact.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-blue-950/50 flex items-center justify-center gap-2 group-hover:scale-102"
@@ -193,14 +190,14 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) 
                 {isUrdu ? 'براہ راست فوری رابطہ (WhatsApp & Direct Call)' : 'Instant Direct Messaging'}
               </h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {portfolioData.contact.phoneDisplay} · {portfolioData.contact.email}
+                {data.contact.phoneDisplay} · {data.contact.email}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <a
-              href={portfolioData.contact.whatsappLink}
+              href={data.contact.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2"
@@ -210,7 +207,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) 
             </a>
 
             <a
-              href={`mailto:${portfolioData.contact.email}`}
+              href={`mailto:${data.contact.email}`}
               className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl text-xs border border-slate-700 transition-colors"
             >
               Send Direct Email

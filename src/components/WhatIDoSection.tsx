@@ -1,5 +1,5 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import { Brain, Laptop, Video, CalendarCheck, Sparkles } from 'lucide-react';
 
 interface WhatIDoSectionProps {
@@ -7,6 +7,7 @@ interface WhatIDoSectionProps {
 }
 
 export const WhatIDoSection: React.FC<WhatIDoSectionProps> = ({ lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   const getIcon = (iconName: string) => {
@@ -42,7 +43,7 @@ export const WhatIDoSection: React.FC<WhatIDoSectionProps> = ({ lang }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {portfolioData.whatIDo.map((item) => (
+          {data.whatIDo.map((item) => (
             <div
               key={item.id}
               className="bg-slate-900/80 border border-slate-800 rounded-3xl p-7 sm:p-9 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-950/20 transition-all flex flex-col justify-between group"

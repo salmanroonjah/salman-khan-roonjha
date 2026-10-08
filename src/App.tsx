@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
+import { AdminDashboard } from './components/admin/AdminDashboard';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
@@ -11,9 +13,10 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ResumeModal } from './components/ResumeModal';
 
-export default function App() {
+function PortfolioApp() {
   const [lang, setLang] = useState<'en' | 'ur'>('en');
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const { setIsAdminOpen } = usePortfolio();
 
   const handleOpenContact = () => {
     const contactElem = document.getElementById('contact');
@@ -35,6 +38,7 @@ export default function App() {
         setLang={setLang}
         onOpenResume={() => setIsResumeOpen(true)}
         onOpenContact={handleOpenContact}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       <main>
@@ -74,6 +78,7 @@ export default function App() {
       <Footer
         lang={lang}
         onOpenResume={() => setIsResumeOpen(true)}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {/* Official Curriculum Vitae Modal */}
@@ -82,6 +87,17 @@ export default function App() {
         onClose={() => setIsResumeOpen(false)}
         lang={lang}
       />
+
+      {/* WordPress-Style Live Admin Dashboard */}
+      <AdminDashboard />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <PortfolioProvider>
+      <PortfolioApp />
+    </PortfolioProvider>
   );
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Languages, Download, Send } from 'lucide-react';
+import { Languages, Download, Send, Lock } from 'lucide-react';
 
 interface NavbarProps {
   lang: 'en' | 'ur';
   setLang: (lang: 'en' | 'ur') => void;
   onOpenResume: () => void;
   onOpenContact: () => void;
+  onOpenAdmin?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -13,6 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   setLang,
   onOpenResume,
   onOpenContact,
+  onOpenAdmin,
 }) => {
   return (
     <header className="sticky top-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-b border-slate-800/90 transition-colors">
@@ -57,6 +59,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Zone 3: Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Admin Dashboard Trigger */}
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-400 hover:text-emerald-400 bg-slate-900/80 hover:bg-slate-800 rounded-lg transition-colors border border-slate-800 cursor-pointer"
+              title="Admin CMS Dashboard (or press Alt + A)"
+              aria-label="Admin Dashboard"
+            >
+              <Lock className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden xl:inline">{lang === 'en' ? 'Admin' : 'ایڈمن'}</span>
+            </button>
+          )}
+
           {/* Language Toggle */}
           <button
             onClick={() => setLang(lang === 'en' ? 'ur' : 'en')}

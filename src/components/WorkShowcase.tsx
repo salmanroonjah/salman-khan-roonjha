@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { portfolioData, CreativeProject } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
+import { CreativeProject } from '../data/portfolioData';
 import { 
   Play, 
   Image as ImageIcon, 
@@ -18,6 +19,7 @@ interface WorkShowcaseProps {
 }
 
 export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
   const [selectedCategory, setSelectedCategory] = useState<string>('All Projects');
   const [activeMediaProject, setActiveMediaProject] = useState<CreativeProject | null>(null);
@@ -25,8 +27,8 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
 
   const filteredProjects =
     selectedCategory === 'All Projects'
-      ? portfolioData.myWork.projects
-      : portfolioData.myWork.projects.filter((p) => p.category === selectedCategory);
+      ? data.myWork.projects
+      : data.myWork.projects.filter((p) => p.category === selectedCategory);
 
   const openModal = (project: CreativeProject) => {
     setActiveMediaProject(project);
@@ -54,13 +56,13 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
           </h2>
 
           <p className="text-slate-400 text-sm sm:text-base mt-3 leading-relaxed">
-            {isUrdu ? portfolioData.myWork.introLineUrdu : portfolioData.myWork.introLine}
+            {isUrdu ? data.myWork.introLineUrdu : data.myWork.introLine}
           </p>
         </div>
 
         {/* Filter Pills */}
         <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-slate-800/80">
-          {portfolioData.myWork.categories.map((category) => (
+          {data.myWork.categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -328,7 +330,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
             {/* Modal Footer */}
             <div className="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between">
               <a
-                href={portfolioData.contact.linkedIn}
+                href={data.contact.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1.5"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { portfolioData } from '../data/portfolioData';
-import { X, Printer, Download, Check, Mail, Phone, MapPin, Copy } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
+import { X, Printer, Check, Copy } from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -9,6 +9,7 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
   const [copied, setCopied] = useState(false);
 
@@ -36,20 +37,20 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, lang 
     const textCV = `
 SALMAN KHAN
 AI Trainer · Digital Literacy Specialist · Creative Professional
-Bela, Lasbela, Balochistan, Pakistan | ${portfolioData.contact.phone} | ${portfolioData.contact.email}
-LinkedIn: ${portfolioData.contact.linkedIn}
+Bela, Lasbela, Balochistan, Pakistan | ${data.contact.phone} | ${data.contact.email}
+LinkedIn: ${data.contact.linkedIn}
 
 PROFESSIONAL SUMMARY:
-${portfolioData.about.paragraphs.join('\n\n')}
+${data.about.paragraphs.join('\n\n')}
 
 LANGUAGES:
-${portfolioData.about.languages.join(', ')}
+${data.about.languages.join(', ')}
 
 IMPACT IN NUMBERS:
-${portfolioData.impact.map((s) => `• ${s.value} ${s.label}`).join('\n')}
+${data.impact.map((s) => `• ${s.value} ${s.label}`).join('\n')}
 
 PROFESSIONAL EXPERIENCE:
-${portfolioData.experience
+${data.experience
   .map(
     (exp) => `
 • ${exp.role} – ${exp.organization} | ${exp.period} | ${exp.location}
@@ -58,15 +59,15 @@ ${exp.bullets.map((b) => `  - ${b}`).join('\n')}`
   .join('\n')}
 
 EARLIER FIELD ROLES:
-${portfolioData.earlierRoles.description}
+${data.earlierRoles.description}
 
 CERTIFICATIONS & RECOGNITION:
-${portfolioData.certifications
+${data.certifications
   .map((cert) => `• ${cert.title} (${cert.issuer}) – ${cert.year}\n  ${cert.description}`)
   .join('\n')}
 
 CORE CAPABILITIES:
-${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).join('\n')}
+${data.whatIDo.map((item) => `• ${item.title}: ${item.description}`).join('\n')}
     `.trim();
 
     navigator.clipboard.writeText(textCV);
@@ -128,15 +129,15 @@ ${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).
                 AI Trainer · Digital Literacy Specialist · Creative Professional
               </p>
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 text-xs text-stone-600 mt-2 font-sans">
-                <span>{portfolioData.contact.location}</span>
+                <span>{data.contact.location}</span>
                 <span aria-hidden="true" className="text-stone-300">|</span>
-                <span>{portfolioData.contact.phone}</span>
+                <span>{data.contact.phone}</span>
                 <span aria-hidden="true" className="text-stone-300">|</span>
-                <a href={`mailto:${portfolioData.contact.email}`} className="hover:underline">
-                  {portfolioData.contact.email}
+                <a href={`mailto:${data.contact.email}`} className="hover:underline">
+                  {data.contact.email}
                 </a>
                 <span aria-hidden="true" className="text-stone-300">|</span>
-                <a href={portfolioData.contact.linkedIn} className="hover:underline">
+                <a href={data.contact.linkedIn} className="hover:underline">
                   LinkedIn
                 </a>
               </div>
@@ -147,13 +148,13 @@ ${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).
               <h2 className="text-xs font-bold tracking-wider uppercase text-stone-900 border-b border-stone-200 pb-1 font-mono">
                 ABOUT ME
               </h2>
-              {portfolioData.about.paragraphs.map((p, idx) => (
+              {data.about.paragraphs.map((p, idx) => (
                 <p key={idx} className="text-xs sm:text-sm text-stone-700 leading-relaxed font-normal">
                   {p}
                 </p>
               ))}
               <div className="text-xs text-stone-600 pt-1 font-semibold">
-                Languages Spoken: <span className="font-normal">{portfolioData.about.languages.join(', ')}</span>
+                Languages Spoken: <span className="font-normal">{data.about.languages.join(', ')}</span>
               </div>
             </div>
 
@@ -163,7 +164,7 @@ ${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).
                 IMPACT IN NUMBERS
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-1">
-                {portfolioData.impact.map((stat, idx) => (
+                {data.impact.map((stat, idx) => (
                   <div key={idx} className="p-2 bg-stone-50 rounded border border-stone-200 text-center">
                     <div className="text-lg font-black text-stone-900 font-mono">{stat.value}</div>
                     <div className="text-[11px] text-stone-600 font-medium leading-tight">{stat.label}</div>
@@ -178,7 +179,7 @@ ${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).
                 PROFESSIONAL EXPERIENCE
               </h2>
               <div className="space-y-4">
-                {portfolioData.experience.map((exp) => (
+                {data.experience.map((exp) => (
                   <div key={exp.id} className="text-xs space-y-1">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold text-stone-900">
                       <span>{exp.role} · <span className="text-emerald-800">{exp.organization}</span></span>
@@ -196,7 +197,7 @@ ${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).
                 {/* Earlier Field Roles */}
                 <div className="p-3 bg-stone-50 rounded border border-stone-200 text-xs space-y-1">
                   <div className="font-bold text-stone-900">Earlier Field Roles:</div>
-                  <div className="text-stone-700">{portfolioData.earlierRoles.description}</div>
+                  <div className="text-stone-700">{data.earlierRoles.description}</div>
                 </div>
               </div>
             </div>
@@ -207,7 +208,7 @@ ${portfolioData.whatIDo.map((item) => `• ${item.title}: ${item.description}`).
                 CERTIFICATIONS & RECOGNITION
               </h2>
               <div className="space-y-2 text-xs">
-                {portfolioData.certifications.map((cert) => (
+                {data.certifications.map((cert) => (
                   <div key={cert.id} className="flex items-start justify-between gap-4">
                     <div>
                       <div className="font-bold text-stone-900">{cert.title}</div>

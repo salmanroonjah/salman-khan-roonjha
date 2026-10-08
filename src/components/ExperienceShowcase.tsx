@@ -1,5 +1,5 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import { 
   Briefcase, 
   Calendar, 
@@ -16,6 +16,7 @@ interface ExperienceShowcaseProps {
 }
 
 export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({ lang, onOpenResume }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   return (
@@ -49,7 +50,7 @@ export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({ lang, on
 
         {/* Experience Timeline */}
         <div className="space-y-6">
-          {portfolioData.experience.map((exp) => (
+          {data.experience.map((exp) => (
             <div
               key={exp.id}
               className="bg-slate-900/80 border border-slate-800 rounded-3xl p-7 sm:p-9 hover:border-emerald-500/40 transition-all shadow-md group"
@@ -149,27 +150,29 @@ export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({ lang, on
               </p>
 
               {/* Bullet points */}
-              <div className="pt-5 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-400">
-                {(isUrdu ? exp.bulletsUrdu : exp.bullets).map((bullet, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="text-slate-300">{bullet}</span>
-                  </div>
-                ))}
-              </div>
+              {exp.bullets && (
+                <div className="pt-5 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-400">
+                  {((isUrdu && exp.bulletsUrdu && exp.bulletsUrdu.length > 0) ? exp.bulletsUrdu : exp.bullets).map((bullet: string, idx: number) => (
+                    <div key={idx} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <span className="text-slate-300">{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
 
           {/* Earlier Field Roles Card */}
           <div className="bg-slate-950/90 border border-slate-800 rounded-3xl p-7 sm:p-8 space-y-4">
             <div className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">
-              {isUrdu ? portfolioData.earlierRoles.titleUrdu : portfolioData.earlierRoles.title}
+              {isUrdu ? data.earlierRoles.titleUrdu : data.earlierRoles.title}
             </div>
             <p className="text-white text-sm sm:text-base font-semibold">
-              {isUrdu ? portfolioData.earlierRoles.descriptionUrdu : portfolioData.earlierRoles.description}
+              {isUrdu ? data.earlierRoles.descriptionUrdu : data.earlierRoles.description}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              {portfolioData.earlierRoles.roles.map((item, idx) => (
+              {data.earlierRoles.roles.map((item, idx: number) => (
                 <div key={idx} className="p-4 bg-slate-900/90 border border-slate-800 rounded-2xl text-xs space-y-1">
                   <div className="font-bold text-white">{item.title} · <span className="text-emerald-400">{item.project}</span></div>
                   <div className="text-slate-400">{item.scope}</div>

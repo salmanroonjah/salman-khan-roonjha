@@ -1,12 +1,13 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
-import { User, Globe, Award, Sparkles, CheckCircle2 } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
+import { User, Globe } from 'lucide-react';
 
 interface AboutSectionProps {
   lang: 'en' | 'ur';
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   return (
@@ -38,7 +39,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
           </div>
 
           <div className="lg:col-span-8 space-y-5 text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
-            {(isUrdu ? portfolioData.about.paragraphsUrdu : portfolioData.about.paragraphs).map(
+            {(isUrdu ? data.about.paragraphsUrdu : data.about.paragraphs).map(
               (paragraph, idx) => (
                 <p key={idx} className={isUrdu ? 'font-urdu leading-loose text-right text-slate-200' : 'text-slate-300'}>
                   {paragraph}
@@ -55,7 +56,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {portfolioData.impact.map((stat, idx) => (
+            {data.impact.map((stat, idx) => (
               <div 
                 key={idx} 
                 className="p-6 bg-slate-900/70 border border-slate-800 rounded-2xl space-y-2 hover:border-emerald-500/40 transition-colors"

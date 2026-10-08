@@ -1,12 +1,13 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
-import { Award, Globe2, ShieldCheck, Sparkles, CheckCircle2 } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
+import { Award, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 interface CertificationsSectionProps {
   lang: 'en' | 'ur';
 }
 
 export const CertificationsSection: React.FC<CertificationsSectionProps> = ({ lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   return (
@@ -28,7 +29,7 @@ export const CertificationsSection: React.FC<CertificationsSectionProps> = ({ la
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {portfolioData.certifications.map((cert) => (
+          {data.certifications.map((cert) => (
             <div
               key={cert.id}
               className={`rounded-3xl p-7 sm:p-9 border transition-all flex flex-col justify-between shadow-lg ${

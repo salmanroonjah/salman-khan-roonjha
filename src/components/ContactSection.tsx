@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import { Mail, Phone, MapPin, Send, CheckCircle, ExternalLink, MessageCircle, Copy, Check } from 'lucide-react';
 
 interface ContactSectionProps {
@@ -7,6 +7,7 @@ interface ContactSectionProps {
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   const [formState, setFormState] = useState({
@@ -26,7 +27,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
   };
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(portfolioData.contact.email);
+    navigator.clipboard.writeText(data.contact.email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -44,11 +45,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
               </div>
               {/* Headline: Let's work together. */}
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-                {isUrdu ? portfolioData.contact.headlineUrdu : portfolioData.contact.headline}
+                {isUrdu ? data.contact.headlineUrdu : data.contact.headline}
               </h2>
               {/* Description: Whether it's an AI training, a digital literacy program, or a creative project, I'd be glad to hear from you. */}
               <p className="text-slate-300 text-sm sm:text-base mt-3 leading-relaxed">
-                {isUrdu ? portfolioData.contact.descriptionUrdu : portfolioData.contact.description}
+                {isUrdu ? data.contact.descriptionUrdu : data.contact.description}
               </p>
             </div>
 
@@ -65,10 +66,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                       {isUrdu ? 'ای میل ایڈریس' : 'Email Address'}
                     </span>
                     <a
-                      href={`mailto:${portfolioData.contact.email}`}
+                      href={`mailto:${data.contact.email}`}
                       className="text-xs sm:text-sm font-bold text-white hover:text-emerald-400 transition-colors"
                     >
-                      {portfolioData.contact.email}
+                      {data.contact.email}
                     </a>
                   </div>
                 </div>
@@ -92,15 +93,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                       {isUrdu ? 'فون و واٹس ایپ' : 'Phone & WhatsApp'}
                     </span>
                     <a
-                      href={`tel:${portfolioData.contact.phone}`}
+                      href={`tel:${data.contact.phone}`}
                       className="text-xs sm:text-sm font-bold text-white hover:text-emerald-400 transition-colors"
                     >
-                      {portfolioData.contact.phoneDisplay}
+                      {data.contact.phoneDisplay}
                     </a>
                   </div>
                 </div>
                 <a
-                  href={portfolioData.contact.whatsappLink}
+                  href={data.contact.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3.5 py-2 bg-emerald-500 text-slate-950 rounded-xl text-xs font-bold hover:bg-emerald-400 transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/20"
@@ -123,7 +124,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                       LinkedIn
                     </span>
                     <a
-                      href={portfolioData.contact.linkedIn}
+                      href={data.contact.linkedIn}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs sm:text-sm font-bold text-white hover:text-sky-400 transition-colors"
@@ -133,7 +134,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                 </div>
                 <a
-                  href={portfolioData.contact.linkedIn}
+                  href={data.contact.linkedIn}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-semibold text-sky-400 hover:text-sky-300"
@@ -155,7 +156,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                       Instagram
                     </span>
                     <a
-                      href={portfolioData.contact.instagram}
+                      href={data.contact.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs sm:text-sm font-bold text-white hover:text-pink-400 transition-colors"
@@ -165,7 +166,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                 </div>
                 <a
-                  href={portfolioData.contact.instagram}
+                  href={data.contact.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-semibold text-pink-400 hover:text-pink-300"
@@ -187,7 +188,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                       Facebook
                     </span>
                     <a
-                      href={portfolioData.contact.facebook}
+                      href={data.contact.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs sm:text-sm font-bold text-white hover:text-blue-400 transition-colors"
@@ -197,7 +198,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                 </div>
                 <a
-                  href={portfolioData.contact.facebook}
+                  href={data.contact.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-semibold text-blue-400 hover:text-blue-300"
@@ -216,128 +217,124 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                     {isUrdu ? 'مقام' : 'Location'}
                   </span>
                   <span className="text-xs sm:text-sm font-bold text-white">
-                    {isUrdu ? portfolioData.contact.locationUrdu : portfolioData.contact.location}
+                    {isUrdu ? data.contact.locationUrdu : data.contact.location}
                   </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Collaboration Request Form */}
-          <div className="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-3xl p-7 sm:p-9 shadow-xl backdrop-blur-md">
-            <h3 className="text-2xl font-bold text-white mb-1.5">
-              {isUrdu ? 'پیغام یا ورکشاپ کی درخواست بھیجیں' : 'Send an Inquiry / Collaboration Request'}
-            </h3>
-            <p className="text-xs text-slate-400 mb-7">
-              {isUrdu
-                ? 'اے آئی ورکشاپس، ڈیجیٹل خواندگی سیشنز، یا ویڈیو مواد کے منصوبوں کی تفصیل شیئر کریں۔'
-                : 'Share details of your training workshop, educational program, or creative media project.'}
-            </p>
+          {/* Right Column: Direct Interactive Inquiry Box */}
+          <div className="lg:col-span-7">
+            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-7 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-teal-400" />
 
-            {submitted ? (
-              <div className="p-6 bg-emerald-950/40 border border-emerald-800/80 rounded-2xl space-y-4">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-7 h-7 text-emerald-400 shrink-0" />
-                  <div>
-                    <h4 className="text-base font-bold text-white">
-                      {isUrdu ? 'شکریہ! آپ کا پیغام موصول ہو چکا ہے۔' : 'Thank you! Your message has been prepared.'}
-                    </h4>
-                    <p className="text-xs text-emerald-300 mt-0.5">
-                      Salman Khan responds to training and project requests promptly.
-                    </p>
+              {submitted ? (
+                <div className="py-12 text-center space-y-4">
+                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-inner">
+                    <CheckCircle className="w-8 h-8" />
                   </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <a
-                    href={`mailto:${portfolioData.contact.email}?subject=Project Inquiry: ${formState.projectType}&body=From: ${formState.name} (${formState.email})%0D%0A%0D%0AMessage:%0D%0A${formState.message}`}
-                    className="px-5 py-2.5 bg-emerald-500 text-slate-950 rounded-xl text-xs font-bold hover:bg-emerald-400 shadow-md shadow-emerald-500/20"
-                  >
-                    Open in Email App
-                  </a>
+                  <h3 className="text-2xl font-black text-white">
+                    {isUrdu ? 'پیغام موصول ہو گیا ہے!' : 'Message Sent Successfully!'}
+                  </h3>
+                  <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
+                    {isUrdu
+                      ? 'آپ کے پیغام کا شکریہ۔ میں جلد از جلد آپ سے ای میل یا فون پر رابطہ کروں گا۔'
+                      : 'Thank you for reaching out. I will respond to your training inquiry promptly.'}
+                  </p>
                   <button
                     onClick={() => {
                       setSubmitted(false);
                       setFormState({ name: '', email: '', projectType: 'AI Training', message: '' });
                     }}
-                    className="px-5 py-2.5 bg-slate-800 text-slate-200 border border-slate-700 rounded-xl text-xs font-medium hover:bg-slate-700 cursor-pointer"
+                    className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold transition-colors cursor-pointer"
                   >
-                    Send Another
+                    {isUrdu ? 'ایک اور پیغام بھیجیں' : 'Send Another Message'}
                   </button>
                 </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5 text-xs">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="font-semibold text-slate-200 block">
-                      {isUrdu ? 'آپ کا نام' : 'Your Name'} <span className="text-rose-400">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formState.name}
-                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      placeholder="e.g. Asad Baloch"
-                      className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white placeholder-slate-600"
-                    />
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <h3 className="text-2xl font-black text-white tracking-tight">
+                      {isUrdu ? 'پراجیکٹ یا ٹریننگ انکوائری' : 'Start a Collaboration'}
+                    </h3>
+                    <p className="text-slate-400 text-xs sm:text-sm mt-1">
+                      {isUrdu
+                        ? 'اپنے ادارے، ٹریننگ کی نوعیت یا تخلیقی ضرورت کے بارے میں تحریر کریں۔'
+                        : 'Fill out this quick brief to discuss AI workshops, digital literacy, or creative media projects.'}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-slate-300">
+                        {isUrdu ? 'آپ کا نام *' : 'Your Name *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formState.name}
+                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                        placeholder="e.g. Tariq Baloch"
+                        className="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white text-sm"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-slate-300">
+                        {isUrdu ? 'ای میل یا فون نمبر *' : 'Email or Phone *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formState.email}
+                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                        placeholder="tariq@organization.org"
+                        className="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white text-sm"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-semibold text-slate-200 block">
-                      {isUrdu ? 'ای میل ایڈریس' : 'Email Address'} <span className="text-rose-400">*</span>
+                    <label className="text-xs font-semibold text-slate-300">
+                      {isUrdu ? 'تعاون کی نوعیت (Category)' : 'Nature of Collaboration'}
                     </label>
-                    <input
-                      type="email"
+                    <select
+                      value={formState.projectType}
+                      onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
+                      className="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white text-sm"
+                    >
+                      <option value="AI Training">AI Training & Workshops (Urdu/Local)</option>
+                      <option value="Digital Literacy">Digital Literacy & Community Pedagogy</option>
+                      <option value="Creative Media">Creative Media, Videos & Branding</option>
+                      <option value="Program Management">Program Coordination & Field Leadership</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-slate-300">
+                      {isUrdu ? 'پیغام کی تفصیل *' : 'Message Brief *'}
+                    </label>
+                    <textarea
+                      rows={4}
                       required
-                      value={formState.email}
-                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      placeholder="e.g. name@organization.com"
-                      className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white placeholder-slate-600"
+                      value={formState.message}
+                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                      placeholder="Share dates, location, target audience, or requirements..."
+                      className="w-full px-4 py-3 bg-slate-950/80 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white text-sm leading-relaxed"
                     />
                   </div>
-                </div>
 
-                <div className="space-y-1.5">
-                  <label className="font-semibold text-slate-200 block">
-                    {isUrdu ? 'پراجیکٹ یا سیشن کی قسم' : 'Project / Engagement Type'}
-                  </label>
-                  <select
-                    value={formState.projectType}
-                    onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
-                    className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white"
+                  <button
+                    type="submit"
+                    className="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer hover:scale-101"
                   >
-                    <option value="AI Training" className="bg-slate-900">AI Training & Workshops (Urdu / Local)</option>
-                    <option value="Digital Literacy" className="bg-slate-900">Digital Literacy Cohort (Rural / Community)</option>
-                    <option value="Content & Media" className="bg-slate-900">Content & Creative Video Production</option>
-                    <option value="Program Management" className="bg-slate-900">Program & Field Event Leadership</option>
-                    <option value="Speaking" className="bg-slate-900">Speaking Session / Panel Discussion</option>
-                  </select>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="font-semibold text-slate-200 block">
-                    {isUrdu ? 'پیغام کی تفصیل' : 'Project Scope / Message'} <span className="text-rose-400">*</span>
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    placeholder="Tell me about your participants, dates, or creative requirements..."
-                    className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white placeholder-slate-600"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full sm:w-auto px-7 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 cursor-pointer hover:scale-102"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>{isUrdu ? 'پیغام بھیجیں' : 'Send Message'}</span>
-                </button>
-              </form>
-            )}
+                    <Send className="w-4 h-4" />
+                    <span>{isUrdu ? 'پیغام بھیجیں' : 'Send Message to Salman'}</span>
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </div>

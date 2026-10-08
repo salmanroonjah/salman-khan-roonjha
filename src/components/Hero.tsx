@@ -1,11 +1,10 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import { 
   ArrowUpRight, 
   MapPin, 
   Award, 
   CheckCircle2, 
-  Sparkles,
   Play,
   Film
 } from 'lucide-react';
@@ -17,6 +16,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   const scrollToWork = () => {
@@ -54,22 +54,22 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
             <div className="space-y-3">
               {/* 1. Headline: Salman Khan */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none">
-                {isUrdu ? portfolioData.hero.headlineUrdu : portfolioData.hero.headline}
+                {isUrdu ? data.hero.headlineUrdu : data.hero.headline}
               </h1>
 
               {/* Sub-headline: AI Trainer · Digital Literacy Specialist · Creative Professional */}
               <p className="text-lg sm:text-xl lg:text-2xl font-bold text-emerald-400 tracking-tight">
-                {isUrdu ? portfolioData.hero.subHeadlineUrdu : portfolioData.hero.subHeadline}
+                {isUrdu ? data.hero.subHeadlineUrdu : data.hero.subHeadline}
               </p>
 
               {/* Intro line: I help students, professionals and rural communities understand and use AI, in their own language. */}
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal pt-2 max-w-2xl">
                 {isUrdu ? (
                   <span className="font-urdu leading-loose block text-right">
-                    {portfolioData.hero.introLineUrdu}
+                    {data.hero.introLineUrdu}
                   </span>
                 ) : (
-                  portfolioData.hero.introLine
+                  data.hero.introLine
                 )}
               </p>
             </div>
@@ -81,7 +81,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
                 className="px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-2 cursor-pointer hover:scale-102"
               >
                 <Film className="w-4 h-4 text-slate-950" />
-                <span>{isUrdu ? portfolioData.hero.buttons.workUrdu : portfolioData.hero.buttons.work}</span>
+                <span>{isUrdu ? data.hero.buttons.workUrdu : data.hero.buttons.work}</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
 
@@ -89,7 +89,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
                 onClick={scrollToContact}
                 className="px-6 py-3.5 bg-slate-900/90 hover:bg-slate-800 text-white text-sm font-semibold border border-slate-700/80 rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
               >
-                <span>{isUrdu ? portfolioData.hero.buttons.contactUrdu : portfolioData.hero.buttons.contact}</span>
+                <span>{isUrdu ? data.hero.buttons.contactUrdu : data.hero.buttons.contact}</span>
               </button>
 
               <button
@@ -104,11 +104,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
             <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-slate-400 font-sans">
               <div className="flex items-center gap-1.5 font-medium text-slate-300">
                 <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                <span>{isUrdu ? portfolioData.contact.locationUrdu : portfolioData.contact.location}</span>
+                <span>{isUrdu ? data.contact.locationUrdu : data.contact.location}</span>
               </div>
               <span aria-hidden="true" className="text-slate-700">·</span>
               <a
-                href={portfolioData.contact.linkedIn}
+                href={data.contact.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 font-medium transition-colors"
@@ -117,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
               </a>
               <span aria-hidden="true" className="text-slate-700">·</span>
               <a
-                href={portfolioData.contact.instagram}
+                href={data.contact.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 font-medium transition-colors"
@@ -126,7 +126,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
               </a>
               <span aria-hidden="true" className="text-slate-700">·</span>
               <a
-                href={portfolioData.contact.facebook}
+                href={data.contact.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 font-medium transition-colors"
@@ -177,7 +177,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
                   {isUrdu ? 'زبانوں میں ابلاغ' : 'Languages Spoken'}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {portfolioData.about.languages.map((langItem) => (
+                  {data.about.languages.map((langItem) => (
                     <span
                       key={langItem}
                       className="px-2.5 py-1 bg-slate-800/90 text-slate-200 font-medium rounded-md text-xs border border-slate-700/60"

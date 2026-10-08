@@ -1,13 +1,15 @@
 import React from 'react';
-import { portfolioData } from '../data/portfolioData';
-import { ArrowUp, Heart } from 'lucide-react';
+import { usePortfolio } from '../context/PortfolioContext';
+import { ArrowUp, Lock } from 'lucide-react';
 
 interface FooterProps {
   lang: 'en' | 'ur';
   onOpenResume: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
+export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume, onOpenAdmin }) => {
+  const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
   const scrollToTop = () => {
@@ -20,14 +22,14 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800/80">
           <div className="max-w-md">
             <div className="text-base font-extrabold text-white tracking-tight">
-              {isUrdu ? portfolioData.hero.headlineUrdu : portfolioData.hero.headline}
+              {isUrdu ? data.hero.headlineUrdu : data.hero.headline}
             </div>
             {/* Sub-headline / short bio */}
             <p className="text-slate-400 mt-1 text-xs leading-relaxed">
-              {isUrdu ? portfolioData.footer.shortBioUrdu : portfolioData.footer.shortBio}
+              {isUrdu ? data.footer.shortBioUrdu : data.footer.shortBio}
             </p>
             <p className="text-slate-500 text-[11px] mt-2 font-mono">
-              {portfolioData.contact.location} · {portfolioData.contact.email}
+              {data.contact.location} · {data.contact.email}
             </p>
           </div>
 
@@ -63,6 +65,16 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
 
           <div className="flex items-center gap-4">
             <span>Bela, Lasbela, Balochistan</span>
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="flex items-center gap-1 text-slate-500 hover:text-emerald-400 transition-colors cursor-pointer"
+                title="Open Admin Dashboard (or press Alt + A)"
+              >
+                <Lock className="w-3 h-3 text-emerald-400" />
+                <span>{isUrdu ? 'ایڈمن' : 'Admin'}</span>
+              </button>
+            )}
             <button
               onClick={scrollToTop}
               className="flex items-center gap-1 text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer"
