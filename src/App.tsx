@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { AdminDashboard } from './components/admin/AdminDashboard';
+import { GalaxyBackground } from './components/GalaxyBackground';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
@@ -28,11 +29,12 @@ function PortfolioApp() {
   return (
     <div
       id="top"
-      className={`min-h-screen bg-[#0B0F17] text-slate-100 ${
-        lang === 'ur' ? 'font-sans selection:bg-emerald-500 selection:text-slate-950' : 'font-sans selection:bg-emerald-500 selection:text-slate-950'
-      }`}
+      className="min-h-screen bg-[#07080B] text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950 relative selection:shadow-lg"
     >
-      {/* 3-Zone Sticky Navigation Bar */}
+      {/* Interactive Galaxy Particle Background Animation */}
+      <GalaxyBackground />
+
+      {/* Streamlined Minimalist Navigation Bar */}
       <Navbar
         lang={lang}
         setLang={setLang}
@@ -41,30 +43,30 @@ function PortfolioApp() {
         onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
-      <main>
-        {/* 1. Home (Hero Section) */}
+      <main className="relative z-10">
+        {/* 1. Home (Hero Section with Ambient Background Reel Slideshow) */}
         <Hero
           lang={lang}
           onOpenResume={() => setIsResumeOpen(true)}
           onOpenContact={handleOpenContact}
         />
 
-        {/* 2. About Me & 4. Impact in Numbers */}
+        {/* 2. My Work (Videos & Creative Projects Gallery) */}
+        <WorkShowcase lang={lang} />
+
+        {/* 3. About Me & 4. Impact in Numbers */}
         <AboutSection lang={lang} />
 
-        {/* 3. What I Do (4 Core Domains) */}
+        {/* 4. What I Do (Core Pedagogical Capabilities) */}
         <WhatIDoSection lang={lang} />
 
-        {/* 5. Experience Timeline + Earlier Field Roles (with WANG & UrduAI social & web links) */}
+        {/* 5. Experience Timeline + Earlier Field Roles */}
         <ExperienceShowcase
           lang={lang}
           onOpenResume={() => setIsResumeOpen(true)}
         />
 
-        {/* 6. My Work (Videos & Creative Projects) */}
-        <WorkShowcase lang={lang} />
-
-        {/* Dedicated Social Media Platforms Section (LinkedIn, Instagram, Facebook) */}
+        {/* 6. Social Media Channels */}
         <SocialMediaSection lang={lang} />
 
         {/* 7. Certifications & Recognition */}
@@ -81,7 +83,7 @@ function PortfolioApp() {
         onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
-      {/* Official Curriculum Vitae Modal */}
+      {/* Curriculum Vitae Modal */}
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}

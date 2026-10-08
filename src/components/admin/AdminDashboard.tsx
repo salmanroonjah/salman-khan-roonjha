@@ -13,21 +13,17 @@ import {
   Check, 
   Download, 
   Upload,
-  RefreshCw, 
-  ExternalLink, 
   Eye, 
   Film, 
   Briefcase, 
-  TrendingUp, 
   Share2, 
   Code, 
   LayoutDashboard,
   CheckCircle2,
   AlertCircle,
-  Award,
-  User,
   Key,
-  Globe
+  Layers,
+  Sparkles
 } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
@@ -58,7 +54,8 @@ export const AdminDashboard: React.FC = () => {
     changePin,
   } = usePortfolio();
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'hero' | 'projects' | 'experience' | 'impact' | 'certifications' | 'socials' | 'export'>('overview');
+  // Streamlined 5 essential tabs (No irrelevant clutter)
+  const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'experience' | 'content' | 'settings'>('overview');
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
@@ -110,20 +107,6 @@ export const AdminDashboard: React.FC = () => {
     },
   });
 
-  // Form states for New / Editing Certification
-  const [isEditingCert, setIsEditingCert] = useState(false);
-  const [certForm, setCertForm] = useState<CertificationItem>({
-    id: '',
-    title: '',
-    titleUrdu: '',
-    issuer: '',
-    issuerUrdu: '',
-    year: '2025',
-    description: '',
-    descriptionUrdu: '',
-    highlight: false,
-  });
-
   // Editable Hero state
   const [heroForm, setHeroForm] = useState(data.hero);
   // Editable Contact state
@@ -131,7 +114,7 @@ export const AdminDashboard: React.FC = () => {
 
   const showNotification = (msg: string) => {
     setNotification(msg);
-    setTimeout(() => setNotification(null), 3500);
+    setTimeout(() => setNotification(null), 3000);
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -139,7 +122,7 @@ export const AdminDashboard: React.FC = () => {
     if (login(passwordInput)) {
       setLoginError(false);
       setPasswordInput('');
-      showNotification('Welcome back, Salman! WordPress-style CMS unlocked.');
+      showNotification('Admin Panel Unlocked');
     } else {
       setLoginError(true);
     }
@@ -151,14 +134,14 @@ export const AdminDashboard: React.FC = () => {
 
     if (projectForm.id) {
       updateProject(projectForm.id, projectForm);
-      showNotification('Project updated successfully!');
+      showNotification('Project updated successfully');
     } else {
       const newProject: CreativeProject = {
         ...projectForm,
         id: `work-${Date.now()}`,
       };
       addProject(newProject);
-      showNotification('New project published to portfolio!');
+      showNotification('New project published');
     }
     setIsEditingProject(false);
   };
@@ -169,53 +152,30 @@ export const AdminDashboard: React.FC = () => {
 
     if (expForm.id) {
       updateExperience(expForm.id, expForm);
-      showNotification('Experience updated successfully!');
+      showNotification('Experience updated successfully');
     } else {
       const newExp: ExperienceItem = {
         ...expForm,
         id: `exp-${Date.now()}`,
       };
       addExperience(newExp);
-      showNotification('New experience item published!');
+      showNotification('New experience published');
     }
     setIsEditingExp(false);
   };
 
-  const handleSaveCert = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!certForm.title || !certForm.issuer) return;
-
-    if (certForm.id) {
-      updateCertification(certForm.id, certForm);
-      showNotification('Certification updated!');
-    } else {
-      const newCert: CertificationItem = {
-        ...certForm,
-        id: `cert-${Date.now()}`,
-      };
-      addCertification(newCert);
-      showNotification('New certification added!');
-    }
-    setIsEditingCert(false);
-  };
-
-  const handleSaveHero = (e: React.FormEvent) => {
+  const handleSaveHeroAndContact = (e: React.FormEvent) => {
     e.preventDefault();
     updateHero(heroForm);
-    showNotification('Hero section saved and live!');
-  };
-
-  const handleSaveContact = (e: React.FormEvent) => {
-    e.preventDefault();
     updateContact(contactForm);
-    showNotification('Contact & Social links updated!');
+    showNotification('Bio & Contact info saved live');
   };
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(getExportCode());
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2500);
-    showNotification('TypeScript code copied to clipboard!');
+    showNotification('TypeScript code copied to clipboard');
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -228,9 +188,9 @@ export const AdminDashboard: React.FC = () => {
       if (content) {
         const ok = importJsonData(content);
         if (ok) {
-          showNotification('Portfolio database restored successfully!');
+          showNotification('Portfolio database restored');
         } else {
-          alert('Invalid JSON file format. Please upload a valid exported JSON file.');
+          alert('Invalid JSON file format.');
         }
       }
     };
@@ -243,7 +203,7 @@ export const AdminDashboard: React.FC = () => {
     if (newPinInput.trim().length >= 4) {
       changePin(newPinInput.trim());
       setNewPinInput('');
-      showNotification('Admin password updated successfully!');
+      showNotification('Admin password updated');
     } else {
       alert('Password must be at least 4 characters long.');
     }
@@ -252,37 +212,37 @@ export const AdminDashboard: React.FC = () => {
   if (!isAdminOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-2xl">
       <div 
-        className="relative w-full max-w-6xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col"
+        className="relative w-full max-w-5xl bg-[#090C12] border border-white/[0.12] rounded-3xl shadow-2xl overflow-hidden max-h-[94vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Control Bar */}
-        <div className="p-4 sm:p-5 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-4 shrink-0">
+        {/* Top Minimalist Control Bar */}
+        <div className="p-4 sm:p-5 bg-black/60 border-b border-white/[0.08] flex items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
-              <LayoutDashboard className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+              <LayoutDashboard className="w-4 h-4" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base sm:text-lg font-black text-white">
-                  WordPress-Style Admin Dashboard
+                <h2 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                  Portfolio Manager
                 </h2>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">
-                  Live CMS
+                <span className="text-[10px] font-mono font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                  LIVE
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-mono">
-                Salman Khan Portfolio Manager · All changes saved locally and Cloudflare ready
+              <p className="text-[11px] text-slate-400 font-mono">
+                Salman Khan · Instant Cloudflare Sync
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {isAuthenticated && (
               <button
                 onClick={logout}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white bg-slate-900 border border-slate-800 cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] cursor-pointer"
               >
                 <Unlock className="w-3.5 h-3.5" />
                 <span>Logout</span>
@@ -291,7 +251,7 @@ export const AdminDashboard: React.FC = () => {
 
             <button
               onClick={() => setIsAdminOpen(false)}
-              className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+              className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors cursor-pointer"
               aria-label="Close Admin"
             >
               <X className="w-5 h-5" />
@@ -301,7 +261,7 @@ export const AdminDashboard: React.FC = () => {
 
         {/* Toast Notification */}
         {notification && (
-          <div className="bg-emerald-500 text-slate-950 px-4 py-2.5 text-xs font-bold flex items-center justify-between shrink-0">
+          <div className="bg-emerald-500 text-slate-950 px-4 py-2 text-xs font-bold flex items-center justify-between shrink-0 shadow-lg">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
               <span>{notification}</span>
@@ -314,27 +274,26 @@ export const AdminDashboard: React.FC = () => {
         {!isAuthenticated ? (
           /* Authentication Screen */
           <div className="p-8 sm:p-14 flex items-center justify-center flex-1 overflow-y-auto">
-            <div className="max-w-md w-full bg-slate-950/80 border border-slate-800 rounded-3xl p-8 space-y-6 shadow-xl">
+            <div className="max-w-sm w-full bg-black/40 border border-white/[0.08] rounded-3xl p-8 space-y-6 shadow-2xl backdrop-blur-xl">
               <div className="text-center space-y-2">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-inner">
-                  <Lock className="w-7 h-7" />
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto shadow-inner">
+                  <Lock className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-black text-white">Admin Security Access</h3>
+                <h3 className="text-xl font-bold text-white tracking-tight">Security Access</h3>
                 <p className="text-xs text-slate-400">
-                  Please enter your admin password to manage projects, videos, experience and content.
+                  Enter your master password to edit portfolio content.
                 </p>
               </div>
 
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300 block">Password / Master PIN</label>
                   <input
                     type="password"
                     required
                     value={passwordInput}
                     onChange={(e) => setPasswordInput(e.target.value)}
                     placeholder="Enter password..."
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl focus:outline-hidden focus:border-emerald-500 text-white text-sm"
+                    className="w-full px-4 py-3 bg-black/60 border border-white/[0.1] rounded-2xl focus:outline-hidden focus:border-emerald-500 text-white text-sm"
                   />
                   {loginError && (
                     <p className="text-xs text-rose-400 flex items-center gap-1 mt-1 font-medium">
@@ -346,16 +305,15 @@ export const AdminDashboard: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-lg shadow-emerald-500/25 cursor-pointer"
+                  className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-2xl text-xs transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer"
                 >
-                  Unlock Admin Panel
+                  Unlock Dashboard
                 </button>
               </form>
 
-              <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 text-[11px] text-slate-400 text-center space-y-1">
-                <span>Default Master Password: </span>
-                <span className="font-mono text-emerald-400 font-bold">admin123</span>
-                <span className="text-slate-500 block">(You can change this password anytime inside the dashboard)</span>
+              <div className="text-center">
+                <span className="text-[11px] font-mono text-slate-500">Default PIN: </span>
+                <span className="text-[11px] font-mono text-emerald-400 font-bold">admin123</span>
               </div>
             </div>
           </div>
@@ -363,95 +321,61 @@ export const AdminDashboard: React.FC = () => {
           /* Authenticated Dashboard Tabs */
           <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
             {/* Sidebar Navigation */}
-            <div className="w-full md:w-64 bg-slate-950/80 border-r border-slate-800 p-4 space-y-1.5 shrink-0 overflow-y-auto">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold px-3 py-2">
-                Content Modules
-              </div>
-
+            <div className="w-full md:w-56 bg-black/30 border-r border-white/[0.08] p-3.5 space-y-1 shrink-0 overflow-y-auto">
               <button
-                onClick={() => { setActiveTab('overview'); setIsEditingProject(false); setIsEditingExp(false); setIsEditingCert(false); }}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'overview' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+                onClick={() => { setActiveTab('overview'); setIsEditingProject(false); setIsEditingExp(false); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'overview' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-300 hover:bg-white/[0.04] hover:text-white'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
-                <span>Dashboard Overview</span>
-              </button>
-
-              <button
-                onClick={() => { setActiveTab('hero'); }}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'hero' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
-                }`}
-              >
-                <User className="w-4 h-4" />
-                <span>Hero & Bio Info</span>
+                <span>Overview</span>
               </button>
 
               <button
                 onClick={() => { setActiveTab('projects'); setIsEditingProject(false); }}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'projects' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'projects' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-300 hover:bg-white/[0.04] hover:text-white'
                 }`}
               >
                 <Film className="w-4 h-4" />
-                <span>My Work & Videos ({data.myWork.projects.length})</span>
+                <span>Work & Videos ({data.myWork.projects.length})</span>
               </button>
 
               <button
                 onClick={() => { setActiveTab('experience'); setIsEditingExp(false); }}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'experience' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'experience' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-300 hover:bg-white/[0.04] hover:text-white'
                 }`}
               >
                 <Briefcase className="w-4 h-4" />
-                <span>Experience Timeline ({data.experience.length})</span>
+                <span>Experience ({data.experience.length})</span>
               </button>
 
               <button
-                onClick={() => setActiveTab('impact')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'impact' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
-                }`}
-              >
-                <TrendingUp className="w-4 h-4" />
-                <span>Impact Numbers ({data.impact.length})</span>
-              </button>
-
-              <button
-                onClick={() => { setActiveTab('certifications'); setIsEditingCert(false); }}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'certifications' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
-                }`}
-              >
-                <Award className="w-4 h-4" />
-                <span>Certifications ({data.certifications.length})</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('socials')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'socials' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+                onClick={() => setActiveTab('content')}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'content' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-300 hover:bg-white/[0.04] hover:text-white'
                 }`}
               >
                 <Share2 className="w-4 h-4" />
-                <span>Socials & Contact</span>
+                <span>Bio, Stats & Socials</span>
               </button>
 
               <button
-                onClick={() => setActiveTab('export')}
-                className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'export' ? 'bg-emerald-500 text-slate-950' : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+                onClick={() => setActiveTab('settings')}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                  activeTab === 'settings' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-300 hover:bg-white/[0.04] hover:text-white'
                 }`}
               >
                 <Code className="w-4 h-4" />
-                <span>Backup & Export</span>
+                <span>Backup & Security</span>
               </button>
 
-              <div className="pt-4 border-t border-slate-800/80">
+              <div className="pt-4 mt-4 border-t border-white/[0.08]">
                 <button
                   onClick={() => setIsAdminOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-emerald-400 rounded-xl text-xs font-semibold border border-slate-800 transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/[0.02] hover:bg-white/[0.06] text-emerald-400 rounded-xl text-xs font-medium border border-white/[0.08] transition-colors cursor-pointer"
                 >
                   <Eye className="w-3.5 h-3.5" />
                   <span>View Live Site</span>
@@ -461,42 +385,43 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Main Editor Canvas */}
             <div className="flex-1 p-6 sm:p-8 overflow-y-auto space-y-6">
+              
               {/* TAB 1: OVERVIEW */}
               {activeTab === 'overview' && (
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-2xl font-black text-white">Dashboard Overview</h3>
+                    <h3 className="text-xl font-bold text-white tracking-tight">System Overview</h3>
                     <p className="text-xs text-slate-400 mt-1">
-                      Welcome Salman! Any change you make here is immediately active on your live portfolio.
+                      All changes are saved instantly in your local browser and reflected on the live site.
                     </p>
                   </div>
 
-                  {/* Summary Metric Cards */}
+                  {/* Metrics */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="p-5 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-1">
-                      <span className="text-[11px] font-mono text-slate-500 block uppercase">Total Projects</span>
-                      <span className="text-3xl font-black text-emerald-400 font-mono">{data.myWork.projects.length}</span>
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-1">
+                      <span className="text-[10px] font-mono text-slate-500 block uppercase">Total Projects</span>
+                      <span className="text-2xl font-bold text-emerald-400 font-mono">{data.myWork.projects.length}</span>
                     </div>
 
-                    <div className="p-5 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-1">
-                      <span className="text-[11px] font-mono text-slate-500 block uppercase">Experience Roles</span>
-                      <span className="text-3xl font-black text-white font-mono">{data.experience.length}</span>
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-1">
+                      <span className="text-[10px] font-mono text-slate-500 block uppercase">Work Experience</span>
+                      <span className="text-2xl font-bold text-white font-mono">{data.experience.length}</span>
                     </div>
 
-                    <div className="p-5 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-1">
-                      <span className="text-[11px] font-mono text-slate-500 block uppercase">Participants Trained</span>
-                      <span className="text-3xl font-black text-emerald-400 font-mono">{data.impact[0]?.value || '2,500+'}</span>
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-1">
+                      <span className="text-[10px] font-mono text-slate-500 block uppercase">Learners Trained</span>
+                      <span className="text-2xl font-bold text-emerald-400 font-mono">{data.impact[0]?.value || '2,500+'}</span>
                     </div>
 
-                    <div className="p-5 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-1">
-                      <span className="text-[11px] font-mono text-slate-500 block uppercase">Certifications</span>
-                      <span className="text-3xl font-black text-white font-mono">{data.certifications.length}</span>
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-1">
+                      <span className="text-[10px] font-mono text-slate-500 block uppercase">Certifications</span>
+                      <span className="text-2xl font-bold text-white font-mono">{data.certifications.length}</span>
                     </div>
                   </div>
 
-                  {/* Quick Action Buttons */}
-                  <div className="p-6 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-4">
-                    <h4 className="text-sm font-bold text-white">Quick Management Actions</h4>
+                  {/* Fast Action */}
+                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-4">
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">Quick Actions</h4>
                     <div className="flex flex-wrap gap-3">
                       <button
                         onClick={() => {
@@ -520,7 +445,7 @@ export const AdminDashboard: React.FC = () => {
                           setIsEditingProject(true);
                           setActiveTab('projects');
                         }}
-                        className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-2 cursor-pointer"
+                        className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(16,185,129,0.3)]"
                       >
                         <Plus className="w-4 h-4" />
                         <span>Add New Project / Video</span>
@@ -547,37 +472,15 @@ export const AdminDashboard: React.FC = () => {
                           setIsEditingExp(true);
                           setActiveTab('experience');
                         }}
-                        className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl text-xs border border-slate-700 flex items-center gap-2 cursor-pointer"
+                        className="px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white font-medium rounded-xl text-xs border border-white/[0.08] flex items-center gap-2 cursor-pointer"
                       >
                         <Plus className="w-4 h-4" />
-                        <span>Add New Experience</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setCertForm({
-                            id: '',
-                            title: '',
-                            titleUrdu: '',
-                            issuer: '',
-                            issuerUrdu: '',
-                            year: '2026',
-                            description: '',
-                            descriptionUrdu: '',
-                            highlight: false,
-                          });
-                          setIsEditingCert(true);
-                          setActiveTab('certifications');
-                        }}
-                        className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl text-xs border border-slate-700 flex items-center gap-2 cursor-pointer"
-                      >
-                        <Plus className="w-4 h-4" />
-                        <span>Add New Certification</span>
+                        <span>Add Experience</span>
                       </button>
 
                       <button
                         onClick={downloadBackupJson}
-                        className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold rounded-xl text-xs border border-slate-700 flex items-center gap-2 cursor-pointer"
+                        className="px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-emerald-400 font-medium rounded-xl text-xs border border-white/[0.08] flex items-center gap-2 cursor-pointer"
                       >
                         <Download className="w-4 h-4" />
                         <span>Download JSON Backup</span>
@@ -587,101 +490,13 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               )}
 
-              {/* TAB 2: HERO & BIO */}
-              {activeTab === 'hero' && (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-white">Hero & Bio Information</h3>
-                    <p className="text-xs text-slate-400 mt-0.5">Customize your main headlines, sub-headlines and bio intro lines.</p>
-                  </div>
-
-                  <form onSubmit={handleSaveHero} className="bg-slate-950/90 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="font-semibold text-slate-300">Headline (English) *</label>
-                        <input
-                          type="text"
-                          required
-                          value={heroForm.headline}
-                          onChange={(e) => setHeroForm({ ...heroForm, headline: e.target.value })}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="font-semibold text-slate-300">Headline (Urdu) *</label>
-                        <input
-                          type="text"
-                          required
-                          value={heroForm.headlineUrdu}
-                          onChange={(e) => setHeroForm({ ...heroForm, headlineUrdu: e.target.value })}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="font-semibold text-slate-300">Sub-headline (English) *</label>
-                        <input
-                          type="text"
-                          required
-                          value={heroForm.subHeadline}
-                          onChange={(e) => setHeroForm({ ...heroForm, subHeadline: e.target.value })}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="font-semibold text-slate-300">Sub-headline (Urdu) *</label>
-                        <input
-                          type="text"
-                          required
-                          value={heroForm.subHeadlineUrdu}
-                          onChange={(e) => setHeroForm({ ...heroForm, subHeadlineUrdu: e.target.value })}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Intro Line (English) *</label>
-                      <textarea
-                        rows={2}
-                        required
-                        value={heroForm.introLine}
-                        onChange={(e) => setHeroForm({ ...heroForm, introLine: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Intro Line (Urdu) *</label>
-                      <textarea
-                        rows={2}
-                        required
-                        value={heroForm.introLineUrdu}
-                        onChange={(e) => setHeroForm({ ...heroForm, introLineUrdu: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <Save className="w-4 h-4" />
-                      <span>Save Hero Section</span>
-                    </button>
-                  </form>
-                </div>
-              )}
-
-              {/* TAB 3: PROJECTS & VIDEOS */}
+              {/* TAB 2: PROJECTS & VIDEOS */}
               {activeTab === 'projects' && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-2xl font-black text-white">My Work & Videos</h3>
-                      <p className="text-xs text-slate-400 mt-0.5">Manage your videos, infographics, branding and creative media.</p>
+                      <h3 className="text-xl font-bold text-white tracking-tight">Work, Videos & Creative Projects</h3>
+                      <p className="text-xs text-slate-400 mt-0.5">Publish your videos, reels, infographics and branding work.</p>
                     </div>
 
                     {!isEditingProject && (
@@ -706,18 +521,17 @@ export const AdminDashboard: React.FC = () => {
                           });
                           setIsEditingProject(true);
                         }}
-                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                       >
                         <Plus className="w-4 h-4" />
-                        <span>Add New Project</span>
+                        <span>Add Project</span>
                       </button>
                     )}
                   </div>
 
                   {isEditingProject ? (
-                    /* Project Edit Form */
-                    <form onSubmit={handleSaveProject} className="bg-slate-950/90 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
-                      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <form onSubmit={handleSaveProject} className="bg-white/[0.02] border border-white/[0.08] rounded-2xl p-6 space-y-4 text-xs">
+                      <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
                         <span className="font-bold text-white text-sm">
                           {projectForm.id ? 'Edit Project' : 'Create New Project'}
                         </span>
@@ -732,60 +546,60 @@ export const AdminDashboard: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Project Title (English) *</label>
+                          <label className="font-medium text-slate-300">Project Title (English) *</label>
                           <input
                             type="text"
                             required
                             value={projectForm.title}
                             onChange={(e) => setProjectForm({ ...projectForm, title: e.target.value })}
                             placeholder="e.g. AI Prompting Masterclass"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Project Title (Urdu)</label>
+                          <label className="font-medium text-slate-300">Project Title (Urdu)</label>
                           <input
                             type="text"
                             value={projectForm.titleUrdu}
                             onChange={(e) => setProjectForm({ ...projectForm, titleUrdu: e.target.value })}
                             placeholder="مثلاً: اردو اے آئی ماسٹرکلاس"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-urdu text-right"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Created For (Organization) *</label>
+                          <label className="font-medium text-slate-300">Created For (Organization) *</label>
                           <input
                             type="text"
                             required
                             value={projectForm.createdFor}
                             onChange={(e) => setProjectForm({ ...projectForm, createdFor: e.target.value })}
                             placeholder="e.g. WANG / UrduAI.org"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">My Role *</label>
+                          <label className="font-medium text-slate-300">My Role *</label>
                           <input
                             type="text"
                             required
                             value={projectForm.myRole}
                             onChange={(e) => setProjectForm({ ...projectForm, myRole: e.target.value })}
                             placeholder="e.g. Video editing, Scripting"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Category</label>
+                          <label className="font-medium text-slate-300">Category</label>
                           <select
                             value={projectForm.category}
                             onChange={(e) => setProjectForm({ ...projectForm, category: e.target.value as any })}
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white cursor-pointer"
                           >
                             <option value="Training Videos">Training Videos</option>
                             <option value="Educational Content">Educational Content</option>
@@ -797,27 +611,26 @@ export const AdminDashboard: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Media Type</label>
+                          <label className="font-medium text-slate-300">Media Type</label>
                           <select
                             value={projectForm.mediaType}
                             onChange={(e) => setProjectForm({ ...projectForm, mediaType: e.target.value as any })}
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white cursor-pointer"
                           >
                             <option value="video">Playable Video</option>
                             <option value="image">Graphic / Image</option>
-                            <option value="gallery">Photo Gallery</option>
                           </select>
                         </div>
 
                         <div className="space-y-1 sm:col-span-2">
-                          <label className="font-semibold text-slate-300">Thumbnail Image URL *</label>
+                          <label className="font-medium text-slate-300">Thumbnail Image URL *</label>
                           <input
                             type="text"
                             required
                             value={projectForm.thumbnailUrl}
                             onChange={(e) => setProjectForm({ ...projectForm, thumbnailUrl: e.target.value })}
-                            placeholder="Paste picture URL..."
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
+                            placeholder="Paste image URL..."
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-mono text-[11px]"
                           />
                         </div>
                       </div>
@@ -825,24 +638,24 @@ export const AdminDashboard: React.FC = () => {
                       {projectForm.mediaType === 'video' && (
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                           <div className="space-y-1 sm:col-span-2">
-                            <label className="font-semibold text-slate-300">Video URL (.mp4 / stream)</label>
+                            <label className="font-medium text-slate-300">Video URL (.mp4 / direct stream)</label>
                             <input
                               type="text"
                               value={projectForm.videoUrl || ''}
                               onChange={(e) => setProjectForm({ ...projectForm, videoUrl: e.target.value })}
-                              placeholder="Direct .mp4 link or video link..."
-                              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
+                              placeholder="Direct .mp4 link..."
+                              className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-mono text-[11px]"
                             />
                           </div>
 
                           <div className="space-y-1">
-                            <label className="font-semibold text-slate-300">Duration (e.g. 03:45 min)</label>
+                            <label className="font-medium text-slate-300">Duration</label>
                             <input
                               type="text"
                               value={projectForm.duration || ''}
                               onChange={(e) => setProjectForm({ ...projectForm, duration: e.target.value })}
                               placeholder="05:00 min"
-                              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                              className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                             />
                           </div>
                         </div>
@@ -850,49 +663,25 @@ export const AdminDashboard: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">About / Summary (English) *</label>
+                          <label className="font-medium text-slate-300">About / Summary (English) *</label>
                           <textarea
                             rows={2}
                             required
                             value={projectForm.about}
                             onChange={(e) => setProjectForm({ ...projectForm, about: e.target.value })}
-                            placeholder="One line on what it covers or who it's for..."
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            placeholder="What it covers or who it's for..."
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">About / Summary (Urdu)</label>
-                          <textarea
-                            rows={2}
-                            value={projectForm.aboutUrdu}
-                            onChange={(e) => setProjectForm({ ...projectForm, aboutUrdu: e.target.value })}
-                            placeholder="اردو میں تفصیل..."
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Result / Reach / Views (e.g. 50k+ views)</label>
+                          <label className="font-medium text-slate-300">Result / Reach (e.g. 2,500+ views)</label>
                           <input
                             type="text"
                             value={projectForm.result || ''}
                             onChange={(e) => setProjectForm({ ...projectForm, result: e.target.value })}
-                            placeholder="e.g. 2,500+ participants reached"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                          />
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">External Project / Post Link</label>
-                          <input
-                            type="text"
-                            value={projectForm.link || ''}
-                            onChange={(e) => setProjectForm({ ...projectForm, link: e.target.value })}
-                            placeholder="https://..."
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
+                            placeholder="e.g. 50k+ views"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
                       </div>
@@ -900,7 +689,7 @@ export const AdminDashboard: React.FC = () => {
                       <div className="flex items-center gap-3 pt-2">
                         <button
                           type="submit"
-                          className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                          className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                         >
                           <Save className="w-4 h-4" />
                           <span>Save Project</span>
@@ -909,28 +698,27 @@ export const AdminDashboard: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => setIsEditingProject(false)}
-                          className="px-4 py-2.5 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs cursor-pointer"
+                          className="px-4 py-2.5 bg-white/[0.04] text-slate-400 hover:text-white rounded-xl text-xs cursor-pointer"
                         >
                           Cancel
                         </button>
                       </div>
                     </form>
                   ) : (
-                    /* Project List */
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {data.myWork.projects.map((proj) => (
                         <div
                           key={proj.id}
-                          className="p-4 bg-slate-950/70 border border-slate-800 rounded-2xl flex flex-col justify-between gap-3 group hover:border-slate-700 transition-colors"
+                          className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex flex-col justify-between gap-3 group hover:border-white/[0.2] transition-colors"
                         >
                           <div className="flex gap-3">
                             <img
                               src={proj.thumbnailUrl}
                               alt={proj.title}
-                              className="w-20 h-14 object-cover rounded-lg shrink-0 border border-slate-800"
+                              className="w-20 h-14 object-cover rounded-xl shrink-0 border border-white/[0.06]"
                             />
                             <div className="overflow-hidden">
-                              <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider block">
+                              <span className="text-[10px] font-mono font-medium text-emerald-400 uppercase tracking-wider block">
                                 {proj.category}
                               </span>
                               <h4 className="text-xs font-bold text-white truncate">{proj.title}</h4>
@@ -938,16 +726,16 @@ export const AdminDashboard: React.FC = () => {
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between pt-2 border-t border-slate-850 text-xs">
-                            <span className="text-[11px] text-slate-500">{proj.mediaType}</span>
+                          <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-xs">
+                            <span className="text-[11px] text-slate-500 font-mono">{proj.mediaType}</span>
                             <div className="flex items-center gap-1.5">
                               <button
                                 onClick={() => {
                                   setProjectForm(proj);
                                   setIsEditingProject(true);
                                 }}
-                                className="p-1.5 text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors cursor-pointer"
-                                title="Edit Project"
+                                className="p-1.5 text-slate-400 hover:text-white bg-white/[0.04] rounded-lg transition-colors cursor-pointer"
+                                title="Edit"
                               >
                                 <Edit3 className="w-3.5 h-3.5" />
                               </button>
@@ -959,8 +747,8 @@ export const AdminDashboard: React.FC = () => {
                                     showNotification('Project deleted');
                                   }
                                 }}
-                                className="p-1.5 text-rose-400 hover:text-rose-300 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors cursor-pointer"
-                                title="Delete Project"
+                                className="p-1.5 text-rose-400 hover:text-rose-300 bg-white/[0.04] rounded-lg transition-colors cursor-pointer"
+                                title="Delete"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
@@ -973,13 +761,13 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               )}
 
-              {/* TAB 4: EXPERIENCE TIMELINE */}
+              {/* TAB 3: EXPERIENCE TIMELINE */}
               {activeTab === 'experience' && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-2xl font-black text-white">Experience Timeline</h3>
-                      <p className="text-xs text-slate-400 mt-0.5">Manage your leadership roles, organization links and responsibilities.</p>
+                      <h3 className="text-xl font-bold text-white tracking-tight">Work Experience</h3>
+                      <p className="text-xs text-slate-400 mt-0.5">Edit field roles, dates and responsibilities.</p>
                     </div>
 
                     {!isEditingExp && (
@@ -1003,18 +791,17 @@ export const AdminDashboard: React.FC = () => {
                           });
                           setIsEditingExp(true);
                         }}
-                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                       >
                         <Plus className="w-4 h-4" />
-                        <span>Add New Experience</span>
+                        <span>Add Experience</span>
                       </button>
                     )}
                   </div>
 
                   {isEditingExp ? (
-                    /* Experience Edit Form */
-                    <form onSubmit={handleSaveExp} className="bg-slate-950/90 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
-                      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <form onSubmit={handleSaveExp} className="bg-white/[0.02] border border-white/[0.08] rounded-2xl p-6 space-y-4 text-xs">
+                      <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
                         <span className="font-bold text-white text-sm">
                           {expForm.id ? 'Edit Experience' : 'Create New Experience'}
                         </span>
@@ -1029,176 +816,113 @@ export const AdminDashboard: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Job Title / Role (English) *</label>
+                          <label className="font-medium text-slate-300">Role / Job Title *</label>
                           <input
                             type="text"
                             required
                             value={expForm.role}
                             onChange={(e) => setExpForm({ ...expForm, role: e.target.value })}
-                            placeholder="e.g. Acting Project Lead"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            placeholder="e.g. Master Trainer"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Role (Urdu)</label>
-                          <input
-                            type="text"
-                            value={expForm.roleUrdu}
-                            onChange={(e) => setExpForm({ ...expForm, roleUrdu: e.target.value })}
-                            placeholder="عہدہ اردو میں..."
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Organization (English) *</label>
+                          <label className="font-medium text-slate-300">Organization *</label>
                           <input
                             type="text"
                             required
                             value={expForm.organization}
                             onChange={(e) => setExpForm({ ...expForm, organization: e.target.value })}
-                            placeholder="e.g. Urdu AI Training Program – WANG"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                          />
-                        </div>
-
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Organization (Urdu)</label>
-                          <input
-                            type="text"
-                            value={expForm.organizationUrdu}
-                            onChange={(e) => setExpForm({ ...expForm, organizationUrdu: e.target.value })}
-                            placeholder="ادارے کا نام اردو میں..."
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
+                            placeholder="e.g. Urdu AI – WANG"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Period *</label>
+                          <label className="font-medium text-slate-300">Period *</label>
                           <input
                             type="text"
                             required
                             value={expForm.period}
                             onChange={(e) => setExpForm({ ...expForm, period: e.target.value })}
-                            placeholder="e.g. Jan 2026 – May 2026"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            placeholder="e.g. May 2025 – Present"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Location</label>
+                          <label className="font-medium text-slate-300">Location</label>
                           <input
                             type="text"
                             value={expForm.location}
                             onChange={(e) => setExpForm({ ...expForm, location: e.target.value })}
                             placeholder="e.g. Balochistan, Pakistan"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                           />
                         </div>
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-semibold text-slate-300">Summary Line *</label>
+                        <label className="font-medium text-slate-300">Summary Line *</label>
                         <textarea
                           rows={2}
                           required
                           value={expForm.summary}
                           onChange={(e) => setExpForm({ ...expForm, summary: e.target.value })}
-                          placeholder="Brief summary of duties..."
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                          className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                         />
-                      </div>
-
-                      {/* Organization Links */}
-                      <div className="p-4 bg-slate-900/60 rounded-xl border border-slate-800 space-y-3">
-                        <span className="font-bold text-white block">Organization Official Links (Social & Web icons appear on card):</span>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                          <input
-                            type="text"
-                            value={expForm.links?.website || ''}
-                            onChange={(e) => setExpForm({ ...expForm, links: { ...expForm.links, website: e.target.value } })}
-                            placeholder="Website URL (e.g. https://wang.org.pk)"
-                            className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                          />
-                          <input
-                            type="text"
-                            value={expForm.links?.linkedin || ''}
-                            onChange={(e) => setExpForm({ ...expForm, links: { ...expForm.links, linkedin: e.target.value } })}
-                            placeholder="LinkedIn URL"
-                            className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                          />
-                          <input
-                            type="text"
-                            value={expForm.links?.instagram || ''}
-                            onChange={(e) => setExpForm({ ...expForm, links: { ...expForm.links, instagram: e.target.value } })}
-                            placeholder="Instagram URL"
-                            className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                          />
-                        </div>
                       </div>
 
                       <div className="flex items-center gap-3 pt-2">
                         <button
                           type="submit"
-                          className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                          className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                         >
                           <Save className="w-4 h-4" />
                           <span>Save Experience</span>
                         </button>
-
                         <button
                           type="button"
                           onClick={() => setIsEditingExp(false)}
-                          className="px-4 py-2.5 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs cursor-pointer"
+                          className="px-4 py-2.5 bg-white/[0.04] text-slate-400 hover:text-white rounded-xl text-xs cursor-pointer"
                         >
                           Cancel
                         </button>
                       </div>
                     </form>
                   ) : (
-                    /* Experience List */
                     <div className="space-y-3">
                       {data.experience.map((exp) => (
                         <div
                           key={exp.id}
-                          className="p-4 bg-slate-950/70 border border-slate-800 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                          className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between gap-4"
                         >
                           <div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-white">{exp.role}</span>
-                              <span className="text-xs text-emerald-400 font-semibold">· {exp.organization}</span>
-                            </div>
-                            <p className="text-[11px] text-slate-400 mt-0.5">
-                              {exp.period} · {exp.location}
-                            </p>
+                            <span className="text-xs font-bold text-white block">{exp.role} · <span className="text-emerald-400">{exp.organization}</span></span>
+                            <span className="text-[11px] text-slate-400 font-mono">{exp.period}</span>
                           </div>
 
-                          <div className="flex items-center gap-2 self-end sm:self-auto">
+                          <div className="flex items-center gap-1.5">
                             <button
                               onClick={() => {
                                 setExpForm(exp);
                                 setIsEditingExp(true);
                               }}
-                              className="p-2 text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors cursor-pointer"
-                              title="Edit Experience"
+                              className="p-1.5 text-slate-400 hover:text-white bg-white/[0.04] rounded-lg transition-colors cursor-pointer"
                             >
                               <Edit3 className="w-3.5 h-3.5" />
                             </button>
-
                             <button
                               onClick={() => {
-                                if (window.confirm(`Delete "${exp.role} at ${exp.organization}"?`)) {
+                                if (window.confirm(`Delete "${exp.role}"?`)) {
                                   deleteExperience(exp.id);
                                   showNotification('Experience removed');
                                 }
                               }}
-                              className="p-2 text-rose-400 hover:text-rose-300 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors cursor-pointer"
-                              title="Delete Experience"
+                              className="p-1.5 text-rose-400 hover:text-rose-300 bg-white/[0.04] rounded-lg transition-colors cursor-pointer"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -1210,323 +934,114 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               )}
 
-              {/* TAB 5: IMPACT NUMBERS */}
-              {activeTab === 'impact' && (
+              {/* TAB 4: BIO, STATS & SOCIALS */}
+              {activeTab === 'content' && (
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-2xl font-black text-white">Impact in Numbers</h3>
-                    <p className="text-xs text-slate-400 mt-0.5">Edit your 4 key career metrics (e.g. 2,500+ participants trained).</p>
+                    <h3 className="text-xl font-bold text-white tracking-tight">Bio, Stats & Socials</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">Quickly edit your headline, bio, contact coordinates and metrics.</p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {data.impact.map((stat, idx) => (
-                      <div key={idx} className="p-5 bg-slate-950/80 border border-slate-800 rounded-2xl space-y-3 text-xs">
-                        <span className="font-mono text-[10px] text-emerald-400 font-bold uppercase block">Metric #{idx + 1}</span>
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Value (e.g. 2,500+, 4+, 4 languages)</label>
-                          <input
-                            type="text"
-                            value={stat.value}
-                            onChange={(e) => updateImpactStat(idx, e.target.value, stat.label)}
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-bold font-mono text-base"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Label (English)</label>
-                          <input
-                            type="text"
-                            value={stat.label}
-                            onChange={(e) => updateImpactStat(idx, stat.value, e.target.value)}
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => showNotification('Impact figures saved!')}
-                    className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <Save className="w-4 h-4" />
-                    <span>Save All Impact Numbers</span>
-                  </button>
-                </div>
-              )}
-
-              {/* TAB 6: CERTIFICATIONS */}
-              {activeTab === 'certifications' && (
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-2xl font-black text-white">Certifications & Recognition</h3>
-                      <p className="text-xs text-slate-400 mt-0.5">Manage international accreditations, instructor certifications and honors.</p>
-                    </div>
-
-                    {!isEditingCert && (
-                      <button
-                        onClick={() => {
-                          setCertForm({
-                            id: '',
-                            title: '',
-                            titleUrdu: '',
-                            issuer: '',
-                            issuerUrdu: '',
-                            year: '2026',
-                            description: '',
-                            descriptionUrdu: '',
-                            highlight: false,
-                          });
-                          setIsEditingCert(true);
-                        }}
-                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
-                      >
-                        <Plus className="w-4 h-4" />
-                        <span>Add New Certification</span>
-                      </button>
-                    )}
-                  </div>
-
-                  {isEditingCert ? (
-                    <form onSubmit={handleSaveCert} className="bg-slate-950/90 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
-                      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                        <span className="font-bold text-white text-sm">
-                          {certForm.id ? 'Edit Certification' : 'Create New Certification'}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setIsEditingCert(false)}
-                          className="text-slate-400 hover:text-white cursor-pointer"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Title (English) *</label>
-                          <input
-                            type="text"
-                            required
-                            value={certForm.title}
-                            onChange={(e) => setCertForm({ ...certForm, title: e.target.value })}
-                            placeholder="e.g. AI Opportunity Fund: Asia-Pacific Certified Instructor"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Title (Urdu)</label>
-                          <input
-                            type="text"
-                            value={certForm.titleUrdu}
-                            onChange={(e) => setCertForm({ ...certForm, titleUrdu: e.target.value })}
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-urdu text-right"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="space-y-1 sm:col-span-2">
-                          <label className="font-semibold text-slate-300">Issuer (Organization) *</label>
-                          <input
-                            type="text"
-                            required
-                            value={certForm.issuer}
-                            onChange={(e) => setCertForm({ ...certForm, issuer: e.target.value })}
-                            placeholder="e.g. AI Singapore & AVPN"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="font-semibold text-slate-300">Year</label>
-                          <input
-                            type="text"
-                            value={certForm.year}
-                            onChange={(e) => setCertForm({ ...certForm, year: e.target.value })}
-                            placeholder="2025"
-                            className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
-                          />
-                        </div>
-                      </div>
-
+                  <form onSubmit={handleSaveHeroAndContact} className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-4 text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1">
-                        <label className="font-semibold text-slate-300">Description</label>
-                        <textarea
-                          rows={2}
-                          value={certForm.description}
-                          onChange={(e) => setCertForm({ ...certForm, description: e.target.value })}
-                          className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white"
+                        <label className="font-medium text-slate-300">Headline (English)</label>
+                        <input
+                          type="text"
+                          value={heroForm.headline}
+                          onChange={(e) => setHeroForm({ ...heroForm, headline: e.target.value })}
+                          className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                         />
                       </div>
-
-                      <div className="flex items-center gap-3 pt-2">
-                        <button
-                          type="submit"
-                          className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <Save className="w-4 h-4" />
-                          <span>Save Certification</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setIsEditingCert(false)}
-                          className="px-4 py-2.5 bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs cursor-pointer"
-                        >
-                          Cancel
-                        </button>
+                      <div className="space-y-1">
+                        <label className="font-medium text-slate-300">Sub-headline (English)</label>
+                        <input
+                          type="text"
+                          value={heroForm.subHeadline}
+                          onChange={(e) => setHeroForm({ ...heroForm, subHeadline: e.target.value })}
+                          className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
+                        />
                       </div>
-                    </form>
-                  ) : (
-                    <div className="space-y-3">
-                      {data.certifications.map((cert) => (
-                        <div
-                          key={cert.id}
-                          className="p-4 bg-slate-950/70 border border-slate-800 rounded-2xl flex items-center justify-between gap-4"
-                        >
-                          <div>
-                            <span className="text-xs font-bold text-white block">{cert.title}</span>
-                            <span className="text-[11px] text-emerald-400">{cert.issuer} · {cert.year}</span>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={() => {
-                                setCertForm(cert);
-                                setIsEditingCert(true);
-                              }}
-                              className="p-2 text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors cursor-pointer"
-                            >
-                              <Edit3 className="w-3.5 h-3.5" />
-                            </button>
-                            <button
-                              onClick={() => {
-                                if (window.confirm(`Delete "${cert.title}"?`)) {
-                                  deleteCertification(cert.id);
-                                  showNotification('Certification deleted');
-                                }
-                              }}
-                              className="p-2 text-rose-400 hover:text-rose-300 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 transition-colors cursor-pointer"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* TAB 7: SOCIALS & CONTACT */}
-              {activeTab === 'socials' && (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-black text-white">Social Media & Coordinates</h3>
-                    <p className="text-xs text-slate-400 mt-0.5">Update your LinkedIn, Instagram, Facebook, email, phone and location.</p>
-                  </div>
-
-                  <form onSubmit={handleSaveContact} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-950/80 p-6 border border-slate-800 rounded-2xl">
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">LinkedIn URL</label>
-                      <input
-                        type="text"
-                        value={contactForm.linkedIn}
-                        onChange={(e) => setContactForm({ ...contactForm, linkedIn: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                      />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Instagram URL</label>
-                      <input
-                        type="text"
-                        value={contactForm.instagram || ''}
-                        onChange={(e) => setContactForm({ ...contactForm, instagram: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
+                      <label className="font-medium text-slate-300">Intro Line (English)</label>
+                      <textarea
+                        rows={2}
+                        value={heroForm.introLine}
+                        onChange={(e) => setHeroForm({ ...heroForm, introLine: e.target.value })}
+                        className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                       />
                     </div>
 
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Facebook URL</label>
-                      <input
-                        type="text"
-                        value={contactForm.facebook || ''}
-                        onChange={(e) => setContactForm({ ...contactForm, facebook: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                      <div className="space-y-1">
+                        <label className="font-medium text-slate-300">LinkedIn URL</label>
+                        <input
+                          type="text"
+                          value={contactForm.linkedIn}
+                          onChange={(e) => setContactForm({ ...contactForm, linkedIn: e.target.value })}
+                          className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-mono text-[11px]"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="font-medium text-slate-300">Instagram URL</label>
+                        <input
+                          type="text"
+                          value={contactForm.instagram || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, instagram: e.target.value })}
+                          className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-mono text-[11px]"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="font-medium text-slate-300">Facebook URL</label>
+                        <input
+                          type="text"
+                          value={contactForm.facebook || ''}
+                          onChange={(e) => setContactForm({ ...contactForm, facebook: e.target.value })}
+                          className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-mono text-[11px]"
+                        />
+                      </div>
                     </div>
 
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Email Address</label>
-                      <input
-                        type="email"
-                        value={contactForm.email}
-                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Phone Number</label>
-                      <input
-                        type="text"
-                        value={contactForm.phone}
-                        onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="font-semibold text-slate-300">Location</label>
-                      <input
-                        type="text"
-                        value={contactForm.location}
-                        onChange={(e) => setContactForm({ ...contactForm, location: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-white font-mono text-[11px]"
-                      />
-                    </div>
-
-                    <div className="sm:col-span-2 pt-2">
+                    <div className="pt-2">
                       <button
                         type="submit"
-                        className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                        className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                       >
                         <Save className="w-4 h-4" />
-                        <span>Save Contact & Social Coordinates</span>
+                        <span>Save Bio & Socials</span>
                       </button>
                     </div>
                   </form>
                 </div>
               )}
 
-              {/* TAB 8: BACKUP, EXPORT & SECURITY */}
-              {activeTab === 'export' && (
+              {/* TAB 5: BACKUP & SETTINGS */}
+              {activeTab === 'settings' && (
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-2xl font-black text-white">Backup, Export & Security</h3>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Save JSON backup files, sync code to your repository, or change your master admin password.
-                    </p>
+                    <h3 className="text-xl font-bold text-white tracking-tight">Backup, Export & Security</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">Protect your content and manage your database.</p>
                   </div>
 
-                  {/* JSON Backup & Restore Card */}
-                  <div className="p-6 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
-                    <div className="flex items-center justify-between">
+                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
-                        <h4 className="text-sm font-bold text-white">One-Click Database Backup & Restore</h4>
-                        <p className="text-xs text-slate-400">Download your entire website data as a .json file or upload an existing backup.</p>
+                        <h4 className="text-sm font-bold text-white">Database Backup (.json)</h4>
+                        <p className="text-xs text-slate-400">Download or restore your complete website state.</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
                           onClick={downloadBackupJson}
-                          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                         >
                           <Download className="w-4 h-4" />
-                          <span>Download Backup (.json)</span>
+                          <span>Download Backup</span>
                         </button>
-                        <label className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 cursor-pointer">
+                        <label className="px-4 py-2 bg-white/[0.04] hover:bg-white/[0.08] text-white font-medium rounded-xl text-xs border border-white/[0.1] flex items-center gap-1.5 cursor-pointer">
                           <Upload className="w-4 h-4" />
-                          <span>Upload Backup</span>
+                          <span>Restore Backup</span>
                           <input
                             ref={fileInputRef}
                             type="file"
@@ -1539,8 +1054,8 @@ export const AdminDashboard: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Password Change Card */}
-                  <div className="p-6 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
+                  {/* Change Password */}
+                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-3">
                     <h4 className="text-sm font-bold text-white flex items-center gap-2">
                       <Key className="w-4 h-4 text-emerald-400" />
                       <span>Change Master Admin Password</span>
@@ -1548,55 +1063,51 @@ export const AdminDashboard: React.FC = () => {
                     <form onSubmit={handlePasswordChange} className="flex flex-col sm:flex-row gap-3">
                       <input
                         type="password"
-                        placeholder="Enter new master password..."
+                        placeholder="Enter new password..."
                         value={newPinInput}
                         onChange={(e) => setNewPinInput(e.target.value)}
-                        className="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white text-xs flex-1"
+                        className="px-4 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white text-xs flex-1"
                       />
                       <button
                         type="submit"
-                        className="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold rounded-xl text-xs border border-slate-700 cursor-pointer"
+                        className="px-4 py-2 bg-white/[0.04] hover:bg-white/[0.08] text-emerald-400 font-bold rounded-xl text-xs border border-white/[0.1] cursor-pointer"
                       >
                         Update Password
                       </button>
                     </form>
                   </div>
 
-                  {/* Full Code Sync Card */}
-                  <div className="p-6 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
+                  {/* Code Export */}
+                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-3">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-sm font-bold text-white">Full portfolioData.ts Code Export</h4>
-                        <p className="text-xs text-slate-400">Copy this code to replace /src/data/portfolioData.ts if you want a permanent GitHub commit.</p>
-                      </div>
+                      <h4 className="text-sm font-bold text-white">Full TypeScript Code</h4>
                       <button
                         onClick={handleCopyCode}
-                        className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer"
+                        className="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs flex items-center gap-1.5 cursor-pointer"
                       >
-                        {copiedCode ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        <span>{copiedCode ? 'Copied Code!' : 'Copy Code'}</span>
+                        {copiedCode ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedCode ? 'Copied!' : 'Copy Code'}</span>
                       </button>
                     </div>
-
                     <textarea
                       readOnly
-                      rows={8}
+                      rows={6}
                       value={getExportCode()}
-                      className="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-slate-300 font-mono text-[11px] leading-relaxed"
+                      className="w-full p-3 bg-black/60 border border-white/[0.08] rounded-xl text-slate-300 font-mono text-[11px]"
                     />
                   </div>
 
                   {/* Reset Defaults */}
-                  <div className="p-5 bg-rose-950/20 border border-rose-900/40 rounded-2xl flex items-center justify-between">
+                  <div className="p-5 rounded-2xl bg-rose-950/20 border border-rose-900/30 flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-bold text-rose-400 block">Reset Portfolio to Factory Defaults</span>
-                      <span className="text-[11px] text-slate-400">Restore the original official Salman Khan portfolio data.</span>
+                      <span className="text-xs font-bold text-rose-400 block">Factory Reset</span>
+                      <span className="text-[11px] text-slate-400">Restore original Salman Khan portfolio content.</span>
                     </div>
                     <button
                       onClick={resetToDefaults}
                       className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs cursor-pointer"
                     >
-                      Reset Defaults
+                      Reset Data
                     </button>
                   </div>
                 </div>
