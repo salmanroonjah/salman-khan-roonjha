@@ -32,44 +32,46 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
   return (
     <section 
       id="my-work" 
-      className="py-24 sm:py-32 border-b border-white/[0.08] bg-[#07080B] relative overflow-hidden"
+      className="py-24 sm:py-32 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/60 bg-slate-50/40 relative overflow-hidden"
     >
       {/* Ambient Cinema Lighting Mesh */}
-      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-48 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono font-medium tracking-wide uppercase text-emerald-400">
-              <Film className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium tracking-wide uppercase dark:text-cyan-400 text-blue-700 dark:bg-cyan-950/40 bg-blue-50 border dark:border-cyan-500/30 border-blue-500/20 shadow-[0_0_12px_rgba(37,99,235,0.15)]">
+              <Film className="w-3.5 h-3.5 text-cyan-400" />
               <span>{isUrdu ? 'ویڈیوز اور تخلیقی پراجیکٹس' : 'Selected Works & Media'}</span>
-              <span aria-hidden="true" className="text-white/20">/</span>
-              <span className="text-white/60">{isUrdu ? 'پورٹ فولیو نمائش' : 'Cinematic Portfolio'}</span>
+              <span aria-hidden="true" className="dark:text-white/20 text-slate-300">/</span>
+              <span className="dark:text-white/60 text-slate-600">{isUrdu ? 'پورٹ فولیو نمائش' : 'Verified Portfolio'}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold dark:text-white text-slate-900 tracking-tight">
               {isUrdu ? 'میرا کام: ویڈیوز اور تخلیقی پراجیکٹس' : 'My Work (Videos & Creative Projects)'}
             </h2>
 
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+            <p className="dark:text-slate-300 text-slate-600 text-sm sm:text-base leading-relaxed">
               {isUrdu ? data.myWork.introLineUrdu : data.myWork.introLine}
             </p>
           </div>
         </div>
 
-        {/* Apple/Samsung Clean Segmented Filter Bar */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl mb-12 max-w-fit">
+        {/* Futuristic Glass Segmented Filter Dock */}
+        <div className="relative flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl cyber-glass dark:bg-slate-900/60 bg-white/70 border dark:border-white/10 border-slate-200/90 shadow-lg mb-12 max-w-fit overflow-hidden">
+          {/* Subtle live laser sweep across dock */}
+          <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-cyan-400/25 to-transparent pointer-events-none animate-scan-laser" />
           {data.myWork.categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 text-xs font-medium rounded-xl transition-all duration-200 cursor-pointer ${
+              className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all duration-200 cursor-pointer relative z-10 ${
                 selectedCategory === category
-                  ? 'bg-emerald-500 text-slate-950 font-bold shadow-[0_0_20px_rgba(16,185,129,0.3)]'
-                  : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                  ? 'bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white font-bold shadow-[0_0_20px_rgba(37,99,235,0.45)]'
+                  : 'dark:text-slate-300 text-slate-600 hover:dark:text-white hover:text-slate-950 hover:dark:bg-white/[0.08] hover:bg-slate-200/70'
               }`}
             >
               {category}
@@ -82,11 +84,11 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="group rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:border-emerald-500/50 hover:bg-white/[0.04] transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-xl"
+              className="group rounded-3xl cyber-glass-card dark:bg-slate-900/60 bg-white/70 border dark:border-white/[0.12] border-slate-200/90 hover:dark:border-cyan-400/50 hover:border-cyan-500/50 transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-xl hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] hover:-translate-y-1 relative"
             >
               {/* Media Frame (16:9 Aspect Ratio) */}
               <div 
-                className="relative aspect-video w-full overflow-hidden bg-black/60 cursor-pointer"
+                className="relative aspect-video w-full overflow-hidden bg-black/80 cursor-pointer"
                 onClick={() => openModal(project)}
               >
                 <img
@@ -97,21 +99,27 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
                 />
 
                 {/* Scrim Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07080B] via-[#07080B]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t dark:from-[#070913] from-slate-950/70 via-transparent to-black/30" />
 
-                {/* Duration indicator (Clean unboxed text) */}
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[11px] font-mono text-emerald-400 font-medium">
+                {/* Category Pill Tag (Top Left) */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#06b6d4]" />
+                  <span>{project.category}</span>
+                </div>
+
+                {/* Duration indicator */}
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono text-cyan-400 font-bold shadow-[0_0_10px_rgba(6,182,212,0.3)]">
                   {project.mediaType === 'video' ? (project.duration || 'Video') : 'Graphic'}
                 </div>
 
                 {/* Organization Kicker (Bottom Left of Frame) */}
-                <div className="absolute bottom-3 left-4 text-xs font-mono font-medium text-slate-300 drop-shadow-md">
+                <div className="absolute bottom-3 left-4 text-xs font-mono font-medium text-white drop-shadow-md">
                   {project.createdFor}
                 </div>
 
-                {/* Play / Zoom Icon Ring */}
+                {/* Neon Play Ring Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/90 text-slate-950 flex items-center justify-center shadow-[0_0_25px_rgba(16,185,129,0.5)] group-hover:scale-110 group-hover:bg-emerald-400 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-white flex items-center justify-center shadow-[0_0_25px_rgba(37,99,235,0.6)] group-hover:scale-110 group-hover:shadow-[0_0_35px_rgba(6,182,212,0.8)] transition-all duration-300">
                     {project.mediaType === 'video' ? (
                       <Play className="w-5 h-5 fill-current ml-0.5" />
                     ) : (
@@ -124,33 +132,33 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
               {/* Card Body */}
               <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                 <div className="space-y-2.5">
-                  <div className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider font-semibold">
+                  <div className="text-[11px] font-mono text-blue-600 dark:text-cyan-400 uppercase tracking-wider font-bold">
                     {project.category}
                   </div>
 
                   <h3 
                     onClick={() => openModal(project)}
-                    className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors leading-snug cursor-pointer line-clamp-2"
+                    className="text-lg font-bold dark:text-white text-slate-900 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors leading-snug cursor-pointer line-clamp-2"
                   >
                     {isUrdu ? project.titleUrdu : project.title}
                   </h3>
 
-                  <div className="text-xs text-slate-400">
-                    <span className="text-slate-300 font-semibold">{isUrdu ? 'کردار: ' : 'Role: '}</span>
+                  <div className="text-xs dark:text-slate-400 text-slate-500">
+                    <span className="dark:text-slate-300 text-slate-700 font-semibold">{isUrdu ? 'کردار: ' : 'Role: '}</span>
                     <span>{isUrdu ? project.myRoleUrdu : project.myRole}</span>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal line-clamp-2">
+                  <p className="text-xs sm:text-sm dark:text-slate-300 text-slate-600 leading-relaxed font-normal line-clamp-2">
                     {isUrdu ? project.aboutUrdu : project.about}
                   </p>
 
                   {/* Quantitative Result / Views Metric */}
                   {project.result && (
-                    <div className="p-3 rounded-xl bg-black/40 border border-white/[0.06] text-xs space-y-0.5">
-                      <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-wider block font-bold">
+                    <div className="p-3 rounded-xl dark:bg-black/40 bg-slate-100/90 border dark:border-white/[0.06] border-slate-200/90 text-xs space-y-0.5 shadow-inner">
+                      <span className="font-mono text-[10px] text-blue-600 dark:text-cyan-400 uppercase tracking-wider block font-bold">
                         {isUrdu ? 'اثرات / ویوز' : 'Impact / Reach'}
                       </span>
-                      <span className="text-slate-200 font-medium font-sans">
+                      <span className="dark:text-slate-200 text-slate-800 font-medium font-sans">
                         {isUrdu ? project.resultUrdu : project.result}
                       </span>
                     </div>
@@ -158,10 +166,10 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
                 </div>
 
                 {/* Footer Action */}
-                <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs">
+                <div className="pt-4 border-t dark:border-white/[0.08] border-slate-200/80 flex items-center justify-between text-xs">
                   <button
                     onClick={() => openModal(project)}
-                    className="text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1.5 cursor-pointer"
+                    className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold inline-flex items-center gap-1.5 cursor-pointer"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>{project.mediaType === 'video' ? 'Watch Reel' : 'View Media'}</span>
@@ -172,7 +180,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-400 hover:text-white inline-flex items-center gap-1 transition-colors"
+                      className="dark:text-slate-400 text-slate-500 hover:dark:text-white hover:text-slate-900 inline-flex items-center gap-1 transition-colors font-medium"
                       title="Open external source"
                     >
                       <span>External Link</span>
@@ -189,28 +197,29 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
       {/* Cinematic Media Lightbox Modal */}
       {activeMediaProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-2xl animate-in fade-in duration-200"
           onClick={() => setActiveMediaProject(null)}
         >
           <div
-            className="rounded-3xl bg-[#0C0E14] border border-white/[0.12] max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[92vh]"
+            className="rounded-3xl dark:bg-[#0B0F19]/95 bg-white/95 cyber-glass-card border dark:border-white/[0.15] border-slate-300 max-w-4xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[92vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header Bar */}
-            <div className="p-4 sm:p-5 bg-black/50 border-b border-white/[0.08] flex items-center justify-between shrink-0">
+            <div className="p-4 sm:p-5 dark:bg-black/60 bg-slate-100/80 border-b dark:border-white/[0.08] border-slate-200 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg dark:bg-cyan-950/40 bg-cyan-50 border dark:border-cyan-500/30 border-cyan-500/20 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                   {activeMediaProject.category}
                 </span>
-                <span aria-hidden="true" className="text-white/20">·</span>
-                <span className="text-xs text-slate-300 font-mono">
+                <span aria-hidden="true" className="dark:text-white/20 text-slate-300">·</span>
+                <span className="text-xs dark:text-slate-300 text-slate-700 font-mono font-medium">
                   {activeMediaProject.createdFor}
                 </span>
               </div>
 
               <button
                 onClick={() => setActiveMediaProject(null)}
-                className="p-1.5 text-slate-400 hover:text-white hover:bg-white/[0.06] rounded-xl transition-colors cursor-pointer"
+                className="p-1.5 dark:text-slate-400 text-slate-500 hover:dark:text-white hover:text-slate-950 dark:hover:bg-white/[0.08] hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
                 aria-label="Close Preview"
               >
                 <X className="w-5 h-5" />
@@ -220,7 +229,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
             {/* Modal Body */}
             <div className="overflow-y-auto p-4 sm:p-6 space-y-6">
               {/* Media Stage */}
-              <div className="rounded-2xl overflow-hidden bg-black border border-white/[0.08] aspect-video w-full flex items-center justify-center relative shadow-2xl">
+              <div className="rounded-2xl overflow-hidden bg-black border dark:border-white/[0.08] border-slate-300 aspect-video w-full flex items-center justify-center relative shadow-2xl">
                 {activeMediaProject.mediaType === 'video' && activeMediaProject.videoUrl ? (
                   <video
                     src={activeMediaProject.videoUrl}
@@ -242,27 +251,27 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
 
               {/* Media Info Sheet */}
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-white tracking-tight">
+                <h3 className="text-2xl font-bold dark:text-white text-slate-900 tracking-tight">
                   {isUrdu ? activeMediaProject.titleUrdu : activeMediaProject.title}
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                    <span className="text-slate-500 block uppercase">Role</span>
-                    <span className="text-slate-200 font-sans font-semibold text-sm">
+                  <div className="p-3.5 rounded-xl dark:bg-white/[0.03] bg-slate-100/90 border dark:border-white/[0.06] border-slate-200">
+                    <span className="dark:text-slate-400 text-slate-500 block uppercase font-bold">Role</span>
+                    <span className="dark:text-slate-200 text-slate-800 font-sans font-semibold text-sm">
                       {isUrdu ? activeMediaProject.myRoleUrdu : activeMediaProject.myRole}
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                    <span className="text-slate-500 block uppercase">Impact / Metrics</span>
-                    <span className="text-emerald-400 font-sans font-semibold text-sm">
+                  <div className="p-3.5 rounded-xl dark:bg-white/[0.03] bg-slate-100/90 border dark:border-white/[0.06] border-slate-200">
+                    <span className="dark:text-slate-400 text-slate-500 block uppercase font-bold">Impact / Metrics</span>
+                    <span className="text-blue-600 dark:text-cyan-400 font-sans font-semibold text-sm">
                       {isUrdu ? activeMediaProject.resultUrdu : activeMediaProject.result || 'Community Distribution'}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-sm text-slate-300 leading-relaxed font-sans">
+                <p className="text-sm dark:text-slate-300 text-slate-700 leading-relaxed font-sans">
                   {isUrdu ? activeMediaProject.aboutUrdu : activeMediaProject.about}
                 </p>
 
@@ -272,7 +281,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
                       href={activeMediaProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-xs transition-colors shadow-lg shadow-emerald-500/25"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-xl text-xs transition-colors shadow-lg shadow-blue-500/25 hover:brightness-110"
                     >
                       <span>Open Project External Link</span>
                       <ExternalLink className="w-4 h-4" />

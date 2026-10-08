@@ -8,8 +8,13 @@ import {
 
 type PortfolioDataType = typeof initialPortfolioData;
 
+export type ThemeMode = 'dark' | 'light';
+
 interface PortfolioContextType {
   data: PortfolioDataType;
+  theme: ThemeMode;
+  toggleTheme: () => void;
+  setTheme: (mode: ThemeMode) => void;
   isAdminOpen: boolean;
   setIsAdminOpen: (open: boolean) => void;
   isAuthenticated: boolean;
@@ -45,11 +50,22 @@ interface PortfolioContextType {
 const STORAGE_KEY = 'sk_portfolio_live_data';
 const AUTH_KEY = 'sk_portfolio_admin_auth';
 const PIN_KEY = 'sk_admin_custom_pin';
+const THEME_KEY = 'sk_portfolio_theme';
 const DEFAULT_PIN = 'admin123';
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
 export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setThemeState] = useState<ThemeMode>(() => {
+    try {
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+    } catch {
+      // ignore
+    }
+    return 'dark';
+  });
+
   const [data, setData] = useState<PortfolioDataType>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -63,6 +79,32 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
     return initialPortfolioData;
   });
+
+  // Sync theme to HTML root element
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    }
+    root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      // ignore
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const setTheme = (mode: ThemeMode) => {
+    setThemeState(mode);
+  };
 
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
@@ -268,6 +310,9 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     <PortfolioContext.Provider
       value={{
         data,
+        theme,
+        toggleTheme,
+        setTheme,
         isAdminOpen,
         setIsAdminOpen,
         isAuthenticated,

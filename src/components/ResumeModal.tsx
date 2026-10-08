@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { X, Printer, Check, Copy } from 'lucide-react';
+import { X, Printer, Check, Copy, FileText } from 'lucide-react';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -78,30 +78,34 @@ ${data.whatIDo.map((item) => `• ${item.title}: ${item.description}`).join('\n'
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-sm transition-opacity">
       <div
-        className="relative w-full max-w-4xl bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden max-h-[95vh] flex flex-col"
+        className="relative w-full max-w-4xl cyber-glass-card dark:bg-[#0B0F19]/95 bg-white/95 rounded-3xl shadow-2xl border dark:border-white/[0.15] border-slate-300 overflow-hidden max-h-[95vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Control Bar */}
-        <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0 no-print">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-white">
+        {/* Top Control Bar with Professional Document Header */}
+        <div className="p-4 sm:p-5 dark:bg-black/60 bg-slate-100/80 border-b dark:border-white/[0.08] border-slate-200 flex items-center justify-between gap-3 shrink-0 no-print">
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-[0_0_12px_rgba(37,99,235,0.4)]">
+              <FileText className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-white/20 dark:text-white/20 text-slate-300">|</span>
+            <span className="text-sm font-bold dark:text-white text-slate-900">
               {isUrdu ? 'باضابطہ نصابِ حیات (CV)' : 'Official Curriculum Vitae'}
             </span>
-            <span className="text-xs text-emerald-400 font-mono">Salman Khan</span>
+            <span className="text-xs text-blue-600 dark:text-cyan-400 font-mono font-bold">Salman Khan</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyTextCV}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-200 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold dark:text-slate-200 text-slate-700 dark:bg-white/[0.04] bg-white hover:dark:bg-white/[0.08] hover:bg-slate-50 rounded-xl border dark:border-white/10 border-slate-200 transition-colors cursor-pointer shadow-sm"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-cyan-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied Text' : 'Copy Text'}</span>
             </button>
 
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-slate-950 bg-emerald-500 hover:bg-emerald-400 rounded-lg transition-all shadow-md shadow-emerald-500/20 cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:brightness-110 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>{isUrdu ? 'پرنٹ یا پی ڈی ایف محفوظ کریں' : 'Print / Save PDF'}</span>
@@ -109,7 +113,7 @@ ${data.whatIDo.map((item) => `• ${item.title}: ${item.description}`).join('\n'
 
             <button
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 dark:text-slate-400 text-slate-500 hover:dark:text-white hover:text-slate-950 rounded-xl transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -118,14 +122,14 @@ ${data.whatIDo.map((item) => `• ${item.title}: ${item.description}`).join('\n'
         </div>
 
         {/* Printable Paper Canvas */}
-        <div className="overflow-y-auto p-4 sm:p-8 bg-slate-950 print:bg-white print:p-0">
+        <div className="overflow-y-auto p-4 sm:p-8 dark:bg-slate-950 bg-slate-100 print:bg-white print:p-0">
           <div className="max-w-3xl mx-auto bg-white p-8 sm:p-12 shadow-md print:shadow-none print:border-none border border-stone-200 text-stone-900 rounded-lg print:rounded-none space-y-6">
             {/* Header */}
             <div className="border-b border-stone-300 pb-5 text-center sm:text-left">
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-stone-900 uppercase">
                 SALMAN KHAN
               </h1>
-              <p className="text-sm font-bold text-emerald-800 mt-1">
+              <p className="text-sm font-bold text-blue-700 dark:text-blue-400 mt-1">
                 AI Trainer · Digital Literacy Specialist · Creative Professional
               </p>
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 text-xs text-stone-600 mt-2 font-sans">
@@ -182,7 +186,7 @@ ${data.whatIDo.map((item) => `• ${item.title}: ${item.description}`).join('\n'
                 {data.experience.map((exp) => (
                   <div key={exp.id} className="text-xs space-y-1">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold text-stone-900">
-                      <span>{exp.role} · <span className="text-emerald-800">{exp.organization}</span></span>
+                      <span>{exp.role} · <span className="text-blue-700 dark:text-blue-400">{exp.organization}</span></span>
                       <span className="text-stone-500 font-mono font-normal text-[11px]">{exp.period}</span>
                     </div>
                     <p className="text-stone-700 font-medium">{exp.summary}</p>

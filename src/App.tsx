@@ -29,7 +29,7 @@ function PortfolioApp() {
   return (
     <div
       id="top"
-      className="min-h-screen bg-[#07080B] text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950 relative selection:shadow-lg"
+      className="min-h-screen dark:bg-[#070913] bg-[#F8FAFC] dark:text-slate-100 text-slate-850 font-sans selection:bg-cyan-400 selection:text-slate-950 relative transition-colors duration-300"
     >
       {/* Interactive Galaxy Particle Background Animation */}
       <GalaxyBackground />
