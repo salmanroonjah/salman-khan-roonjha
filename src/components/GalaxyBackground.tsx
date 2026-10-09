@@ -60,9 +60,12 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
     let targetMouseY = mouseY;
     let isMouseActive = false;
 
+    let isMobile = window.innerWidth < 768;
     const particles: Particle[] = [];
     const trailSparks: TrailSpark[] = [];
-    const count = Math.min(density, Math.floor((width * height) / 11000));
+    const count = isMobile 
+      ? Math.min(22, Math.max(12, Math.floor((width * height) / 24000))) 
+      : Math.min(density, Math.floor((width * height) / 11000));
 
     // Sleek high-tech cyber blue palette: cyan-blue, azure, cobalt, sapphire, deep electric blue
     const hues = [200, 212, 224, 235, 248];
@@ -90,6 +93,7 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      isMobile = window.innerWidth < 768;
     };
 
     let lastSparkTime = 0;
@@ -243,21 +247,23 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
         }
         ctx.fill();
 
-        // Constellation linkage between neighboring particles (pure blue/cyan)
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const distLinks = Math.hypot(renderX - p2.x, renderY - p2.y);
-          if (distLinks < 75) {
-            ctx.beginPath();
-            ctx.moveTo(renderX, renderY);
-            ctx.lineTo(p2.x, p2.y);
-            const lineOpacity = (1 - distLinks / 75) * (isDark ? 0.16 : 0.09);
-            ctx.strokeStyle = isDark 
-              ? `rgba(59, 130, 246, ${lineOpacity})` 
-              : `rgba(37, 99, 235, ${lineOpacity})`;
-            ctx.lineWidth = 0.7;
-            ctx.shadowBlur = 0;
-            ctx.stroke();
+        // Constellation linkage between neighboring particles (desktop only for 60fps mobile speed)
+        if (!isMobile) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const distLinks = Math.hypot(renderX - p2.x, renderY - p2.y);
+            if (distLinks < 75) {
+              ctx.beginPath();
+              ctx.moveTo(renderX, renderY);
+              ctx.lineTo(p2.x, p2.y);
+              const lineOpacity = (1 - distLinks / 75) * (isDark ? 0.16 : 0.09);
+              ctx.strokeStyle = isDark 
+                ? `rgba(59, 130, 246, ${lineOpacity})` 
+                : `rgba(37, 99, 235, ${lineOpacity})`;
+              ctx.lineWidth = 0.7;
+              ctx.shadowBlur = 0;
+              ctx.stroke();
+            }
           }
         }
       }
@@ -279,12 +285,12 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
 
   return (
     <>
-      {/* 1. Deep Radiant Aurora Background Mesh (z-0) */}
+      {/* 1. Deep Radiant Aurora Background Mesh (z-0) - Mobile Optimized */}
       <div className={`pointer-events-none fixed inset-0 z-0 overflow-hidden ${className}`}>
         {/* Dynamic Cursor Light Source (Glass Illuminator that follows mouse) */}
         {mousePos.x > 0 && mousePos.y > 0 && (
           <div
-            className="absolute rounded-full pointer-events-none blur-[90px] transition-transform duration-75 ease-out opacity-85"
+            className="hidden sm:block absolute rounded-full pointer-events-none blur-[90px] transition-transform duration-75 ease-out opacity-85 transform-gpu"
             style={{
               width: '420px',
               height: '420px',
@@ -297,16 +303,16 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
           />
         )}
 
-        {/* Rich Multi-Layer Fluid Aurora Mesh Gradient Orbs (High-Tech Blue & Cyan) */}
+        {/* High-Tech Fluid Aurora Mesh Gradient Orbs (Lightweight for Mobile, Ultra-Rich for Desktop) */}
         <div 
-          className={`absolute -top-36 -left-36 w-[800px] h-[800px] rounded-full blur-[150px] pointer-events-none transition-all duration-1000 animate-aurora ${
+          className={`absolute -top-20 -left-20 sm:-top-36 sm:-left-36 w-[340px] h-[340px] sm:w-[800px] sm:h-[800px] rounded-full blur-[65px] sm:blur-[150px] pointer-events-none transition-all duration-1000 transform-gpu animate-aurora ${
             isDark 
               ? 'bg-gradient-to-tr from-blue-600/35 via-cyan-500/25 to-transparent' 
               : 'bg-gradient-to-tr from-blue-500/25 via-cyan-400/25 to-transparent'
           }`}
         />
         <div 
-          className={`absolute top-1/4 -right-36 w-[850px] h-[850px] rounded-full blur-[165px] pointer-events-none transition-all duration-1000 animate-aurora ${
+          className={`absolute top-1/4 -right-20 sm:-right-36 w-[340px] h-[340px] sm:w-[850px] sm:h-[850px] rounded-full blur-[70px] sm:blur-[165px] pointer-events-none transition-all duration-1000 transform-gpu animate-aurora ${
             isDark 
               ? 'bg-gradient-to-br from-indigo-600/35 via-blue-700/25 to-transparent' 
               : 'bg-gradient-to-br from-indigo-400/25 via-sky-300/25 to-transparent'
@@ -314,7 +320,7 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
           style={{ animationDelay: '-6s' }}
         />
         <div 
-          className={`absolute bottom-1/4 -left-28 w-[750px] h-[750px] rounded-full blur-[160px] pointer-events-none transition-all duration-1000 animate-aurora ${
+          className={`hidden sm:block absolute bottom-1/4 -left-28 w-[750px] h-[750px] rounded-full blur-[160px] pointer-events-none transition-all duration-1000 transform-gpu animate-aurora ${
             isDark 
               ? 'bg-gradient-to-r from-blue-600/30 via-cyan-500/25 to-transparent' 
               : 'bg-gradient-to-r from-blue-400/25 via-sky-200/35 to-transparent'
@@ -322,7 +328,7 @@ export const GalaxyBackground: React.FC<GalaxyBackgroundProps> = ({
           style={{ animationDelay: '-10s' }}
         />
         <div 
-          className={`absolute -bottom-36 right-1/4 w-[800px] h-[800px] rounded-full blur-[155px] pointer-events-none transition-all duration-1000 animate-aurora ${
+          className={`hidden sm:block absolute -bottom-36 right-1/4 w-[800px] h-[800px] rounded-full blur-[155px] pointer-events-none transition-all duration-1000 transform-gpu animate-aurora ${
             isDark 
               ? 'bg-gradient-to-t from-cyan-600/30 via-blue-500/25 to-transparent' 
               : 'bg-gradient-to-t from-cyan-400/25 via-blue-200/35 to-transparent'

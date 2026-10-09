@@ -4,7 +4,6 @@ import {
   Briefcase, 
   Calendar, 
   MapPin, 
-  Download, 
   CheckCircle2, 
   Globe, 
   ExternalLink 
@@ -22,13 +21,13 @@ export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({ lang, on
   return (
     <section 
       id="experience" 
-      className="py-24 sm:py-32 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/70 bg-white/60 relative overflow-hidden"
+      className="py-16 sm:py-28 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/70 bg-white/60 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-xl space-y-3">
+        <div className="mb-16">
+          <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wide uppercase text-blue-600 dark:text-cyan-400 dark:bg-blue-950/40 bg-blue-50 border dark:border-blue-500/30 border-blue-500/20 shadow-[0_0_12px_rgba(59,130,246,0.15)]">
               <Briefcase className="w-3.5 h-3.5 text-blue-500 dark:text-cyan-400" />
               <span>{isUrdu ? 'پیشہ ورانہ سفر' : 'Leadership & Field Track'}</span>
@@ -42,14 +41,6 @@ export const ExperienceShowcase: React.FC<ExperienceShowcaseProps> = ({ lang, on
                 : 'A proven track record of grassroots field operations, master AI pedagogy, creative content, and digital literacy leadership.'}
             </p>
           </div>
-
-          <button
-            onClick={onOpenResume}
-            className="inline-flex items-center gap-2 px-6 py-3.5 dark:bg-white/[0.03] bg-white/80 hover:dark:bg-white/[0.08] hover:bg-white dark:text-white text-slate-800 text-xs sm:text-sm font-semibold border dark:border-white/[0.12] border-slate-200/90 hover:dark:border-white/[0.25] hover:border-slate-300 rounded-2xl transition-all duration-200 backdrop-blur-md self-start md:self-auto cursor-pointer shadow-sm hover:shadow-[0_0_20px_rgba(37,99,235,0.25)]"
-          >
-            <Download className="w-4 h-4 text-blue-500 dark:text-cyan-400" />
-            <span>{isUrdu ? 'مکمل سی وی ڈاؤن لوڈ کریں' : 'Download Full CV'}</span>
-          </button>
         </div>
 
         {/* Experience Timeline */}

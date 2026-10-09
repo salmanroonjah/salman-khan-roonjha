@@ -28,7 +28,7 @@ export const WhatIDoSection: React.FC<WhatIDoSectionProps> = ({ lang }) => {
   return (
     <section 
       id="what-i-do" 
-      className="py-24 sm:py-32 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/60 bg-slate-50/50 relative overflow-hidden"
+      className="py-16 sm:py-28 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/60 bg-slate-50/50 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         

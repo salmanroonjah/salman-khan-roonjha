@@ -35,7 +35,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
   return (
     <section 
       id="contact" 
-      className="py-24 sm:py-32 transition-colors duration-300 dark:bg-[#070913]/70 bg-slate-50/50 border-b dark:border-white/[0.08] border-slate-200/80 relative overflow-hidden"
+      className="py-16 sm:py-28 transition-colors duration-300 dark:bg-[#070913]/70 bg-slate-50/50 border-b dark:border-white/[0.08] border-slate-200/80 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

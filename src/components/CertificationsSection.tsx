@@ -13,7 +13,7 @@ export const CertificationsSection: React.FC<CertificationsSectionProps> = ({ la
   return (
     <section 
       id="certifications" 
-      className="py-24 sm:py-32 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/70 bg-white/60 relative overflow-hidden"
+      className="py-16 sm:py-28 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/70 bg-white/60 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-2xl mb-16 space-y-3">

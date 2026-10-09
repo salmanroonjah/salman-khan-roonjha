@@ -61,7 +61,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
         </div>
 
         {/* Futuristic Glass Segmented Filter Dock */}
-        <div className="relative flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl cyber-glass dark:bg-slate-900/60 bg-white/70 border dark:border-white/10 border-slate-200/90 shadow-lg mb-12 max-w-fit overflow-hidden">
+        <div className="relative flex items-center gap-1.5 p-1.5 rounded-2xl cyber-glass dark:bg-slate-900/60 bg-white/70 border dark:border-white/10 border-slate-200/90 shadow-lg mb-12 max-w-full overflow-x-auto sm:flex-wrap sm:max-w-fit">
           {/* Subtle live laser sweep across dock */}
           <div className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-cyan-400/25 to-transparent pointer-events-none animate-scan-laser" />
           {data.myWork.categories.map((category) => (
@@ -96,6 +96,7 @@ export const WorkShowcase: React.FC<WorkShowcaseProps> = ({ lang }) => {
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                   loading="lazy"
+                  decoding="async"
                 />
 
                 {/* Scrim Gradient */}

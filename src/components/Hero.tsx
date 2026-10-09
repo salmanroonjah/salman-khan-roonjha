@@ -20,22 +20,22 @@ interface HeroProps {
 
 const HERO_SLIDES = [
   {
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=75&w=1080&auto=format&fit=crop',
     caption: 'Urdu AI Workshops & Hands-on Training',
     captionUrdu: 'اردو اے آئی عملی تربیتی ورکشاپس',
   },
   {
-    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=75&w=1080&auto=format&fit=crop',
     caption: 'Digital Literacy for Rural Communities',
     captionUrdu: 'دیہی کمیونٹیز کے لیے ڈیجیٹل خواندگی',
   },
   {
-    image: 'https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?q=80&w=1800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?q=75&w=1080&auto=format&fit=crop',
     caption: 'Creative Video Production & Visual Storytelling',
     captionUrdu: 'ویڈیو پروڈکشن اور تخلیقی میڈیا',
   },
   {
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=75&w=1080&auto=format&fit=crop',
     caption: 'Empowering Youth Across Balochistan',
     captionUrdu: 'بلوچستان کے نوجوانوں کو بااختیار بنانا',
   },
@@ -86,6 +86,8 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
               <img
                 src={slide.image}
                 alt={slide.caption}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
                 className="w-full h-full object-cover object-center filter brightness-90 contrast-110 saturate-110"
               />
             </div>
@@ -97,12 +99,12 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
         <div className="absolute inset-0 bg-radial-at-c from-transparent dark:via-[#070913]/60 via-white/40 dark:to-[#070913] to-white" />
         
         {/* Subtle Cybernetic Edge Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-b from-blue-500/20 via-cyan-500/15 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 right-10 w-[500px] h-[350px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[340px] sm:w-[800px] h-[250px] sm:h-[350px] bg-gradient-to-b from-blue-500/20 via-cyan-500/15 to-transparent rounded-full blur-2xl sm:blur-3xl pointer-events-none" />
+        <div className="hidden sm:block absolute -bottom-24 right-10 w-[500px] h-[350px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* 2. Main Content Canvas */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 relative z-10 w-full">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 lg:py-28 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Hero Column: Futuristic Keynote Typography */}

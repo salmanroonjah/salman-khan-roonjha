@@ -13,13 +13,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
   return (
     <section 
       id="about" 
-      className="py-24 sm:py-32 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/70 bg-white/60 relative overflow-hidden"
+      className="py-16 sm:py-28 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/70 bg-white/60 relative overflow-hidden"
     >
       {/* Ambient background visual subtle backdrop */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-15 dark:opacity-20 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=75&w=900&auto=format&fit=crop"
           alt="Learning Community"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover filter blur-sm scale-105"
         />
         <div className="absolute inset-0 dark:bg-gradient-to-b dark:from-[#070913] dark:via-[#070913]/90 dark:to-[#070913] bg-gradient-to-b from-white via-white/90 to-white" />

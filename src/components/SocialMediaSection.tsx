@@ -17,7 +17,7 @@ export const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ lang }) 
   return (
     <section 
       id="socials" 
-      className="py-24 sm:py-32 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/60 bg-slate-50/50 relative overflow-hidden"
+      className="py-16 sm:py-28 border-b transition-colors duration-300 dark:border-white/[0.08] border-slate-200/80 dark:bg-[#070913]/60 bg-slate-50/50 relative overflow-hidden"
     >
       {/* Subtle planetary ambient lighting */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-sky-500/10 rounded-full blur-[140px] pointer-events-none" />
