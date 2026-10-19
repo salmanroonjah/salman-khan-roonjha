@@ -5,10 +5,8 @@ import {
   MapPin, 
   Award, 
   CheckCircle2, 
-  Play, 
-  Pause,
-  Film,
-  Sparkles,
+  Film, 
+  Sparkles, 
   ChevronRight
 } from 'lucide-react';
 
@@ -46,16 +44,16 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
   const isUrdu = lang === 'ur';
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
 
-  // Automatic slide rotation every 6.5 seconds
+  const currentPhoto = (data.hero as any).profilePhotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop';
+
+  // Automatic slide rotation every 7 seconds
   useEffect(() => {
-    if (!isPlaying) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6500);
+    }, 7000);
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, []);
 
   const scrollToWork = () => {
     const elem = document.getElementById('my-work');
@@ -210,102 +208,98 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
             {/* Live pulsating background aura */}
             <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600/25 via-cyan-500/20 to-indigo-600/20 blur-xl opacity-75 group-hover:opacity-100 transition-opacity pointer-events-none animate-aurora" />
 
-            <div className="relative rounded-3xl p-6 sm:p-7 ultra-glass-card dark:bg-slate-900/65 bg-white/80 border dark:border-white/[0.15] border-slate-200/90 shadow-2xl space-y-6 overflow-hidden">
+            {/* The Professional Picture Showcase (Clean & Executive) */}
+            <div className="relative rounded-3xl ultra-glass-card dark:bg-slate-900/85 bg-white/95 border dark:border-white/[0.18] border-slate-200/90 shadow-2xl overflow-hidden group/photo">
               {/* Continuous Laser Scanning Beam */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent pointer-events-none animate-scan-laser" />
-              
-              {/* Header Status Bar (Clean & Professional) */}
-              <div className="flex items-center justify-between pb-3 border-b dark:border-white/[0.08] border-slate-200/70">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#06b6d4]" />
-                  <span className="font-mono text-xs font-bold dark:text-slate-200 text-slate-800">
-                    {isUrdu ? 'تصدیق شدہ انسٹرکٹر' : 'Verified AI Instructor'}
+              <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent ${
+                ((data.hero as any).photoBackdrop === 'warm') ? 'via-amber-400' :
+                ((data.hero as any).photoBackdrop === 'studio') ? 'via-indigo-400' :
+                ((data.hero as any).photoBackdrop === 'minimal') ? 'via-slate-300' : 'via-cyan-400'
+              } to-transparent pointer-events-none z-20 animate-scan-laser`} />
+
+              {/* Professional Photo Visual Canvas */}
+              <div className={`relative w-full h-[420px] xs:h-[460px] sm:h-[510px] overflow-hidden ${
+                ((data.hero as any).photoBackdrop === 'warm') ? 'bg-[#120d0a]' :
+                ((data.hero as any).photoBackdrop === 'studio') ? 'bg-[#080d1a]' :
+                ((data.hero as any).photoBackdrop === 'minimal') ? 'bg-[#090b10]' : 'bg-[#070b19]'
+              }`}>
+                {/* 1. Volumetric studio spotlight background for seamless depth (works for cutouts & photos) */}
+                <div className={`absolute inset-0 pointer-events-none ${
+                  ((data.hero as any).photoBackdrop === 'warm')
+                    ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(245,158,11,0.28)_0%,rgba(120,53,15,0.35)_45%,rgba(28,20,16,0.92)_70%,rgba(10,7,5,1)_100%)]'
+                    : ((data.hero as any).photoBackdrop === 'studio')
+                    ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(99,102,241,0.32)_0%,rgba(30,58,138,0.35)_45%,rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)]'
+                    : ((data.hero as any).photoBackdrop === 'minimal')
+                    ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(148,163,184,0.22)_0%,rgba(51,65,85,0.3)_45%,rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)]'
+                    : 'bg-[radial-gradient(circle_at_50%_35%,rgba(6,182,212,0.3)_0%,rgba(30,58,138,0.35)_45%,rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)]'
+                }`} />
+
+                {/* 2. Soft Rim Light Halo behind head & shoulders if cutout/no-background */}
+                {(data.hero as any).photoFit === 'contain' && (
+                  <div className={`absolute top-[32%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none opacity-60 ${
+                    ((data.hero as any).photoBackdrop === 'warm') ? 'bg-amber-500/25' :
+                    ((data.hero as any).photoBackdrop === 'studio') ? 'bg-indigo-500/25' :
+                    ((data.hero as any).photoBackdrop === 'minimal') ? 'bg-slate-400/20' : 'bg-cyan-400/25'
+                  }`} />
+                )}
+
+                {/* 3. The Portrait Image itself */}
+                <img
+                  src={currentPhoto}
+                  alt={isUrdu ? 'سلمان خان - پروفیشنل پورٹریٹ' : 'Salman Khan - Professional Portrait'}
+                  className={`w-full h-full transition-transform duration-700 ease-out group-hover/photo:scale-105 ${
+                    (data.hero as any).photoFit === 'contain'
+                      ? 'object-contain object-bottom filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] drop-shadow-[0_6px_15px_rgba(6,182,212,0.2)] select-none pt-10'
+                      : 'object-cover object-top filter brightness-[0.98] contrast-[1.03]'
+                  }`}
+                  loading="eager"
+                  decoding="async"
+                />
+
+                {/* 4. Editorial Vignette & Legibility Scrim */}
+                {(data.hero as any).photoFit === 'contain' ? (
+                  <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-radial-at-t from-transparent via-transparent to-slate-950/25 pointer-events-none" />
+                  </>
+                )}
+
+                {/* Top Subtle Status Badge */}
+                <div className="absolute top-4 inset-x-4 flex items-center justify-between gap-2 z-10 pointer-events-none">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md dark:bg-black/60 bg-white/85 border dark:border-white/20 border-slate-200 shadow-lg text-[11px] font-mono font-bold dark:text-white text-slate-900">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#06b6d4]" />
+                    <span>{isUrdu ? 'تصدیق شدہ انسٹرکٹر' : 'Verified AI Instructor'}</span>
+                  </div>
+
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-300 font-semibold px-2.5 py-1 rounded-full bg-blue-950/80 border border-cyan-500/30 backdrop-blur-md shadow-sm">
+                    Balochistan, PK
                   </span>
                 </div>
-                <span className="font-mono text-[10px] uppercase tracking-wider dark:text-cyan-400 text-blue-700 font-semibold px-2 py-0.5 rounded-full dark:bg-blue-950/40 bg-blue-50 border dark:border-cyan-500/30 border-blue-500/20">
-                  Balochistan, PK
-                </span>
-              </div>
 
-              {/* Profile Avatar Bar */}
-              <div className="flex items-center gap-4">
-                <div className="relative group/avatar">
-                  <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-400 opacity-60 blur-sm group-hover/avatar:opacity-100 transition-opacity animate-pulse" />
-                  <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 via-cyan-500 to-indigo-600 text-white flex flex-col items-center justify-center font-black text-xl shadow-[0_0_25px_rgba(37,99,235,0.4)]">
-                    <span>SK</span>
-                    <span className="text-[8px] tracking-widest font-mono uppercase font-bold text-cyan-200">BELA</span>
+                {/* Bottom Identity Bio Bar inside Photo */}
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 space-y-1.5 z-10 text-white backdrop-blur-[2px]">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-2xl font-black tracking-tight text-white drop-shadow-md">
+                        {isUrdu ? data.hero.headlineUrdu : data.hero.headline}
+                      </h2>
+                      <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" />
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <h2 className="text-xl font-bold dark:text-white text-slate-900 tracking-tight">Salman Khan</h2>
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-                  </div>
-                  <p className="text-xs font-semibold text-blue-600 dark:text-cyan-400 mt-0.5">
+
+                  <p className="text-xs font-semibold text-cyan-300 drop-shadow">
                     {isUrdu ? 'ماسٹر ٹرینر و کریئیٹو اسپیشلسٹ' : 'Master Trainer & Creative Lead'}
                   </p>
-                  <p className="text-[11px] dark:text-slate-400 text-slate-500 mt-0.5">
-                    WANG & UrduAI.org
-                  </p>
-                </div>
-              </div>
 
-              {/* Global Accreditation Spotlight */}
-              <div className="p-4 rounded-2xl dark:bg-black/40 bg-slate-100/80 border dark:border-white/[0.08] border-slate-200/80 space-y-1.5 shadow-inner">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-500 dark:text-cyan-400">
-                  <Award className="w-4 h-4 text-cyan-400" />
-                  <span>AI Singapore & AVPN</span>
-                </div>
-                <p className="text-xs dark:text-slate-300 text-slate-700 leading-snug font-sans">
-                  Certified Instructor under the <strong className="dark:text-white text-slate-900">AI Opportunity Fund: Asia-Pacific</strong> (2025).
-                </p>
-              </div>
-
-              {/* Languages Spoken */}
-              <div className="space-y-2">
-                <div className="text-[11px] font-mono uppercase tracking-wider dark:text-slate-400 text-slate-500 font-semibold">
-                  {isUrdu ? 'زبانوں میں ابلاغ' : 'Languages Spoken'}
-                </div>
-                <div className="flex flex-wrap gap-2 text-xs dark:text-slate-300 text-slate-700">
-                  {data.about.languages.map((item, idx) => (
-                    <React.Fragment key={item}>
-                      <span className="dark:text-slate-200 text-slate-800 font-medium">{item}</span>
-                      {idx < data.about.languages.length - 1 && (
-                        <span aria-hidden="true" className="dark:text-slate-600 text-slate-400">·</span>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
-
-              {/* Slideshow Controller Dock */}
-              <div className="pt-4 border-t dark:border-white/[0.08] border-slate-200/70 flex items-center justify-between text-xs dark:text-slate-400 text-slate-500">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    className="p-1.5 rounded-lg dark:text-slate-400 text-slate-600 hover:dark:text-white hover:text-slate-950 hover:dark:bg-white/[0.08] hover:bg-slate-200 transition-colors cursor-pointer"
-                    title={isPlaying ? 'Pause Background Reel' : 'Play Background Reel'}
-                    aria-label="Toggle reel slideshow"
-                  >
-                    {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                  </button>
-                  <span className="text-[11px] font-mono dark:text-slate-300 text-slate-600 truncate max-w-[170px]">
-                    {isUrdu ? HERO_SLIDES[currentSlide].captionUrdu : HERO_SLIDES[currentSlide].caption}
-                  </span>
-                </div>
-
-                {/* Progress Indicators */}
-                <div className="flex items-center gap-1.5">
-                  {HERO_SLIDES.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentSlide(idx)}
-                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        idx === currentSlide ? 'w-5 bg-cyan-400 shadow-[0_0_8px_#06b6d4]' : 'w-1.5 dark:bg-white/20 bg-slate-300 hover:dark:bg-white/40'
-                      }`}
-                      aria-label={`Go to slide ${idx + 1}`}
-                    />
-                  ))}
+                  <div className="flex items-center justify-between pt-2 border-t border-white/15 text-[11px] text-slate-300 font-sans">
+                    <div className="flex items-center gap-1.5">
+                      <Award className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                      <span>AI Singapore & AVPN Certified</span>
+                    </div>
+                    <span className="font-mono text-slate-400">WANG · UrduAI</span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
 import { CreativeProject, ExperienceItem, CertificationItem } from '../../data/portfolioData';
 import { 
@@ -25,6 +25,51 @@ import {
   Layers,
   Sparkles
 } from 'lucide-react';
+
+const processAndOptimizeImage = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const isPng = file.type === 'image/png';
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.onload = (e) => {
+      const img = new window.Image();
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.onload = () => {
+        const maxDim = 1200;
+        let width = img.width;
+        let height = img.height;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(e.target?.result as string);
+          return;
+        }
+        ctx.clearRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // If PNG, preserve PNG format with transparent alpha channel
+        if (isPng) {
+          resolve(canvas.toDataURL('image/png'));
+        } else {
+          resolve(canvas.toDataURL('image/jpeg', 0.88));
+        }
+      };
+      img.src = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+};
 
 export const AdminDashboard: React.FC = () => {
   const {
@@ -111,6 +156,13 @@ export const AdminDashboard: React.FC = () => {
   const [heroForm, setHeroForm] = useState(data.hero);
   // Editable Contact state
   const [contactForm, setContactForm] = useState(data.contact);
+
+  useEffect(() => {
+    if (isAdminOpen) {
+      setHeroForm(data.hero);
+      setContactForm(data.contact);
+    }
+  }, [isAdminOpen, data.hero, data.contact]);
 
   const showNotification = (msg: string) => {
     setNotification(msg);
@@ -961,6 +1013,208 @@ export const AdminDashboard: React.FC = () => {
                           onChange={(e) => setHeroForm({ ...heroForm, subHeadline: e.target.value })}
                           className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white"
                         />
+                      </div>
+                    </div>
+
+                    <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.1] space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <label className="font-semibold text-white block text-sm">Professional Profile Portrait (پروفیشنل پورٹریٹ تصویر)</label>
+                          <p className="text-xs text-slate-400">
+                            چاہے تصویر میں اپنا بیک گراؤنڈ ہو یا بغیر بیک گراؤنڈ شفاف کٹ آؤٹ (PNG) ہو، دونوں پروفیشنل دکھیں گی۔
+                          </p>
+                        </div>
+                        <span className="px-2.5 py-1 text-[11px] font-mono rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300">
+                          Live Studio
+                        </span>
+                      </div>
+
+                      {/* Photo Type Toggle (With Background vs Without Background) */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-slate-300">تصویر کا فارمیٹ / موڈ (Photo Format)</label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = { ...heroForm, photoFit: 'cover' };
+                              setHeroForm(updated as any);
+                              updateHero(updated as any);
+                              showNotification('Photo mode: With Background (Full Cover)');
+                            }}
+                            className={`p-2.5 rounded-xl border text-xs font-semibold text-left transition-all flex items-center gap-2 ${
+                              (heroForm as any).photoFit !== 'contain'
+                                ? 'bg-blue-600/25 border-blue-500 text-white shadow-sm'
+                                : 'bg-black/40 border-white/[0.08] text-slate-400 hover:text-white'
+                            }`}
+                          >
+                            <span className="w-2 h-2 rounded-full bg-blue-400" />
+                            <div>
+                              <div>With Background</div>
+                              <div className="text-[10px] text-slate-400 font-normal">اصلی تصویر / مکمل بیک گراؤنڈ</div>
+                            </div>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = { ...heroForm, photoFit: 'contain' };
+                              setHeroForm(updated as any);
+                              updateHero(updated as any);
+                              showNotification('Photo mode: Without Background / Studio Cutout');
+                            }}
+                            className={`p-2.5 rounded-xl border text-xs font-semibold text-left transition-all flex items-center gap-2 ${
+                              (heroForm as any).photoFit === 'contain'
+                                ? 'bg-cyan-600/25 border-cyan-400 text-white shadow-sm'
+                                : 'bg-black/40 border-white/[0.08] text-slate-400 hover:text-white'
+                            }`}
+                          >
+                            <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                            <div>
+                              <div>Without Background</div>
+                              <div className="text-[10px] text-slate-400 font-normal">شفاف کٹ آؤٹ / اسٹوڈیو لائیٹنگ</div>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Studio Lighting Style */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-slate-300">اسٹوڈیو بیک ڈراپ لائیٹنگ (Studio Lighting Backdrop)</label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          {[
+                            { id: 'cyber', label: 'Cyber Tech', urdu: 'سائبر نیون', border: 'border-cyan-500/50', dot: 'bg-cyan-400' },
+                            { id: 'studio', label: 'Royal Navy', urdu: 'رائل نیوی', border: 'border-indigo-500/50', dot: 'bg-indigo-400' },
+                            { id: 'warm', label: 'Warm Luxury', urdu: 'وارم امبر', border: 'border-amber-500/50', dot: 'bg-amber-400' },
+                            { id: 'minimal', label: 'Obsidian Dark', urdu: 'سادہ ڈارک', border: 'border-slate-400/50', dot: 'bg-slate-300' },
+                          ].map((theme) => {
+                            const isSelected = ((heroForm as any).photoBackdrop || 'cyber') === theme.id;
+                            return (
+                              <button
+                                key={theme.id}
+                                type="button"
+                                onClick={() => {
+                                  const updated = { ...heroForm, photoBackdrop: theme.id };
+                                  setHeroForm(updated as any);
+                                  updateHero(updated as any);
+                                  showNotification(`Studio Backdrop: ${theme.label}`);
+                                }}
+                                className={`px-2.5 py-2 rounded-xl border text-left transition-all ${
+                                  isSelected 
+                                    ? `bg-white/[0.08] ${theme.border} text-white` 
+                                    : 'bg-black/30 border-white/[0.06] text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                <div className="flex items-center gap-1.5 text-xs font-medium">
+                                  <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
+                                  <span>{theme.label}</span>
+                                </div>
+                                <div className="text-[10px] text-slate-500">{theme.urdu}</div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Preview & Upload Bar */}
+                      <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 border-t border-white/[0.08]">
+                        {/* Live Mini Preview with exact styling */}
+                        <div className={`relative w-24 h-28 rounded-xl overflow-hidden border border-white/20 shadow-lg shrink-0 ${
+                          ((heroForm as any).photoBackdrop === 'warm') ? 'bg-[#120d0a]' :
+                          ((heroForm as any).photoBackdrop === 'studio') ? 'bg-[#080d1a]' :
+                          ((heroForm as any).photoBackdrop === 'minimal') ? 'bg-[#090b10]' : 'bg-[#070b19]'
+                        }`}>
+                          <div className={`absolute inset-0 pointer-events-none ${
+                            ((heroForm as any).photoBackdrop === 'warm')
+                              ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(245,158,11,0.3)_0%,rgba(28,20,16,0.9)_70%,rgba(10,7,5,1)_100%)]'
+                              : ((heroForm as any).photoBackdrop === 'studio')
+                              ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(99,102,241,0.35)_0%,rgba(15,23,42,0.9)_70%,rgba(2,6,23,1)_100%)]'
+                              : ((heroForm as any).photoBackdrop === 'minimal')
+                              ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(148,163,184,0.25)_0%,rgba(15,23,42,0.9)_70%,rgba(2,6,23,1)_100%)]'
+                              : 'bg-[radial-gradient(circle_at_50%_35%,rgba(6,182,212,0.32)_0%,rgba(15,23,42,0.9)_70%,rgba(2,6,23,1)_100%)]'
+                          }`} />
+                          <img 
+                            src={(heroForm as any).profilePhotoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop'} 
+                            alt="Salman Khan Preview" 
+                            className={`w-full h-full ${
+                              (heroForm as any).photoFit === 'contain'
+                                ? 'object-contain object-bottom filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)] pt-2'
+                                : 'object-cover object-top'
+                            }`}
+                          />
+                          <div className="absolute bottom-1 inset-x-1 text-[8px] font-mono text-center text-cyan-300 bg-black/60 backdrop-blur-xs rounded py-0.5">
+                            {(heroForm as any).photoFit === 'contain' ? 'Cutout' : 'Cover'}
+                          </div>
+                        </div>
+
+                        <div className="w-full space-y-2">
+                          <input
+                            type="text"
+                            placeholder="Enter image URL (https://...)"
+                            value={(heroForm as any).profilePhotoUrl || ''}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              const updated = { ...heroForm, profilePhotoUrl: val };
+                              setHeroForm(updated as any);
+                              updateHero(updated as any);
+                            }}
+                            className="w-full px-3 py-2 bg-black/60 border border-white/[0.08] rounded-xl text-white font-mono text-xs"
+                          />
+
+                          <div className="flex flex-wrap items-center gap-3">
+                            <label className="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-lg text-xs cursor-pointer flex items-center gap-1.5 shadow-sm transition-all">
+                              <Upload className="w-3.5 h-3.5" />
+                              <span>Upload Picture (موبائل یا کمپیوٹر سے منتخب کریں)</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  if (file.size > 15 * 1024 * 1024) {
+                                    showNotification('Image size should be under 15MB');
+                                    return;
+                                  }
+                                  try {
+                                    showNotification('Processing and optimizing photo for mobile...');
+                                    const optimizedDataUri = await processAndOptimizeImage(file);
+                                    const isPng = file.type === 'image/png';
+                                    const updated = { 
+                                      ...heroForm, 
+                                      profilePhotoUrl: optimizedDataUri,
+                                      photoFit: isPng ? 'contain' : ((heroForm as any).photoFit || 'cover')
+                                    };
+                                    setHeroForm(updated as any);
+                                    updateHero(updated as any);
+                                    showNotification(isPng ? 'PNG Cutout saved with studio lighting!' : 'Photo optimized & published live!');
+                                  } catch (err) {
+                                    console.error('Error processing photo', err);
+                                    showNotification('Failed to process image. Try another file.');
+                                  }
+                                }}
+                                className="hidden"
+                              />
+                            </label>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const defaultUrl = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop';
+                                const updated = { 
+                                  ...heroForm, 
+                                  profilePhotoUrl: defaultUrl,
+                                  photoFit: 'cover',
+                                  photoBackdrop: 'cyber'
+                                };
+                                setHeroForm(updated as any);
+                                updateHero(updated as any);
+                                showNotification('Default portrait photo restored');
+                              }}
+                              className="text-xs text-slate-400 hover:text-white underline cursor-pointer"
+                            >
+                              Reset to Default
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
 

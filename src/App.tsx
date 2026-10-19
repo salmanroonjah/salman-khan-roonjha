@@ -17,7 +17,6 @@ import { ResumeModal } from './components/ResumeModal';
 function PortfolioApp() {
   const [lang, setLang] = useState<'en' | 'ur'>('en');
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const { setIsAdminOpen } = usePortfolio();
 
   const handleOpenContact = () => {
     const contactElem = document.getElementById('contact');
@@ -40,7 +39,6 @@ function PortfolioApp() {
         setLang={setLang}
         onOpenResume={() => setIsResumeOpen(true)}
         onOpenContact={handleOpenContact}
-        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       <main className="relative z-10">
@@ -80,7 +78,6 @@ function PortfolioApp() {
       <Footer
         lang={lang}
         onOpenResume={() => setIsResumeOpen(true)}
-        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {/* Curriculum Vitae Modal */}

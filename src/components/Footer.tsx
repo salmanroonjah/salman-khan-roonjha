@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { ArrowUp, Lock } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   lang: 'en' | 'ur';
@@ -8,7 +8,7 @@ interface FooterProps {
   onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume, onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume }) => {
   const { data } = usePortfolio();
   const isUrdu = lang === 'ur';
 
@@ -64,16 +64,6 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenResume, onOpenAdmin 
 
           <div className="flex items-center gap-6">
             <span>Bela, Lasbela, Balochistan</span>
-            {onOpenAdmin && (
-              <button
-                onClick={onOpenAdmin}
-                className="flex items-center gap-1.5 text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 transition-colors cursor-pointer font-bold"
-                title="Open Admin Dashboard (or press Alt + A)"
-              >
-                <Lock className="w-3.5 h-3.5" />
-                <span>{isUrdu ? 'ایڈمن' : 'Admin'}</span>
-              </button>
-            )}
             <button
               onClick={scrollToTop}
               className="flex items-center gap-1.5 dark:text-slate-400 text-slate-600 hover:text-cyan-500 transition-colors cursor-pointer font-medium"

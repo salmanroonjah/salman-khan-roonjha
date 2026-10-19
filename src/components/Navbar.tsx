@@ -121,21 +121,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>{lang === 'en' ? 'Contact' : 'رابطہ'}</span>
             </button>
 
-            {/* Admin CMS Trigger (Prominently Accessible) */}
-            {onOpenAdmin && (
-              <button
-                onClick={onOpenAdmin}
-                className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-xs font-semibold text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 dark:bg-blue-500/10 bg-blue-50 hover:dark:bg-blue-500/20 hover:bg-blue-100 rounded-xl transition-all border border-blue-500/30 dark:border-blue-500/30 cursor-pointer shadow-[0_0_12px_rgba(37,99,235,0.15)]"
-                title="Open Admin Dashboard (or press Alt + A)"
-                aria-label="Open Admin Dashboard"
-              >
-                <Lock className="w-3.5 h-3.5 text-cyan-500" />
-                <span className="hidden sm:inline font-mono text-[11px] font-bold">
-                  {lang === 'ur' ? 'ایڈمن' : 'Admin'}
-                </span>
-              </button>
-            )}
-
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

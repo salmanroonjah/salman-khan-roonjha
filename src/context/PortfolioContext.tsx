@@ -120,17 +120,50 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [data]);
 
-  // Check URL hash/params for #admin or ?admin
+  const handleSetIsAdminOpen = (open: boolean) => {
+    setIsAdminOpen(open);
+    if (!open) {
+      try {
+        if (window.location.hash.toLowerCase().includes('admin')) {
+          window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        if (window.location.search.toLowerCase().includes('admin')) {
+          const url = new URL(window.location.href);
+          url.searchParams.delete('admin');
+          window.history.replaceState(null, '', url.pathname + (url.search ? url.search : ''));
+        }
+      } catch (err) {
+        console.warn('Failed to clean admin URL state', err);
+      }
+    }
+  };
+
+  // Check URL hash/params for #admin, /admin or ?admin
   useEffect(() => {
-    const checkHash = () => {
-      if (window.location.hash === '#admin' || window.location.search.includes('admin=true')) {
-        setIsAdminOpen(true);
+    const checkAdminUrl = () => {
+      try {
+        const hash = window.location.hash.toLowerCase();
+        const search = window.location.search.toLowerCase();
+        const path = window.location.pathname.toLowerCase();
+        if (
+          hash === '#admin' || 
+          hash.includes('admin') || 
+          search.includes('admin') || 
+          path === '/admin' || 
+          path.endsWith('/admin')
+        ) {
+          setIsAdminOpen(true);
+        }
+      } catch (err) {
+        console.warn('Failed to parse admin route', err);
       }
     };
-    checkHash();
-    window.addEventListener('hashchange', checkHash);
 
-    // Keyboard shortcut: Alt + A
+    checkAdminUrl();
+    window.addEventListener('hashchange', checkAdminUrl);
+    window.addEventListener('popstate', checkAdminUrl);
+
+    // Secret Keyboard shortcut: Alt + A
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && (e.key === 'a' || e.key === 'A')) {
         e.preventDefault();
@@ -140,7 +173,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('hashchange', checkHash);
+      window.removeEventListener('hashchange', checkAdminUrl);
+      window.removeEventListener('popstate', checkAdminUrl);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
@@ -314,7 +348,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         toggleTheme,
         setTheme,
         isAdminOpen,
-        setIsAdminOpen,
+        setIsAdminOpen: handleSetIsAdminOpen,
         isAuthenticated,
         login,
         logout,

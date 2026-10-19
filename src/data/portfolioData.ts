@@ -71,6 +71,9 @@ export const portfolioData = {
     subHeadlineUrdu: "اے آئی ٹرینر · ڈیجیٹل لٹریسی اسپیشلسٹ · کریئیٹو پروفیشنل",
     introLine: "I help students, professionals and rural communities understand and use AI, in their own language.",
     introLineUrdu: "میں طلبہ، پیشہ ور افراد اور دیہی کمیونٹیز کو ان کی اپنی زبان میں مصنوعی ذہانت (AI) کو سمجھنے اور استعمال کرنے میں مدد کرتا ہوں۔",
+    profilePhotoUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+    photoFit: "cover" as "cover" | "contain",
+    photoBackdrop: "cyber" as "cyber" | "studio" | "warm" | "minimal",
     buttons: {
       work: "View My Work",
       workUrdu: "میرا کام دیکھیں",
