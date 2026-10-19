@@ -102,11 +102,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
       </div>
 
       {/* 2. Main Content Canvas */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 lg:py-28 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-14 pb-0 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
           
           {/* Left Hero Column: Futuristic Keynote Typography */}
-          <div className="lg:col-span-8 space-y-7">
+          <div className="lg:col-span-7 space-y-7 pb-10 sm:pb-16 lg:pb-20">
             {/* Minimalist Micro Kicker with Neon Pill */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-wide border dark:border-cyan-500/30 border-blue-500/20 dark:bg-blue-950/40 bg-blue-50/80 backdrop-blur-xl shadow-[0_0_15px_rgba(37,99,235,0.2)]">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#06b6d4]" />
@@ -117,11 +117,14 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
 
             {/* Main Headline & Sub-headline */}
             <div className="space-y-3.5">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.05]">
-                <span className="bg-gradient-to-r dark:from-white dark:via-slate-100 dark:to-cyan-200 from-slate-950 via-slate-900 to-blue-900 bg-clip-text text-transparent">
-                  {isUrdu ? data.hero.headlineUrdu : data.hero.headline}
-                </span>
-              </h1>
+              <div className="flex items-center gap-3">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.05]">
+                  <span className="bg-gradient-to-r dark:from-white dark:via-slate-100 dark:to-cyan-200 from-slate-950 via-slate-900 to-blue-900 bg-clip-text text-transparent">
+                    {isUrdu ? data.hero.headlineUrdu : data.hero.headline}
+                  </span>
+                </h1>
+                <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-cyan-400 shrink-0" />
+              </div>
 
               <div className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-blue-600 dark:text-cyan-400 font-sans flex items-center gap-2">
                 <span>{isUrdu ? data.hero.subHeadlineUrdu : data.hero.subHeadline}</span>
@@ -174,6 +177,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
                 <span>{isUrdu ? data.contact.locationUrdu : data.contact.location}</span>
               </div>
               <span aria-hidden="true" className="dark:text-white/20 text-slate-300">/</span>
+              <div className="flex items-center gap-1.5 dark:text-slate-300 text-slate-700">
+                <Award className="w-3.5 h-3.5 text-cyan-400" />
+                <span>AI Singapore & AVPN</span>
+              </div>
+              <span aria-hidden="true" className="dark:text-white/20 text-slate-300">/</span>
               <a 
                 href={data.contact.linkedIn} 
                 target="_blank" 
@@ -203,107 +211,26 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenResume, onOpenContact })
             </div>
           </div>
 
-          {/* Right Hero Column: Precision Ultra Glass Profile Card */}
-          <div className="lg:col-span-4 relative group">
-            {/* Live pulsating background aura */}
-            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600/25 via-cyan-500/20 to-indigo-600/20 blur-xl opacity-75 group-hover:opacity-100 transition-opacity pointer-events-none animate-aurora" />
+          {/* Right Hero Column: Natural Unboxed Portrait (Fruitful-Style, Zero Box, Zero Card) */}
+          <div className="lg:col-span-5 relative flex items-end justify-center lg:justify-end self-end pointer-events-none sm:pointer-events-auto">
+            <div className="relative w-full max-w-[360px] sm:max-w-[430px] lg:max-w-[500px] flex items-end justify-center">
+              {/* Subtle natural backlight glow directly on hero canvas */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-gradient-to-t from-cyan-500/15 via-blue-600/10 to-transparent blur-3xl pointer-events-none -z-10" />
 
-            {/* The Professional Picture Showcase (Clean & Executive) */}
-            <div className="relative rounded-3xl ultra-glass-card dark:bg-slate-900/85 bg-white/95 border dark:border-white/[0.18] border-slate-200/90 shadow-2xl overflow-hidden group/photo">
-              {/* Continuous Laser Scanning Beam */}
-              <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent ${
-                ((data.hero as any).photoBackdrop === 'warm') ? 'via-amber-400' :
-                ((data.hero as any).photoBackdrop === 'studio') ? 'via-indigo-400' :
-                ((data.hero as any).photoBackdrop === 'minimal') ? 'via-slate-300' : 'via-cyan-400'
-              } to-transparent pointer-events-none z-20 animate-scan-laser`} />
+              {/* The Subject Photo: Clean, unboxed, natural, directly on the canvas */}
+              <img
+                src={currentPhoto}
+                alt={isUrdu ? 'سلمان خان - پورٹریٹ' : 'Salman Khan - Portrait'}
+                className="w-full h-auto max-h-[480px] sm:max-h-[560px] lg:max-h-[630px] object-contain object-bottom select-none filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.35)] dark:drop-shadow-[0_25px_45px_rgba(0,0,0,0.85)] transition-transform duration-500 hover:scale-[1.01]"
+                loading="eager"
+                decoding="async"
+              />
 
-              {/* Professional Photo Visual Canvas */}
-              <div className={`relative w-full h-[420px] xs:h-[460px] sm:h-[510px] overflow-hidden ${
-                ((data.hero as any).photoBackdrop === 'warm') ? 'bg-[#120d0a]' :
-                ((data.hero as any).photoBackdrop === 'studio') ? 'bg-[#080d1a]' :
-                ((data.hero as any).photoBackdrop === 'minimal') ? 'bg-[#090b10]' : 'bg-[#070b19]'
-              }`}>
-                {/* 1. Volumetric studio spotlight background for seamless depth (works for cutouts & photos) */}
-                <div className={`absolute inset-0 pointer-events-none ${
-                  ((data.hero as any).photoBackdrop === 'warm')
-                    ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(245,158,11,0.28)_0%,rgba(120,53,15,0.35)_45%,rgba(28,20,16,0.92)_70%,rgba(10,7,5,1)_100%)]'
-                    : ((data.hero as any).photoBackdrop === 'studio')
-                    ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(99,102,241,0.32)_0%,rgba(30,58,138,0.35)_45%,rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)]'
-                    : ((data.hero as any).photoBackdrop === 'minimal')
-                    ? 'bg-[radial-gradient(circle_at_50%_35%,rgba(148,163,184,0.22)_0%,rgba(51,65,85,0.3)_45%,rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)]'
-                    : 'bg-[radial-gradient(circle_at_50%_35%,rgba(6,182,212,0.3)_0%,rgba(30,58,138,0.35)_45%,rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)]'
-                }`} />
-
-                {/* 2. Soft Rim Light Halo behind head & shoulders if cutout/no-background */}
-                {(data.hero as any).photoFit === 'contain' && (
-                  <div className={`absolute top-[32%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none opacity-60 ${
-                    ((data.hero as any).photoBackdrop === 'warm') ? 'bg-amber-500/25' :
-                    ((data.hero as any).photoBackdrop === 'studio') ? 'bg-indigo-500/25' :
-                    ((data.hero as any).photoBackdrop === 'minimal') ? 'bg-slate-400/20' : 'bg-cyan-400/25'
-                  }`} />
-                )}
-
-                {/* 3. The Portrait Image itself */}
-                <img
-                  src={currentPhoto}
-                  alt={isUrdu ? 'سلمان خان - پروفیشنل پورٹریٹ' : 'Salman Khan - Professional Portrait'}
-                  className={`w-full h-full transition-transform duration-700 ease-out group-hover/photo:scale-105 ${
-                    (data.hero as any).photoFit === 'contain'
-                      ? 'object-contain object-bottom filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] drop-shadow-[0_6px_15px_rgba(6,182,212,0.2)] select-none pt-10'
-                      : 'object-cover object-top filter brightness-[0.98] contrast-[1.03]'
-                  }`}
-                  loading="eager"
-                  decoding="async"
-                />
-
-                {/* 4. Editorial Vignette & Legibility Scrim */}
-                {(data.hero as any).photoFit === 'contain' ? (
-                  <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
-                ) : (
-                  <>
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
-                    <div className="absolute inset-0 bg-radial-at-t from-transparent via-transparent to-slate-950/25 pointer-events-none" />
-                  </>
-                )}
-
-                {/* Top Subtle Status Badge */}
-                <div className="absolute top-4 inset-x-4 flex items-center justify-between gap-2 z-10 pointer-events-none">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md dark:bg-black/60 bg-white/85 border dark:border-white/20 border-slate-200 shadow-lg text-[11px] font-mono font-bold dark:text-white text-slate-900">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#06b6d4]" />
-                    <span>{isUrdu ? 'تصدیق شدہ انسٹرکٹر' : 'Verified AI Instructor'}</span>
-                  </div>
-
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-300 font-semibold px-2.5 py-1 rounded-full bg-blue-950/80 border border-cyan-500/30 backdrop-blur-md shadow-sm">
-                    Balochistan, PK
-                  </span>
-                </div>
-
-                {/* Bottom Identity Bio Bar inside Photo */}
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 space-y-1.5 z-10 text-white backdrop-blur-[2px]">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-2xl font-black tracking-tight text-white drop-shadow-md">
-                        {isUrdu ? data.hero.headlineUrdu : data.hero.headline}
-                      </h2>
-                      <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" />
-                    </div>
-                  </div>
-
-                  <p className="text-xs font-semibold text-cyan-300 drop-shadow">
-                    {isUrdu ? 'ماسٹر ٹرینر و کریئیٹو اسپیشلسٹ' : 'Master Trainer & Creative Lead'}
-                  </p>
-
-                  <div className="flex items-center justify-between pt-2 border-t border-white/15 text-[11px] text-slate-300 font-sans">
-                    <div className="flex items-center gap-1.5">
-                      <Award className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                      <span>AI Singapore & AVPN Certified</span>
-                    </div>
-                    <span className="font-mono text-slate-400">WANG · UrduAI</span>
-                  </div>
-                </div>
-              </div>
+              {/* Seamless feathering at the bottom so it melts naturally into the section floor */}
+              <div className="absolute inset-x-0 bottom-0 h-10 sm:h-16 bg-gradient-to-t dark:from-[#070913] from-[#F8FAFC] to-transparent pointer-events-none" />
             </div>
           </div>
+
         </div>
       </div>
     </section>
